@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Back_end.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +33,8 @@ namespace Back_end
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Back_end", Version = "v1" });
             });
+            //Change this later
+            services.AddScoped<IUserRepo,MockUserRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
