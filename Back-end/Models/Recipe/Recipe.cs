@@ -1,5 +1,4 @@
-using Models.Ingredients;
-namespace Models.Recipes
+namespace Back_end.Models
 {
     public class Recipe
     {

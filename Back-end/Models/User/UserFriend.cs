@@ -1,4 +1,4 @@
-namespace Models.Users
+namespace Back_end.Models
 {
     public class UserFriend
     {

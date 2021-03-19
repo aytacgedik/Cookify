@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Data.Repo;
+using Back_end.Data;
+using Back_end.Models;
 using Microsoft.AspNetCore.Mvc;
-using Models.Users;
 
 //Keeping this as example. This gonna be deleted later.
 namespace Controllers.ExampleUserCtrl

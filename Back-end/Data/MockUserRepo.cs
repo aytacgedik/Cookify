@@ -1,8 +1,8 @@
 //Creating this cs as example. Gonna be changed later on
 using System.Collections.Generic;
-using Models.Users;
+using Back_end.Models;
+namespace Back_end.Data
 
-namespace Data.Repo
 {
     public class MockUserRepo : IUserRepo
     {

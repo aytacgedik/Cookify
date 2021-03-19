@@ -1,4 +1,4 @@
-namespace Models.Recipes
+namespace Back_end.Models
 {
     public class SavedRecipe
     {
