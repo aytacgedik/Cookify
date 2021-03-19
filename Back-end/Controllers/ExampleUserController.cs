@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Back_end.Data;
 using Back_end.Models;
 using Microsoft.AspNetCore.Mvc;
-
 //Keeping this as example. This gonna be deleted later.
 namespace Controllers.ExampleUserCtrl
 {
@@ -10,7 +9,11 @@ namespace Controllers.ExampleUserCtrl
     [ApiController]
     public class ExampleUserController:ControllerBase
     {
-        private readonly MockUserRepo _repository =new MockUserRepo();
+        private readonly IUserRepo _repository;
+        public ExampleUserController(IUserRepo repository)
+        {
+            _repository=repository;
+        }
         public ActionResult<IEnumerable<User>> GetAllUsers()
         {
             var users=_repository.GetUsers();
