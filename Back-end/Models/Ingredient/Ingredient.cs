@@ -1,4 +1,4 @@
-namespace Models.Ingredients
+namespace Back_end.Models
 {
     public class Ingredient
     {

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using Models.Recipes;
-namespace Models.Users
+namespace Back_end.Models
 {
     public class User
     {

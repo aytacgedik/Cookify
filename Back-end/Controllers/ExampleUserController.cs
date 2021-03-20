@@ -14,6 +14,7 @@ namespace Controllers.ExampleUserCtrl
         {
             _repository=repository;
         }
+        [HttpGet]
         public ActionResult<IEnumerable<User>> GetAllUsers()
         {
             var users=_repository.GetUsers();
@@ -27,5 +28,6 @@ namespace Controllers.ExampleUserCtrl
             var user=_repository.GetUserById(id);
             return Ok(user);
         }
+        
     }
 }
