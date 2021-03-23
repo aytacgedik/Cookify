@@ -17,7 +17,7 @@ namespace Back_end.Controllers
         }
 
         [HttpPost]
-        public ActionResult createSavedRecipe(string query)
+        public ActionResult searchRecipes(string query)
         {
             List<Recipe> recipesToReturn = new List<Recipe>();
             if(!String.IsNullOrEmpty(query))
