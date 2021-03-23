@@ -36,6 +36,7 @@ namespace Back_end
 
             //Change this later
             services.AddScoped<IUserRepo,MockUserRepo>();
+            services.AddScoped<IRecipeRepo,MockRecipeRepo>();
 
         }
 
