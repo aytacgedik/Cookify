@@ -8,11 +8,14 @@ namespace Back_end.Controllers
 
     public abstract class RecipeController : ControllerBase
     {
-        protected readonly IRecipeRepo _repository;
+        protected readonly IRecipeRepo _recipeRepository;
+
+        protected readonly IUserRepo _userRepository;
         
-        public RecipeController(IRecipeRepo repository)
+        public RecipeController(IRecipeRepo recipeRepository,IUserRepo userRepository)
         {
-            _repository = repository;
+            _recipeRepository = recipeRepository;
+            _userRepository = userRepository;
         }
         
     }
