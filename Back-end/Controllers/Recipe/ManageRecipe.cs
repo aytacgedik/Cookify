@@ -54,12 +54,12 @@ namespace Back_end.Controllers
             //return what is going to be added to database for now
             //later we will do an insert on the database
             //send mail notification
-            var recipeJSON = Newtonsoft.Json.JsonConvert.SerializeObject(recipe);
-            System.Console.WriteLine(recipeJSON);
-            foreach(var user in _userRepository.GetUsers())
-            {
-                sendEmailNotification(recipe,user.email,recipeJSON);                
-            }
+            //var recipeJSON = Newtonsoft.Json.JsonConvert.SerializeObject(recipe);
+            //System.Console.WriteLine(recipeJSON);
+            //foreach(var user in _userRepository.GetUsers())
+            //{
+            //    sendEmailNotification(recipe,user.email,recipeJSON);                
+            //}
 
             return Ok(recipe);
         }

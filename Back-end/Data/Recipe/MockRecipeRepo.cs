@@ -5,19 +5,10 @@ namespace Back_end.Data
 {
     public class MockRecipeRepo : IRecipeRepo
     {
-        public Recipe GetRecipeById(int id)
+        public List<Recipe> repo;
+        public MockRecipeRepo()
         {
-            return new Recipe{id=3,
-                            creatorId=3,
-                            name="Simit",
-                            description="Turkish bagel with sesame",
-                            rating=6.9F,
-                            tag="Turkish Cuisine"};
-        }
-
-        public IEnumerable<Recipe> GetRecipes()
-        {
-                        return new List<Recipe>{
+            repo = new List<Recipe>{
                 new Recipe{id=1,
                             creatorId=1,
                             name="Pilav",
@@ -35,8 +26,33 @@ namespace Back_end.Data
                             name="Simit",
                             description="Turkish bagel with sesame",
                             rating=6.9F,
-                            tag="Turkish Cuisine"}
-            };
+                            tag="Turkish Cuisine"}};
+
+        }
+        public Recipe GetRecipeById(int id)
+        {
+            foreach(var recipe in repo) {
+                if (recipe.id == id) {
+                    return recipe;
+                }
+            }
+            return null;
+        }
+
+        public IEnumerable<Recipe> GetRecipes()
+        {
+            return repo; 
+        }
+
+        public IEnumerable<Recipe> DeleteRecipeById(int id) {
+            int indexToRemove = -1;
+            for(int i = 0; i < repo.Count; i++) {
+                if (repo[i].id == id) {
+                    indexToRemove = i;
+                }
+            }
+            repo.RemoveAt(indexToRemove);
+            return repo;
         }
     }
 }

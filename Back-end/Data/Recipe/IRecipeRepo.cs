@@ -7,5 +7,6 @@ namespace Back_end.Data
     {
         IEnumerable<Recipe> GetRecipes();
         Recipe GetRecipeById(int id);
+        IEnumerable<Recipe> DeleteRecipeById(int id);
     }
 }
