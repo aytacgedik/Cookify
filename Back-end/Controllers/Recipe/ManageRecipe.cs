@@ -65,8 +65,22 @@ namespace Back_end.Controllers
         }
 
         //DELETE{id} - removeRecipe() 
+        [HttpDelete("{id}")]
+        public ActionResult removeRecipe(int id)
+        {
+            //DELETE operation to be done from the database
+            return Ok();
+        }
 
         //PATCH/PUT{id} - updateRecipe()
+        [HttpPatch("{id}")]
+        public ActionResult updateRecipe([FromBody] Recipe recipe)
+        {
+            //recipe json passed from front-end
+            //find object from recipe.id
+            //set all other fields of found object to recipe fields
+            return Ok(recipe);
+        }
 
         //GET{all} - getRecipe()
         [HttpGet]
