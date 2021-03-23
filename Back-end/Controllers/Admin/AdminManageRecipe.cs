@@ -28,6 +28,13 @@ namespace Controllers.AdminManageRecipeController
             var recipe=_repository.GetRecipeById(id);
             return Ok(recipe);
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult<Back_end.Models.Recipe> RemoveRecipe(int id)
+        {
+            var recipes = _repository.DeleteRecipeById(id);
+            return Ok(recipes);
+        }
         
     }
 }
