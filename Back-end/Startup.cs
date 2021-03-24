@@ -38,7 +38,7 @@ namespace Back_end
             services.AddScoped<IUserRepo,MockUserRepo>();
             services.AddScoped<IUserFriendRepo,MockUserFriendRepo>();
             services.AddScoped<IRecipeRepo,MockRecipeRepo>();
-
+            services.AddScoped<IIngredientRepo, MockIngredientRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
