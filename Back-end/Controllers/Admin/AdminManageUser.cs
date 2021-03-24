@@ -28,6 +28,12 @@ namespace Controllers.AdminManageUserController
             var user=_repository.GetUserById(id);
             return Ok(user);
         }
+        [HttpDelete("{id}")]
+        public ActionResult<IEnumerable<User>> RemoveUser(int id)
+        {
+            var users = _repository.RemoveUserById(id);
+            return Ok(users);
+        }
         
     }
 }
