@@ -1,5 +1,5 @@
 namespace Back_end.Dtos{
-    public class RecipeIngredient
+    public class RecipeIngredientDto
     {
         public int id { get; set; }
         public int recipeId { get; set; }
