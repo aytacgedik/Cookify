@@ -3,7 +3,7 @@ using Back_end.Data;
 using Back_end.Models;
 using Microsoft.AspNetCore.Mvc;
 //Keeping this as example. This gonna be deleted later.
-namespace Controllers.ExampleUserCtrl
+namespace Back_end.Controllers
 {
     [Route("api/ExampleUser")]
     [ApiController]
@@ -18,7 +18,8 @@ namespace Controllers.ExampleUserCtrl
         public ActionResult<IEnumerable<User>> GetAllUsers()
         {
             var users=_repository.GetUsers();
-
+            if(users==null)
+                return NotFound();
             return Ok(users);
 
         }
