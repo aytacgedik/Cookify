@@ -21,7 +21,7 @@ namespace Back_end.UnitTests
             // Arrange
             var repositoryStub=new Mock<IUserRepo>();
 
-            repositoryStub.Setup(repo => repo.GetUsers()).Returns((IEnumerable<UserDto>)null);
+            repositoryStub.Setup(repo => repo.GetUsers()).Returns((IEnumerable<User>)null);
 
             var controller = new ExampleUserController(repositoryStub.Object);
 
