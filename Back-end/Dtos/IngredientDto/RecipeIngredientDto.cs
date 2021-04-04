@@ -1,5 +1,4 @@
-namespace Back_end.Models
-{
+namespace Back_end.Dtos{
     public class RecipeIngredient
     {
         public int id { get; set; }
