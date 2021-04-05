@@ -1,10 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+
+#nullable disable
+
 namespace Back_end.Models
 {
-    public class Ingredient
+    public partial class Ingredient
     {
-        public int id { get; set; }
-        public string name { get; set; }
+        public Ingredient()
+        {
+            RecipeIngredients = new HashSet<RecipeIngredient>();
+        }
 
-        // Given specification is not correct
+        public int Id { get; set; }
+        public string IngredientName { get; set; }
+        public float? CaloriesPer100Gr { get; set; }
+
+        public virtual ICollection<RecipeIngredient> RecipeIngredients { get; set; }
     }
 }

@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Back_end.Models;
 using System.Collections.Generic;
-using Back_end.Data;
 using System.Net.Mail;
 using System;
+using System.Linq;
 
 namespace Back_end.Controllers
 {
@@ -11,7 +11,7 @@ namespace Back_end.Controllers
     [ApiController]
     public class ManageRecipe : RecipeController
     {
-        public ManageRecipe(IRecipeRepo recipeRepository,IUserRepo userRepository):base(recipeRepository,userRepository)
+        public ManageRecipe():base()
         {
             
         }
@@ -22,7 +22,7 @@ namespace Back_end.Controllers
 
             try
             {
-                string subject = "New " + recipe.name + " available at Cookify" ;
+                string subject = "New " + recipe.RecipeName + " available at Cookify" ;
                 string body =  text + ",\n" + "Cookify team";
                 string FromMail = "cookify@gmail.com";
                 string emailTo = tomail;
@@ -86,7 +86,8 @@ namespace Back_end.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Recipe>> getRecipe()
         {
-            var users= base._recipeRepository.GetRecipes();
+            //example link here
+            var users = base.context.Recipes.ToList();
 
             return Ok(users);
 
@@ -96,9 +97,9 @@ namespace Back_end.Controllers
         [HttpGet("{id}")]
         public ActionResult<IEnumerable<Recipe>> getRecipe(int id)
         {
-            var user= base._recipeRepository.GetRecipeById(id);
+            //var user= base._recipeRepository.GetRecipeById(id);
 
-            return Ok(user);
+            return Ok();
 
         }
     }

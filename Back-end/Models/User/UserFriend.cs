@@ -1,8 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+
+#nullable disable
+
 namespace Back_end.Models
 {
-    public class UserFriend
+    public partial class UserFriend
     {
-        public int userFollowerId { get; set; }
-        public int userFollowedId { get; set; }
+        public int UserFollowerId { get; set; }
+        public int UserFollowedId { get; set; }
+
+        public virtual User UserFollowed { get; set; }
+        public virtual User UserFollower { get; set; }
     }
 }

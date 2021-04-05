@@ -1,9 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+
+#nullable disable
+
 namespace Back_end.Models
 {
-    public class RecipeIngredient
+    public partial class RecipeIngredient
     {
-        public int id { get; set; }
-        public int recipeId { get; set; }
-        public int ingredientId { get; set; }
+        public int Id { get; set; }
+        public int RecipeId { get; set; }
+        public int IngredientId { get; set; }
+
+        public virtual Ingredient Ingredient { get; set; }
+        public virtual Recipe Recipe { get; set; }
     }
 }

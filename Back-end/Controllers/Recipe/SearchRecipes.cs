@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Back_end.Models;
 using System.Collections.Generic;
-using Back_end.Data;
 using System.Net.Mail;
 using System;
+using System.Linq;
 
 namespace Back_end.Controllers
 {
@@ -11,19 +11,19 @@ namespace Back_end.Controllers
     [ApiController]
     public class SearchRecipes : RecipeController
     {
-        public SearchRecipes(IRecipeRepo recipeRepository,IUserRepo userRepository):base(recipeRepository,userRepository)
+        public SearchRecipes():base()
         {
             
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult searchRecipes(string query)
         {
             List<Recipe> recipesToReturn = new List<Recipe>();
             if(!String.IsNullOrEmpty(query))
-                foreach(var recipe in base._recipeRepository.GetRecipes())
+                foreach(var recipe in base.context.Recipes.ToList())
                 {
-                    if(recipe.name.Contains(query))
+                    if(recipe.RecipeName.Contains(query))
                         recipesToReturn.Add(recipe);
                 }
 

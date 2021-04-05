@@ -1,16 +1,26 @@
+﻿using System;
 using System.Collections.Generic;
+
+#nullable disable
+
 namespace Back_end.Models
 {
-    public class User
+    public partial class User
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string surname { get; set; }
-        public string email { get; set; }
-        public bool verified { get; set; }
-        public bool admin { get; set; }
+        public User()
+        {
+            Recipes = new HashSet<Recipe>();
+            SavedRecipes = new HashSet<SavedRecipe>();
+        }
 
-        //Given specification is not correct
-        public IEnumerable<Recipe> generateRecommeddedRecipes() => new List<Recipe>();
+        public int Id { get; set; }
+        public string Firstname { get; set; }
+        public string Surname { get; set; }
+        public string Email { get; set; }
+        public bool Isverified { get; set; }
+        public bool Isadmin { get; set; }
+
+        public virtual ICollection<Recipe> Recipes { get; set; }
+        public virtual ICollection<SavedRecipe> SavedRecipes { get; set; }
     }
 }
