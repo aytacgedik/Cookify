@@ -35,6 +35,13 @@ namespace Controllers.AdminManageRecipeController
             var recipes = _repository.DeleteRecipeById(id);
             return Ok(recipes);
         }
+
+        [HttpPatch("{id}")]
+        public ActionResult<Recipe> updateRecipe([FromBody] Recipe _recipe)
+        {
+            var recipe = _repository.UpdateRecipeById(_recipe.id, _recipe.creatorId, _recipe.name, _recipe.description, _recipe.rating, _recipe.tag);
+            return Ok(recipe);
+        }
         
     }
 }
