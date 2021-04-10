@@ -34,6 +34,13 @@ namespace Controllers.AdminManageUserController
             var users = _repository.RemoveUserById(id);
             return Ok(users);
         }
+
+        [HttpPatch("{id}")]
+        public ActionResult<User> updateUser([FromBody] User _user)
+        {
+            var user = _repository.UpdateUserById(_user.id,_user.name,_user.surname,_user.email,_user.verified,_user.admin);
+            return Ok(user);
+        }
         
     }
 }
