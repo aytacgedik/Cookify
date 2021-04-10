@@ -54,5 +54,20 @@ namespace Back_end.Data
             repo.RemoveAt(indexToRemove);
             return repo;
         }
+        public Recipe UpdateRecipeById(int id, int creatorId, string name, string description, float rating, string tag) {
+            int indexToUpdate = -1;
+            for(int i = 0; i < repo.Count; i++) {
+                if (repo[i].id == id) {
+                    indexToUpdate = i;
+                }
+            }
+            repo[indexToUpdate].id = id;
+            repo[indexToUpdate].creatorId = creatorId;
+            repo[indexToUpdate].name = name;
+            repo[indexToUpdate].description = description;
+            repo[indexToUpdate].rating = rating;
+            repo[indexToUpdate].tag = tag;
+            return repo[indexToUpdate];
+        }
     }
 }
