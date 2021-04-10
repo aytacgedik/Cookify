@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using Back_end.Data;
 using Back_end.Models;
 using Microsoft.AspNetCore.Mvc;
+using Back_end.Dtos;
 
-namespace Controllers.UserController
+namespace Back_end.Controllers
 {
     [Route("api/users")]
     [ApiController]
@@ -20,46 +21,84 @@ namespace Controllers.UserController
 
 
         //createUser()
+        //Done
         [HttpPost]
-        public ActionResult<IEnumerable<User>> createUser([FromBody] User _user)
+        public ActionResult<IEnumerable<UserDto>> createUser([FromBody] User _user)
         {
-            var users = _repository.CreateUser(_user.id,_user.name,_user.surname,_user.email,_user.verified,_user.admin);
-            return Ok(users);
+            var users = _repository.CreateUser(_user.id,
+                                               _user.name,
+                                               _user.surname,
+                                               _user.email,
+                                               _user.verified,
+                                               _user.admin);
+            if (users == null)
+            {
+                return NotFound();
+            }
+            var usersDto = users.Select(x => x.AsDto()).ToList();
+            return Ok(usersDto);
         }
 
 
         //removeUser()
+        //Done
         [HttpDelete("{id}")]
-        public ActionResult<IEnumerable<User>> removeUser(int id)
+        public ActionResult<IEnumerable<UserDto>> removeUser(int id)
         {
             var users = _repository.RemoveUserById(id);
-            return Ok(users);
+            if (users == null)
+            {
+                return NotFound();
+            }
+            var usersDto = users.Select(x => x.AsDto()).ToList();
+            return Ok(usersDto);
         }
 
 
         //updateUser()
+        //Done
         [HttpPatch("{id}")]
-        public ActionResult<User> updateUser([FromBody] User _user)
+        public ActionResult<UserDto> updateUser([FromBody] User _user)
         {
-            var user = _repository.UpdateUserById(_user.id,_user.name,_user.surname,_user.email,_user.verified,_user.admin);
-            return Ok(user);
+            var user = _repository.UpdateUserById(_user.id,
+                                                  _user.name,
+                                                  _user.surname,
+                                                  _user.email,
+                                                  _user.verified,
+                                                  _user.admin);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user.AsDto());
         }
 
 
         //getUser()
+        //Done
         [HttpGet("{id}")]
-        public ActionResult<User> getUser(int id)
+        public ActionResult<UserDto> getUser(int id)
         {
             var user = _repository.GetUserById(id);
-            return Ok(user);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user.AsDto());
         }
 
 
+        //Done
         [HttpGet]
-        public ActionResult<IEnumerable<User>> GetAllUsers()
+        public ActionResult<IEnumerable<UserDto>> GetAllUsers()
         {
             var users = _repository.GetUsers();
-            return Ok(users);
+            if (users == null)
+            {
+                return NotFound();
+            }
+            var usersDto = users.Select(x => x.AsDto()).ToList();
+            return Ok(usersDto);
         }
     }
 }
