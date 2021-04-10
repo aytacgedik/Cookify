@@ -10,5 +10,6 @@ namespace Back_end.Data
     {
         IEnumerable<UserFriend> AddUserFriendById(int _userFollowerId, int _userFollowedId);
         IEnumerable<UserFriend> RemoveUserFriendById(int _userFollowerId, int _userFollowedId);
+        IEnumerable<UserFriend> GetUserFriends();
     }
 }
