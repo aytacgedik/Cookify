@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Back_end.Data;
-using Back_end.Models;
+using Back_end.Dtos;
 
 namespace Back_end.Controllers
 {
@@ -17,24 +17,25 @@ namespace Back_end.Controllers
 
         }
 
-        //GET{all} - getIngredient()
+        //GET{all} - getIngredients()
         [HttpGet]
-        public ActionResult<IEnumerable<Recipe>> getRecipe()
+        public ActionResult<IEnumerable<IngredientDto>> getIngredients()
         {
-            var ingredient = base._ingredientRepository.GetIngredients();
-
-            return Ok(ingredient);
-
+            var ingredients = base._ingredientRepository.GetIngredients();
+            if (ingredients == null)
+                return NotFound();
+            var ingredientsDto = ingredients.Select(x => x.AsDto()).ToList();
+            return Ok(ingredientsDto);
         }
 
         //GET{id} - getIngredient()
         [HttpGet("{id}")]
-        public ActionResult<IEnumerable<Ingredient>> getIngredient(int id)
+        public ActionResult<IngredientDto> getIngredient(int id)
         {
             var ingredient = base._ingredientRepository.GetIngredientById(id);
-
-            return Ok(ingredient);
-
+            if (ingredient == null) 
+                return NotFound(); 
+            return Ok(ingredient.AsDto());
         }
     }
 }
