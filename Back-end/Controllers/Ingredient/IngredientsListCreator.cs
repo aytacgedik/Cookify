@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Back_end.Data;
 using Back_end.Models;
+using Back_end.Dtos;
 
 namespace Back_end.Controllers
 {
@@ -18,7 +19,7 @@ namespace Back_end.Controllers
         }
 
         [HttpGet]
-        public ActionResult generateList([FromQuery] int id)
+        public ActionResult<IEnumerable<IngredientDto>> generateList([FromQuery] int id)
         {
             List<Ingredient> ingredientsList = new List<Ingredient>();
             foreach (var recipe in _recipeRepository.GetRecipes())
@@ -28,8 +29,10 @@ namespace Back_end.Controllers
                     ingredientsList.Add(recipe.getRecipeIngredient());
                 }
             }
-
-            return Ok(ingredientsList);
+            if (ingredientsList == null)
+                return NotFound();
+            var ingredientsDtoList = ingredientsList.Select(x => x.AsDto()).ToList();
+            return Ok(ingredientsDtoList);
         }
     }
 }
