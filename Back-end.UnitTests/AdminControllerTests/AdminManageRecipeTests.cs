@@ -69,5 +69,30 @@ namespace Back_end.UnitTests
             // Assert
             Assert.True(areEqual);
         }
+
+        [Fact]
+        public void UpdateRecipeTest()
+        {
+            // Arrange
+            
+            Recipe recipe = new Recipe();
+            recipe.id = 1;
+            recipe.creatorId = 1;
+            recipe.name = "test";
+            recipe.description = "test";
+            recipe.rating = 2.0F;
+            recipe.tag = "test";
+            var repositoryStub = new Mock<IRecipeRepo>();
+            var recipeRepo = new MockRecipeRepo();
+            repositoryStub.Setup(repo => repo.GetRecipeById(1)).Returns(recipe);
+            var controller = new AdminManageRecipeController(recipeRepo);
+            // Act
+            var result = controller.updateRecipe(recipe).Result as OkObjectResult;
+            var comparer = new RecipeComparer();
+            bool areEqual = comparer.Equals(repositoryStub.Object.GetRecipeById(1), (Recipe)result.Value);
+            // Assert
+            Assert.True(areEqual);
+
+        }
     }
 }

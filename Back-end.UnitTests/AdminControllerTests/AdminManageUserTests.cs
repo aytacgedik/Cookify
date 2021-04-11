@@ -69,5 +69,29 @@ namespace Back_end.UnitTests
             // Assert
             Assert.True(areEqual);
         }
+
+        [Fact]
+        public void UpdateUserTest()
+        {
+            // Arrange
+            User user = new User();
+            user.id = 1;
+            user.name = "test";
+            user.surname = "test";
+            user.email = "test";
+            user.verified = true;
+            user.admin = true;
+            var repositoryStub = new Mock<IUserRepo>();
+            var userRepo = new MockUserRepo();
+            repositoryStub.Setup(repo => repo.GetUserById(1)).Returns(user);
+            var controller = new AdminManageUserController(userRepo);
+            // Act
+            var result = controller.updateUser(user).Result as OkObjectResult;
+            var comparer = new UserComparer();
+            bool areEqual = comparer.Equals(repositoryStub.Object.GetUserById(1), (User)result.Value);
+            // Assert
+            Assert.True(areEqual);
+
+        }
     }
 }
