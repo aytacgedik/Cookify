@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Back_end.Data;
 using System.Net.Mail;
 using System;
+using System.Linq;
+using Back_end.Dtos;
 
 namespace Back_end.Controllers
 {
@@ -49,7 +51,7 @@ namespace Back_end.Controllers
 
         //POST - createRecipe()
         [HttpPost]
-        public IActionResult createRecipe([FromBody]Recipe recipe)
+        public ActionResult<IEnumerable<RecipeDto>> createRecipe([FromBody]Recipe recipe)
         {
             //return what is going to be added to database for now
             //later we will do an insert on the database
@@ -60,35 +62,59 @@ namespace Back_end.Controllers
             //{
             //    sendEmailNotification(recipe,user.email,recipeJSON);                
             //}
-
-            return Ok(recipe);
+            var recipes = base._recipeRepository.CreateRecipe(recipe);
+            if(recipes == null)
+            {
+                return NotFound();
+            }
+            foreach(var user in _userRepository.GetUsers())
+            {
+               sendEmailNotification(recipe,user.email,recipe.name);                
+            }
+            var recipesDto = recipes.Select(x=>x.AsDto()).ToList();
+            return Ok(recipesDto);
         }
 
         //DELETE{id} - removeRecipe() 
         [HttpDelete("{id}")]
-        public ActionResult removeRecipe(int id)
+        public ActionResult<IEnumerable<Recipe>> removeRecipe(int id)
         {
             //DELETE operation to be done from the database
-            return Ok();
+            var result = base._recipeRepository.DeleteRecipeById(id);
+            if(result == null)
+            {
+                return NotFound();
+            }
+            var resultDto = result.Select(x => x.AsDto()).ToList();
+            return Ok(resultDto);
         }
 
         //PATCH/PUT{id} - updateRecipe()
         [HttpPatch("{id}")]
-        public ActionResult updateRecipe([FromBody] Recipe recipe)
+        public ActionResult<Recipe> updateRecipe([FromBody] Recipe recipe)
         {
             //recipe json passed from front-end
             //find object from recipe.id
             //set all other fields of found object to recipe fields
-            return Ok(recipe);
+            var result = base._recipeRepository.UpdateRecipeById(recipe.id,recipe.creatorId,recipe.name,recipe.description,recipe.rating,recipe.tag);
+            if(result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result.AsDto());
         }
 
         //GET{all} - getRecipe()
         [HttpGet]
         public ActionResult<IEnumerable<Recipe>> getRecipe()
         {
-            var users= base._recipeRepository.GetRecipes();
-
-            return Ok(users);
+            var result= base._recipeRepository.GetRecipes();
+            if(result == null)
+            {
+                return NotFound();
+            }
+            var resultDto = result.Select(x => x.AsDto()).ToList();
+            return Ok(resultDto);
 
         }
 
@@ -96,9 +122,13 @@ namespace Back_end.Controllers
         [HttpGet("{id}")]
         public ActionResult<IEnumerable<Recipe>> getRecipe(int id)
         {
-            var user= base._recipeRepository.GetRecipeById(id);
+            var result= base._recipeRepository.GetRecipeById(id);
+            if(result == null)
+            {
+                return NotFound();
+            }
 
-            return Ok(user);
+            return Ok(result.AsDto());
 
         }
     }

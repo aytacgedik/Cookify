@@ -11,11 +11,18 @@ namespace Back_end.Controllers
         protected readonly IRecipeRepo _recipeRepository;
 
         protected readonly IUserRepo _userRepository;
+
+        protected readonly ISavedRecipeRepo _savedRecipeRepository;
         
         public RecipeController(IRecipeRepo recipeRepository,IUserRepo userRepository)
         {
             _recipeRepository = recipeRepository;
             _userRepository = userRepository;
+        }
+
+        public RecipeController(ISavedRecipeRepo repo)
+        {
+            _savedRecipeRepository = repo;
         }
         
     }
