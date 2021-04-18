@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Back_end.Data;
 using System.Net.Mail;
 using System;
+using Back_end.Dtos;
 
 namespace Back_end.Controllers
 {
@@ -16,15 +17,15 @@ namespace Back_end.Controllers
             
         }
 
-        [HttpPost]
-        public ActionResult searchRecipes(string query)
+        [HttpGet]
+        public ActionResult<IEnumerable<RecipeDto>> searchRecipes(string query)
         {
-            List<Recipe> recipesToReturn = new List<Recipe>();
+            List<RecipeDto> recipesToReturn = new List<RecipeDto>();
             if(!String.IsNullOrEmpty(query))
                 foreach(var recipe in base._recipeRepository.GetRecipes())
                 {
                     if(recipe.name.Contains(query))
-                        recipesToReturn.Add(recipe);
+                        recipesToReturn.Add(recipe.AsDto());
                 }
 
             return Ok(recipesToReturn);

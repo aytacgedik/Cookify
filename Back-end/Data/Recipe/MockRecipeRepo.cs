@@ -45,13 +45,9 @@ namespace Back_end.Data
         }
 
         public IEnumerable<Recipe> DeleteRecipeById(int id) {
-            int indexToRemove = -1;
-            for(int i = 0; i < repo.Count; i++) {
-                if (repo[i].id == id) {
-                    indexToRemove = i;
-                }
-            }
-            repo.RemoveAt(indexToRemove);
+            var toremove = repo.Find(x => x.id == id);
+            if(toremove!=null)
+                repo.Remove(toremove);
             return repo;
         }
         public Recipe UpdateRecipeById(int id, int creatorId, string name, string description, float rating, string tag) {
@@ -68,6 +64,13 @@ namespace Back_end.Data
             repo[indexToUpdate].rating = rating;
             repo[indexToUpdate].tag = tag;
             return repo[indexToUpdate];
+        }
+
+        public IEnumerable<Recipe> CreateRecipe(Recipe r)
+        {
+            repo.Add(new Recipe{id=r.id,creatorId=r.creatorId,name
+            =r.name,description=r.description,rating=r.rating,tag=r.tag});
+            return repo;
         }
     }
 }
