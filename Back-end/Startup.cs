@@ -50,9 +50,9 @@ namespace Back_end
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Back_end v1"));
             }
-
-            app.UseHttpsRedirection();
-
+            if(env.IsDevelopment()){//for docker
+                app.UseHttpsRedirection();
+            }
             app.UseRouting();
 
             app.UseAuthorization();
