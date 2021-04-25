@@ -85,6 +85,40 @@ namespace Back_end.UnitTests
         }
 
         [Fact]
+        public void createUser_Test_NULLATTRIBUTES()
+        {
+            // Arrange
+            var repositoryStub = new Mock<IUserRepo>();
+            var mockUserRepo = new MockUserRepo();
+            repositoryStub.Setup(repo => repo.GetUsers()).Returns(mockUserRepo.GetUsers());
+            var controller = new UserController(mockUserRepo);
+            var tmp = new User
+            {
+                id = 10,
+                name = "",
+                surname = "",
+                email = "",
+                verified = true,
+                admin = false
+            };
+
+            // Act
+            var result = controller.createUser(tmp).Result as OkObjectResult;
+            var tmpList = mockUserRepo.CreateUser(tmp.id,
+                                                  tmp.name,
+                                                  tmp.surname,
+                                                  tmp.email,
+                                                  tmp.verified,
+                                                  tmp.admin).Select(x => x.AsDto()).ToList();
+            var areEqual = Enumerable.SequenceEqual(tmpList,
+                                                    (IEnumerable<UserDto>)result.Value,
+                                                    new UserDtoComparer());
+
+            // Assert
+            Assert.True(areEqual);
+        }
+
+        [Fact]
         public void removeUser_Test()
         {
             // Arrange
@@ -119,6 +153,37 @@ namespace Back_end.UnitTests
                 name = "testName",
                 surname = "testSurname",
                 email = "testEmail",
+                verified = true,
+                admin = false
+            };
+
+            // Act
+            var result = controller.updateUser(tmp).Result as OkObjectResult;
+            var tmpR = mockUserRepo.UpdateUserById(tmp.id,
+                                                   tmp.name,
+                                                   tmp.surname,
+                                                   tmp.email,
+                                                   tmp.verified,
+                                                   tmp.admin);
+
+            // Assert
+            result.Value.Should().BeEquivalentTo(tmpR, options => options.ComparingByMembers<User>());
+        }
+
+        [Fact]
+        public void updateUser_Test_NULLATRIBUTES()
+        {
+            // Arrange
+            var repositoryStub = new Mock<IUserRepo>();
+            var mockUserRepo = new MockUserRepo();
+            repositoryStub.Setup(repo => repo.GetUsers()).Returns(mockUserRepo.GetUsers());
+            var controller = new UserController(mockUserRepo);
+            var tmp = new User
+            {
+                id = 1,
+                name = "",
+                surname = "",
+                email = "",
                 verified = true,
                 admin = false
             };
