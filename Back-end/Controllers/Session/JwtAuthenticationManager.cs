@@ -5,6 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Back_end.Data;
+using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace Back_end.Controllers
 {
@@ -42,5 +44,6 @@ namespace Back_end.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+
     }
 }
