@@ -1,4 +1,4 @@
-namespace Back_end.Data
+namespace Back_end.Controllers
 {
     public interface IJwtAuthenticationManager
     {

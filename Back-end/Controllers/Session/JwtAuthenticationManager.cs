@@ -4,8 +4,9 @@ using System.Linq;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Back_end.Data;
 
-namespace Back_end.Data
+namespace Back_end.Controllers
 {
     public class JwtAuthenticationManager : IJwtAuthenticationManager
     {
