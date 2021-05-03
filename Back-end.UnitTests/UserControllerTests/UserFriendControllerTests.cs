@@ -12,32 +12,6 @@ using FluentAssertions;
 
 namespace Back_end.UnitTests
 {
-    public class UserFriendDtoComparer : IEqualityComparer<UserFriendDto>
-    {
-        public bool Equals(UserFriendDto x, UserFriendDto y)
-        {
-            if (x == null || y == null)
-            {
-                return false;
-            }
-            bool equals = (x.userFollowedId == y.userFollowedId && x.userFollowerId == y.userFollowerId);
-            return equals;
-        }
-
-        public int GetHashCode(UserFriendDto obj)
-        {
-            if (obj == null)
-            {
-                return int.MinValue;
-            }
-            int hash = 1;
-            hash = hash + obj.userFollowedId.GetHashCode();
-            hash = hash + obj.userFollowerId.GetHashCode();
-            return hash;
-        }
-    }
-
-
     public class UserFriendControllerTests
     {
         [Fact]
@@ -47,6 +21,7 @@ namespace Back_end.UnitTests
             var repositoryStub = new Mock<IUserFriendRepo>();
             var mockUserFriendRepo = new MockUserFriendRepo();
             repositoryStub.Setup(repo => repo.GetUserFriends()).Returns(mockUserFriendRepo.GetUserFriends());
+            var mockUserFriendRepo2 = new MockUserFriendRepo();
             var controller = new UserFriendController(mockUserFriendRepo);
             var tmp = new UserFriend();
             tmp.userFollowerId = 4;
@@ -54,14 +29,12 @@ namespace Back_end.UnitTests
 
             // Act
             var result = controller.createUserFriend(tmp).Result as OkObjectResult;
-            var tmpList = mockUserFriendRepo.AddUserFriendById(tmp.userFollowerId,
-                                                               tmp.userFollowedId).Select(x => x.AsDto()).ToList();
-            var areEqual = Enumerable.SequenceEqual(tmpList,
-                                                    (IEnumerable<UserFriendDto>)result.Value,
-                                                    new UserFriendDtoComparer());
+            var tmpList = mockUserFriendRepo2.AddUserFriendById(tmp.userFollowerId,
+                                                                tmp.userFollowedId).Select(x => x.AsDto());
 
             // Assert
-            Assert.True(areEqual);
+            result.Value.Should().BeEquivalentTo(tmpList,
+                                                 options => options.ComparingByMembers<UserFriendDto>());
         }
 
         [Fact]
@@ -71,17 +44,16 @@ namespace Back_end.UnitTests
             var repositoryStub = new Mock<IUserFriendRepo>();
             var mockUserFriendRepo = new MockUserFriendRepo();
             repositoryStub.Setup(repo => repo.GetUserFriends()).Returns(mockUserFriendRepo.GetUserFriends());
+            var mockUserFriendRepo2 = new MockUserFriendRepo();
             var controller = new UserFriendController(mockUserFriendRepo);
 
             // Act
             var result = controller.removeUserFriend(1, 3).Result as OkObjectResult;
-            var tmpList = mockUserFriendRepo.RemoveUserFriendById(1, 3).Select(x => x.AsDto()).ToList();
-            var areEqual = Enumerable.SequenceEqual(tmpList,
-                                                    (IEnumerable<UserFriendDto>)result.Value,
-                                                    new UserFriendDtoComparer());
+            var tmpList = mockUserFriendRepo2.RemoveUserFriendById(1, 3).Select(x => x.AsDto());
 
             // Assert
-            Assert.True(areEqual);
+            result.Value.Should().BeEquivalentTo(tmpList,
+                                                 options => options.ComparingByMembers<UserFriendDto>());
         }
     }
 }
