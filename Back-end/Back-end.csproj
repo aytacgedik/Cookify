@@ -4,7 +4,8 @@
     <RootNamespace>Back_end</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3"/>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.11.0"/>
   </ItemGroup>
 </Project>
