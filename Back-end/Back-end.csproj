@@ -8,5 +8,8 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.11.0"/>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.5"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.5"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.5"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.5"/>
   </ItemGroup>
 </Project>
