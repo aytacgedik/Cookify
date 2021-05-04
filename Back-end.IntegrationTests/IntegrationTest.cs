@@ -19,19 +19,24 @@ namespace Back_end.IntegrationTests
 {
     public class IntegrationTest
     {
+        
         protected readonly HttpClient TestClient;
-
+        //protected readonly string  ApiRoute = "http://localhost:5001/";
         protected IntegrationTest()
         {
-            var appFactory = new WebApplicationFactory<Startup>().WithWebHostBuilder(builder =>
-                    {
-                        builder.ConfigureServices(services =>
-                        {
-                            services.RemoveAll(typeof(CookifyContext));
-                            services.AddDbContext<CookifyContext>(options=> {options.UseInMemoryDatabase("testDB");});
-                        });
-                    });;
-            TestClient = appFactory.CreateClient();
+            // var appFactory = new WebApplicationFactory<Startup>().WithWebHostBuilder(builder =>
+            //         {
+            //             builder.ConfigureServices(services =>
+            //             {
+            //                 services.RemoveAll(typeof(CookifyContext));
+            //                 services.AddDbContext<CookifyContext>(options=> {options.UseInMemoryDatabase("testDB");});
+            //             });
+            //         });
+            //TestClient = appFactory.CreateClient();//Set the Base Address when you need to test to remote server
+            TestClient = new HttpClient(){
+                BaseAddress = new Uri("http://localhost:5000/"),
+            };
+            
         }
 
         // [Fact]
