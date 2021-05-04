@@ -19,8 +19,16 @@ namespace Back_end.UnitTests.RecipeControllerTests
             var mockSavedRecipeRepo = new MockSavedRecipeRepo();
             repositoryStub.Setup(repo => repo.GetSavedRecipes()).Returns(mockSavedRecipeRepo.GetSavedRecipes());
 
+            var repositoryStub2 = new Mock<IUserRepo>();
+            var mockUserRepo = new MockUserRepo();
+            repositoryStub2.Setup(repo => repo.GetUsers()).Returns(mockUserRepo.GetUsers());
 
-            var controller = new ManageSavedRecipe(mockSavedRecipeRepo);
+            var repositoryStub3 = new Mock<IRecipeRepo>();
+            var mockRecipeRepo = new MockRecipeRepo();
+            repositoryStub3.Setup(repo => repo.GetRecipes()).Returns(mockRecipeRepo.GetRecipes());
+
+
+            var controller = new ManageSavedRecipe(mockRecipeRepo,mockUserRepo,mockSavedRecipeRepo);
 
             var tocreate = new SavedRecipe{id=3,
                                             userId=3,

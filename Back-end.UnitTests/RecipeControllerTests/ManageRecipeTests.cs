@@ -137,7 +137,7 @@ namespace Back_end.UnitTests
 
             var controller = new ManageRecipe(mockRecipeRepo,mockUserRepo);
 
-            var tocreate = new Recipe{id=1,
+            var tocreate = new Recipe{id=6,
                 creatorId=5,
                 name="Bulgur",
                 description="Boiled Bulgur fried with butter",

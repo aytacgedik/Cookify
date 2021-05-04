@@ -14,18 +14,16 @@ namespace Back_end.Controllers
     public class ManageSavedRecipe : RecipeController
     {
 
-        public ManageSavedRecipe(IRecipeRepo recipeRepository,IUserRepo userRepository):base(recipeRepository,userRepository)
+        public ManageSavedRecipe(IRecipeRepo recipeRepository,IUserRepo userRepository,ISavedRecipeRepo repo):base(recipeRepository,userRepository,repo)
         {
             
-        }
-        public ManageSavedRecipe(ISavedRecipeRepo repo):base(repo)
-        {
         }
 
         [HttpPost]
         public ActionResult<IEnumerable<SavedRecipeDto>> createSavedRecipe([FromBody] SavedRecipe recipeToSave)
         {
-            var result = base._savedRecipeRepository.CreateSavedRecipe(new SavedRecipe{id=recipeToSave.id,userId=recipeToSave.userId,recipeId=recipeToSave.recipeId});
+            var result = base._savedRecipeRepository.
+            CreateSavedRecipe(new SavedRecipe{id=recipeToSave.id,userId=recipeToSave.userId,recipeId=recipeToSave.recipeId});
             if(result==null)
                 return NotFound();
             var resultDto = result.Select(x=>x.AsDto());

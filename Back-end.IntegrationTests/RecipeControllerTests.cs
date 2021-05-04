@@ -98,6 +98,46 @@ namespace Back_end.IntegrationTests
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
 
         }
+
+        [Fact]
+        public async Task searchRecipes_ValidQuery_ReturnsOK()
+        {
+            await AuthenticateAsync();
+            var simitList = new List<Recipe>{ new Recipe{id=3,
+                            creatorId=3,
+                            name="Simit",
+                            description="Turkish bagel with sesame",
+                            rating=6.9F,
+                            tag="Turkish Cuisine"}}.Select(x=>x.AsDto());
+            var response = await TestClient.GetAsync("api/recipes/search?query=Simit");
+            response.StatusCode.Should().BeEquivalentTo(HttpStatusCode.OK);
+            var returnedResponse = response.Content.ReadFromJsonAsync<List<RecipeDto>>().Result;
+            returnedResponse.Should().BeEquivalentTo(simitList);
+
+        }
+
+
+        [Fact]
+        public async Task searchRecipes_InvalidQuery_ReturnsNotFound()
+        {
+            await AuthenticateAsync();
+            var response = await TestClient.GetAsync("api/recipes/search?query=patoto");
+            response.StatusCode.Should().BeEquivalentTo(HttpStatusCode.NotFound);
+            // var returnedResponse = response.Content.ReadFromJsonAsync<List<RecipeDto>>();
+            // returnedResponse.Result.Should().BeEquivalentTo(null);
+        }
+
+        [Fact]
+        public async Task createSavedRecipe_ReturnsOK()
+        {
+            await AuthenticateAsync();
+            var response = await TestClient.PostAsJsonAsync("api/saved_recipes", new SavedRecipe{
+                id=5,
+                userId=1,
+                recipeId=2
+            });
+            response.StatusCode.Should().BeEquivalentTo(HttpStatusCode.OK);
+        }
         
     }
 }

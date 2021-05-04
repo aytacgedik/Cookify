@@ -34,7 +34,7 @@ namespace Back_end.UnitTests.RecipeControllerTests
             if(!String.IsNullOrEmpty(query))
                 foreach(var recipe in mockRepo.GetRecipes())
                 {
-                    if(recipe.name.Contains(query))
+                    if(recipe.name.ToLower().Contains(query.ToLower()))
                         recipesToReturn.Add(recipe.AsDto());
                 }
 
