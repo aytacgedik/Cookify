@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Back_end.Controllers
 {
-    [Route("api/recipes")]
+    [Route("api/saved_recipes")]
     [ApiController]
     public class ManageSavedRecipe : RecipeController
     {

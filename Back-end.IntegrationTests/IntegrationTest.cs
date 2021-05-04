@@ -7,10 +7,13 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Back_end.Controllers;
 using Back_end.Data;
+using Back_end.DatabaseModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
+using Microsoft.EntityFrameworkCore;
 
 namespace Back_end.IntegrationTests
 {
@@ -20,7 +23,14 @@ namespace Back_end.IntegrationTests
 
         protected IntegrationTest()
         {
-            var appFactory = new WebApplicationFactory<Startup>();
+            var appFactory = new WebApplicationFactory<Startup>().WithWebHostBuilder(builder =>
+                    {
+                        builder.ConfigureServices(services =>
+                        {
+                            services.RemoveAll(typeof(CookifyContext));
+                            services.AddDbContext<CookifyContext>(options=> {options.UseInMemoryDatabase("testDB");});
+                        });
+                    });;
             TestClient = appFactory.CreateClient();
         }
 

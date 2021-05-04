@@ -23,7 +23,7 @@ namespace Back_end.IntegrationTests
             var response = await TestClient.GetAsync("api/recipes");
             //Assert
             response.StatusCode.Should().Be(HttpStatusCode.OK);
-            //response.Content.ReadFromJsonAsync<Recipe>().Should().BeEquivalentTo(mockRecipeRepo.GetRecipes());
+            //response.Content.ReadFromJsonAsync<Recipe>().Should().BeNull();
         }
 
         [Fact]
@@ -32,6 +32,71 @@ namespace Back_end.IntegrationTests
             await AuthenticateAsync();
             var response = await TestClient.GetAsync("api/recipes/1");
             response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        [Fact]
+        public async Task createRecipe_ReturnsOK()
+        {
+            await AuthenticateAsync();
+            var response = await TestClient.PostAsJsonAsync("api/recipes/", new Recipe{id=5,
+                    creatorId=2,
+                    name="Kuru Fasulye",
+                    description="Beans Boiled with tomato sauce",
+                    rating=10.0F,
+                    tag="Turkish Cuisine"
+                });
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+
+        [Fact]
+        public async Task createRecipe_ReturnsNotFound()
+        {
+            await AuthenticateAsync();
+            var response = await TestClient.PostAsJsonAsync("api/recipes/", new Recipe{id=1,
+                    creatorId=2,
+                    name="Kuru Fasulye",
+                    description="Beans Boiled with tomato sauce",
+                    rating=10.0F,
+                    tag="Turkish Cuisine"
+                });
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        }
+
+
+        [Fact]
+        public async Task updateRecipe_ReturnsOK()
+        {
+            await AuthenticateAsync();
+            var response = await TestClient.PutAsJsonAsync("api/recipes/",                 
+            new Recipe{id=2,
+                        creatorId=2,
+                        name="Imam bayildi",
+                        description="Eggplants stuffed with minced meat",
+                        rating=10.0F,
+                        tag="Turkish Cuisine"
+                        });
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        [Fact]
+        public async Task removeRecipe_ReturnOK()
+        {
+            await AuthenticateAsync();
+            var response = await TestClient.DeleteAsync("api/recipes/1");
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        }
+
+
+        [Fact]
+        public async Task removeRecipe_ReturnNotFound()
+        {
+            await AuthenticateAsync();
+            //non-existing id
+            var response = await TestClient.DeleteAsync("api/recipes/10");
+            response.StatusCode.Should().Be(HttpStatusCode.NotFound);
+
         }
         
     }
