@@ -90,7 +90,7 @@ namespace Back_end.Controllers
         }
 
         //PATCH/PUT{id} - updateRecipe()
-        [HttpPatch("{id}")]
+        [HttpPut()]
         public ActionResult<Recipe> updateRecipe([FromBody] Recipe recipe)
         {
             //recipe json passed from front-end

@@ -24,10 +24,12 @@ namespace Back_end.Controllers
             if(!String.IsNullOrEmpty(query))
                 foreach(var recipe in base._recipeRepository.GetRecipes())
                 {
-                    if(recipe.name.Contains(query))
+                    if(recipe.name.ToLower().Contains(query.ToLower()))
                         recipesToReturn.Add(recipe.AsDto());
+                    
                 }
-
+            if(recipesToReturn.Count == 0)
+                return NotFound(query);
             return Ok(recipesToReturn);
         }
 
