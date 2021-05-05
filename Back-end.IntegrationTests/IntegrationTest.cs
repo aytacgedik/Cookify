@@ -34,7 +34,7 @@ namespace Back_end.IntegrationTests
             //         });
             //TestClient = appFactory.CreateClient();//Set the Base Address when you need to test to remote server
             TestClient = new HttpClient(){
-                BaseAddress = new Uri("http://localhost:5000/"),
+                BaseAddress = new Uri("https://cookify.azurewebsites.net"),
             };
             
         }
