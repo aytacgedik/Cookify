@@ -4,38 +4,14 @@ using Moq;
 using Back_end.Controllers;
 using Back_end.Data;
 using Back_end.Models;
+using Back_end.Dtos;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using FluentAssertions;
 
 namespace Back_end.UnitTests
-{
-    public class RecipeComparer : IEqualityComparer<Recipe>
-    {
-        public bool Equals(Recipe x, Recipe y)
-        {
-            if (x == null || y == null) return false;
-
-            bool equals = x.id==y.id && x.creatorId == y.creatorId && x.name == y.name 
-                && x.description == y.description && x.rating == y.rating && x.tag == y.tag;
-            return equals;
-        }
-
-        public int GetHashCode(Recipe obj)
-        {
-            if (obj == null) return int.MinValue;
-
-            int hash = 1;
-            hash = hash + obj.id.GetHashCode();
-            hash = hash + obj.creatorId.GetHashCode();
-            hash = hash + obj.name.GetHashCode();
-            hash = hash + obj.description.GetHashCode();
-            hash = hash + obj.rating.GetHashCode();
-            hash = hash + obj.tag.GetHashCode();
-            return hash;
-        }
-    }
-    
+{   
     public class AdminManageRecipeTests
     {
         [Fact]
@@ -48,7 +24,8 @@ namespace Back_end.UnitTests
             var controller = new AdminManageRecipeController(recipeRepo);
             // Act
             var result = controller.GetAllRecipes().Result as OkObjectResult;
-            bool areEqual = Enumerable.SequenceEqual(repositoryStub.Object.GetRecipes(), (IEnumerable<Recipe>)result.Value, new RecipeComparer());
+            var tmpList = recipeRepo.GetRecipes().Select(x => x.AsDto()).ToList();
+            bool areEqual = Enumerable.SequenceEqual(tmpList, (IEnumerable<RecipeDto>)result.Value, new RecipeDtoComparer());
             // Assert
             Assert.True(areEqual);
         }
@@ -61,11 +38,12 @@ namespace Back_end.UnitTests
             var recipeRepo = new MockRecipeRepo();
             var recipes = new List<Recipe>(recipeRepo.repo);
             recipes.RemoveAt(recipes.FindIndex(u => u.id == 1));
+            var tmpList = recipes.Select(x => x.AsDto()).ToList();
             repositoryStub.Setup(repo => repo.GetRecipes()).Returns(recipes);
             var controller = new AdminManageRecipeController(recipeRepo);
             // Act
             var result = controller.RemoveRecipe(1).Result as OkObjectResult;
-            var areEqual = Enumerable.SequenceEqual(repositoryStub.Object.GetRecipes(), (IEnumerable<Recipe>)result.Value, new RecipeComparer());
+            var areEqual = Enumerable.SequenceEqual(tmpList, (IEnumerable<RecipeDto>)result.Value, new RecipeDtoComparer());
             // Assert
             Assert.True(areEqual);
         }
@@ -75,23 +53,24 @@ namespace Back_end.UnitTests
         {
             // Arrange
             
-            Recipe recipe = new Recipe();
-            recipe.id = 1;
-            recipe.creatorId = 1;
-            recipe.name = "test";
-            recipe.description = "test";
-            recipe.rating = 2.0F;
-            recipe.tag = "test";
+            Recipe tmpRecipe = new Recipe
+            {
+                id = 1,
+                creatorId = 1,
+                name = "test",
+                description = "test",
+                rating = 2.0F,
+                tag = "test"
+            };
             var repositoryStub = new Mock<IRecipeRepo>();
             var recipeRepo = new MockRecipeRepo();
-            repositoryStub.Setup(repo => repo.GetRecipeById(1)).Returns(recipe);
+            repositoryStub.Setup(repo => repo.GetRecipes()).Returns(recipeRepo.GetRecipes());
             var controller = new AdminManageRecipeController(recipeRepo);
             // Act
-            var result = controller.updateRecipe(recipe).Result as OkObjectResult;
-            var comparer = new RecipeComparer();
-            bool areEqual = comparer.Equals(repositoryStub.Object.GetRecipeById(1), (Recipe)result.Value);
+            var result = controller.updateRecipe(tmpRecipe).Result as OkObjectResult;
+            var tmpR = recipeRepo.UpdateRecipeById(tmpRecipe.id, tmpRecipe.creatorId, tmpRecipe.name, tmpRecipe.description, tmpRecipe.rating, tmpRecipe.tag);
             // Assert
-            Assert.True(areEqual);
+            result.Value.Should().BeEquivalentTo(tmpR, options => options.ComparingByMembers<User>());
 
         }
     }

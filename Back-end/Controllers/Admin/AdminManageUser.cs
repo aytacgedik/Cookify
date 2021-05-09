@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using Back_end.Data;
 using Back_end.Models;
 using Microsoft.AspNetCore.Mvc;
+using Back_end.Dtos;
+using System.Linq;
 //Keeping this as example. This gonna be deleted later.
 namespace Back_end.Controllers
 {
@@ -15,31 +17,44 @@ namespace Back_end.Controllers
             _repository=repository;
         }
         [HttpGet]
-        public ActionResult<IEnumerable<User>> GetAllUsers()
+        public ActionResult<IEnumerable<UserDto>> GetAllUsers()
         {
-            var users=_repository.GetUsers();
-
-            return Ok(users);
+            var users = _repository.GetUsers();
+            if (users == null) {
+                return NotFound();
+            }
+            var usersDto = users.Select(x => x.AsDto()).ToList();
+            return Ok(usersDto);
 
         }
         [HttpGet("{id}")]
-         public ActionResult<User> GetAllUsers(int id)
+         public ActionResult<UserDto> GetAllUsers(int id)
         {
             var user=_repository.GetUserById(id);
-            return Ok(user);
+            if (user == null) {
+                return NotFound();
+            }
+            return Ok(user.AsDto());
         }
         [HttpDelete("{id}")]
-        public ActionResult<IEnumerable<User>> RemoveUser(int id)
+        public ActionResult<IEnumerable<UserDto>> RemoveUser(int id)
         {
             var users = _repository.RemoveUserById(id);
-            return Ok(users);
+            if (users == null) {
+                return NotFound();
+            }
+            var usersDto = users.Select(x => x.AsDto()).ToList();
+            return Ok(usersDto);
         }
 
         [HttpPatch("{id}")]
-        public ActionResult<User> updateUser([FromBody] User _user)
+        public ActionResult<UserDto> updateUser([FromBody] User _user)
         {
             var user = _repository.UpdateUserById(_user.id,_user.name,_user.surname,_user.email,_user.verified,_user.admin);
-            return Ok(user);
+            if (user == null) {
+                return NotFound();
+            }
+            return Ok(user.AsDto());
         }
         
     }
