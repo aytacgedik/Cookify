@@ -21,6 +21,7 @@ namespace Back_end.IntegrationTests
     {
 
         //set true if you are testing for local docker. However using local docker may cause exceptions about SSL.
+        //ofc it is windows issue https://stackoverflow.com/questions/64610237/net-5-0-cannot-determine-the-frame-size-or-a-corrupted-frame-was-received
         readonly bool DOCKER = false;
         protected readonly HttpClient TestClient;
         //protected readonly string  ApiRoute = "http://localhost:5001/";
@@ -28,7 +29,8 @@ namespace Back_end.IntegrationTests
         {
             if(DOCKER)
                 TestClient = new HttpClient(){
-                BaseAddress = new Uri("https://localhost:5000")
+                BaseAddress = new Uri("https://localhost:5000"),
+                
                 };
             else  
                 TestClient = new HttpClient(){

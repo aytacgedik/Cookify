@@ -11,7 +11,7 @@ using Back_end.Dtos;
 
 namespace Back_end.IntegrationTests
 {
-    public class RecipeControllerTests : IntegrationTest
+    public class RecipeIntegrationTests : IntegrationTest
     {
         [Fact]
         public async Task Get_WithoutId_ReturnsOK()
