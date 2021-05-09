@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Back_end.Models;
+using System.Linq;
 
 namespace Back_end.Data
 {
@@ -45,6 +46,8 @@ namespace Back_end.Data
         }
 
         public IEnumerable<Recipe> DeleteRecipeById(int id) {
+            if(repo.All(x=>x.id != id ))
+                return null;
             var toremove = repo.Find(x => x.id == id);
             if(toremove!=null)
                 repo.Remove(toremove);
@@ -68,6 +71,8 @@ namespace Back_end.Data
 
         public IEnumerable<Recipe> CreateRecipe(Recipe r)
         {
+            if(repo.Any(x=> x.id == r.id))
+                return null;
             repo.Add(new Recipe{id=r.id,creatorId=r.creatorId,name
             =r.name,description=r.description,rating=r.rating,tag=r.tag});
             return repo;

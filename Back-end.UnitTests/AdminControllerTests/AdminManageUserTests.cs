@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using FluentAssertions;
 
+using Back_end.Dtos;
+
 namespace Back_end.UnitTests
 {
     
@@ -34,21 +36,19 @@ namespace Back_end.UnitTests
         [Fact]
         public void DeleteUserTest()
         {
-            // Arrange
+            //Arrange
             var repositoryStub = new Mock<IUserRepo>();
-            var userRepo = new MockUserRepo();
-            repositoryStub.Setup(repo => repo.GetUsers()).Returns(userRepo.GetUsers());
-            var controller = new AdminManageUserController(userRepo);
-            var users = (List<User>)userRepo.GetUsers();
-            users.RemoveAt(users.FindIndex(u => u.id == 1));
-            var tmpList = users.Select(x => x.AsDto()).ToList();
-            
-            // Act
+            var mockUserRepo = new MockUserRepo();
+            repositoryStub.Setup(repo => repo.GetUsers()).Returns(mockUserRepo.GetUsers());
+            var mockUserRepo2 = new MockUserRepo();
+            var controller = new AdminManageUserController(mockUserRepo);
+
+            //Act
             var result = controller.RemoveUser(1).Result as OkObjectResult;
-            var areEqual = Enumerable.SequenceEqual(tmpList, (IEnumerable<UserDto>)result.Value, new UserDtoComparer());
-            
-            // Assert
-            Assert.True(areEqual);
+            var tmp = mockUserRepo2.RemoveUserById(1).Select(x => x.AsDto());
+
+            //Assert
+            result.Value.Should().BeEquivalentTo(tmp, options => options.ComparingByMembers<UserDto>());
         }
 
         [Fact]

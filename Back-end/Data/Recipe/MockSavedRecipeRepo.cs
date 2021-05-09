@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Back_end.Models;
+using System.Linq;
 
 namespace Back_end.Data
 {
@@ -26,6 +27,8 @@ namespace Back_end.Data
         }
         public IEnumerable<SavedRecipe> CreateSavedRecipe(SavedRecipe r)
         {
+            if(repo.Any(x=>x.id == r.id))
+                return null;
             repo.Add(r);
             return repo;
         }

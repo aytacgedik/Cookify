@@ -19,9 +19,12 @@ namespace Back_end.Controllers
             _recipeRepository = recipeRepository;
             _userRepository = userRepository;
         }
+        
 
-        public RecipeController(ISavedRecipeRepo repo)
+        public RecipeController(IRecipeRepo recipeRepository,IUserRepo userRepository,ISavedRecipeRepo repo)
         {
+            _recipeRepository = recipeRepository;
+            _userRepository = userRepository;
             _savedRecipeRepository = repo;
         }
         
