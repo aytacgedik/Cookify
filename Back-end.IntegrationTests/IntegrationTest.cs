@@ -19,23 +19,21 @@ namespace Back_end.IntegrationTests
 {
     public class IntegrationTest
     {
-        
+
+        //set true if you are testing for local docker. However using local docker may cause exceptions about SSL.
+        readonly bool DOCKER = false;
         protected readonly HttpClient TestClient;
         //protected readonly string  ApiRoute = "http://localhost:5001/";
         protected IntegrationTest()
         {
-            // var appFactory = new WebApplicationFactory<Startup>().WithWebHostBuilder(builder =>
-            //         {
-            //             builder.ConfigureServices(services =>
-            //             {
-            //                 services.RemoveAll(typeof(CookifyContext));
-            //                 services.AddDbContext<CookifyContext>(options=> {options.UseInMemoryDatabase("testDB");});
-            //             });
-            //         });
-            //TestClient = appFactory.CreateClient();//Set the Base Address when you need to test to remote server
-            TestClient = new HttpClient(){
-                BaseAddress = new Uri("https://cookify.azurewebsites.net"),
-            };
+            if(DOCKER)
+                TestClient = new HttpClient(){
+                BaseAddress = new Uri("https://localhost:5000")
+                };
+            else  
+                TestClient = new HttpClient(){
+                BaseAddress = new Uri("https://cookify.azurewebsites.net")
+                };
             
         }
 

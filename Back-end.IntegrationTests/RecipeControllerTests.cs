@@ -68,14 +68,15 @@ namespace Back_end.IntegrationTests
         public async Task updateRecipe_ReturnsOK()
         {
             await AuthenticateAsync();
-            var response = await TestClient.PutAsJsonAsync("api/recipes/",                 
-            new Recipe{id=2,
+            var response = await TestClient.PatchAsync("api/recipes/",JsonContent.Create<Recipe>(new Recipe{id=2,
                         creatorId=2,
                         name="Imam bayildi",
                         description="Eggplants stuffed with minced meat",
                         rating=10.0F,
                         tag="Turkish Cuisine"
-                        });
+                        }));
+
+            //var responseResult = await response.Content.ReadAsStringAsync();
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
