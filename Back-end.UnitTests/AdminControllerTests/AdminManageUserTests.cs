@@ -26,9 +26,9 @@ namespace Back_end.UnitTests
             // Act
             var result = controller.GetAllUsers().Result as OkObjectResult;
             var tmpList = userRepo.GetUsers().Select(x => x.AsDto()).ToList();
-            var areEqual = Enumerable.SequenceEqual(tmpList, (IEnumerable<UserDto>)result.Value, new UserDtoComparer());
             // Assert
-            Assert.True(areEqual);
+            result.Value.Should().BeEquivalentTo(tmpList, opt => opt.ComparingByMembers<UserDto>());
+            //Assert.True(areEqual);
         }
 
         [Fact]
