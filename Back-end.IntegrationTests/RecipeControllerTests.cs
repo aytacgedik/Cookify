@@ -67,6 +67,7 @@ namespace Back_end.IntegrationTests
         [Fact]
         public async Task updateRecipe_ReturnsOK()
         {
+
             await AuthenticateAsync();
             var response = await TestClient.PatchAsync("api/recipes/",JsonContent.Create<Recipe>(new Recipe{id=2,
                         creatorId=2,
@@ -78,6 +79,7 @@ namespace Back_end.IntegrationTests
 
             //var responseResult = await response.Content.ReadAsStringAsync();
             response.StatusCode.Should().Be(HttpStatusCode.OK);
+
         }
 
         [Fact]
