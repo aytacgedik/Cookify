@@ -29,12 +29,23 @@ namespace Back_end.IntegrationTests
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
-        // [Fact]
-        // public async Task updateUser_ReturnOK()
-        // {
-        //     await AuthenticateAsync();
-        //     var response = await TestClient.PatchAsync
-        // }
+        [Fact]
+        public async Task updateUser_ReturnOK()
+        {
+            await AuthenticateAsync();
+            var response = await TestClient.PatchAsync("api/users/1",
+                                                       JsonContent.Create<User>(new User
+                                                       {
+                                                           id = 1,
+                                                           name = "CHANGEDATTRIBUTE_NAME",
+                                                           surname = "CHANGEDATTRIBUTE_SURNAME",
+                                                           email = "james@gg.com",
+                                                           verified = true,
+                                                           admin = false
+                                                       }));
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
 
         [Fact]
         public async Task removeUser_ReturnOK()

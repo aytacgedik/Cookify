@@ -25,11 +25,12 @@ namespace Back_end.IntegrationTests
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
-        // public async Task removeUser_ReturnOK()
-        // {
-        //     await AuthenticateAsync();
-        //     var response = await TestClient.DeleteAsync("api/users/",,);
-        //     response.StatusCode.Should().Be(HttpStatusCode.OK);
-        // }
+        [Fact]
+        public async Task removeUser_ReturnOK()
+        {
+            await AuthenticateAsync();
+            var response = await TestClient.DeleteAsync("api/user_friends/?userFollowerId=1&userFollowedId=3");
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
     }
 }
