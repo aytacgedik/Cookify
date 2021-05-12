@@ -14,7 +14,6 @@ export default function Ingredients() {
         setCards(res.data);
       })
   }, [])
-
   return cards.map(card => <IngredientCard name={card.name} />);
 }
 
