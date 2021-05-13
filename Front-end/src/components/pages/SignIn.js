@@ -1,24 +1,15 @@
 import React, { Component } from "react";
 import '../../index.css'
 import '../../App.css'
-import './SignInUp.css'
-export default class SignUp extends Component {
+import  './SignInUp.css'
+export default class SignIn extends Component {
     render() {
         return (
             <div className="auth-wrapper">
             <div className="auth-inner">
             <form>
-                <h3>Sign Up</h3>
-
-                <div className="cookify-form-group">
-                    <label>First name</label>
-                    <input type="text" className="cookify-form-control" placeholder="First name" />
-                </div>
-
-                <div className="cookify-form-group">
-                    <label>Last name</label>
-                    <input type="text" className="cookify-form-control" placeholder="Last name" />
-                </div>
+                
+                <h3>Sign In</h3>
 
                 <div className="cookify-form-group">
                     <label>Email address</label>
@@ -30,9 +21,14 @@ export default class SignUp extends Component {
                     <input type="password" className="cookify-form-control" placeholder="Enter password" />
                 </div>
 
-                <button type="submit" className="cookify-btn cookify-btn-primary cookify-btn-block">Sign Up</button>
+                <div className="cookify-form-group cookify-form-check">
+                    <input type="checkbox" className="cookify-form-check-input" id="customCheck1" />
+                    <label className="cookify-form-check-label" htmlFor="customCheck1">Remember me</label>
+                </div>
+
+                <button type="submit" className="cookify-btn cookify-btn-primary cookify-btn-block">Submit</button>
                 <p className="forgot-password text-right">
-                    Already registered <a href="/sign-in">sign in?</a>
+                    Forgot <a href="#">password?</a>
                 </p>
             </form>
             </div>

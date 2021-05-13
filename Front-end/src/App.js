@@ -7,6 +7,7 @@ import Users from './components/pages/Users';
 import Recipes from './components/pages/Recipes';
 import Ingredients from './components/pages/Ingredients';
 import SignUp from './components/pages/SignUp';
+import SignIn from './components/pages/SignIn';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path='/recipes' component={Recipes} />
           <Route path='/ingredients' component={Ingredients} />
           <Route path='/sign-up' component={SignUp} />
+          <Route path='/sign-in' component={SignIn} />
         </Switch>
       </Router>
     </>
