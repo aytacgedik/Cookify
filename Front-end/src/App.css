@@ -18,7 +18,7 @@
 }
 
 .users {
-  background-image: url('C:/Users/aytac/react/cookify-website/src/images/img-10.jpg');
+  background-image: url('images/img-10.jpg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -27,15 +27,15 @@
 }
 
 .recipes {
-  background-image: url('C:/Users/aytac/react/cookify-website/src/images/img-1.jpg');
+  background-image: url('images/img-1.jpg');
   background-position: center;
   background-size: fill;
   background-repeat: no-repeat;
   color: rgb(128, 17, 17);
-  font-size: 100px;
+  font-size: 30px;
 }
 .ingredients {
-  background-image: url('C:/Users/aytac/react/cookify-website/src/images/img-1.jpg');
+  background-image: url('images/img-1.jpg');
   background-position: center;
   background-size: fill;
   background-repeat: no-repeat;
@@ -43,7 +43,7 @@
   font-size: 100px;
 }
 .sign-up {
-  background-image: url('C:/Users/aytac/react/cookify-website/src/images/img-8.jpg');
+  background-image: url('images/img-8.jpg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
