@@ -8,10 +8,14 @@ import Recipes from './components/pages/Recipes';
 import Ingredients from './components/pages/Ingredients';
 import SignUp from './components/pages/SignUp';
 import SignIn from './components/pages/SignIn';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import loginReducer from './reducers/loginReducer';
 
+const myStore = createStore(loginReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 function App() {
   return (
-    <>
+    <Provider store={myStore}>
       <Router>
         <Navbar />
         <Switch>
@@ -23,7 +27,7 @@ function App() {
           <Route path='/sign-in' component={SignIn} />
         </Switch>
       </Router>
-    </>
+    </Provider>
   );
 }
 
