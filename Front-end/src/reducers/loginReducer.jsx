@@ -18,6 +18,6 @@ function loginReducer(state = initialState, action)
     return {
         ...state,
         isLoggedIn: newIsLoggedIn
-    }
+    };
 }
 export default loginReducer
