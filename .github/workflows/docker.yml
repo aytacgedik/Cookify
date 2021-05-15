@@ -1,4 +1,7 @@
 name: Publish Docker image
+defaults:
+  run:
+    working-directory: ./Back-end
 on:
   release:
     types: [published]
