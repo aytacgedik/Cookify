@@ -1,0 +1,421 @@
+{
+  "id": "b185ca61-9cd5-4fbd-9f65-1663b01a2fff",
+  "version": "2.0",
+  "name": "Cookify-UITest",
+  "url": "http://localhost:3000",
+  "tests": [{
+    "id": "eeee8ea8-f4b9-4e16-b4a7-4d28eb632d40",
+    "name": "LoginTest",
+    "commands": [{
+      "id": "a732b277-16f2-4994-825d-d9152f2bc8be",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8f85d5bd-4bfe-44a3-8067-b154fcc2ec4b",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1382x784",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "59e29326-28c2-49f3-bdfe-146dca07a1c5",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-mobile:nth-child(5) > .btn",
+      "targets": [
+        ["css=.btn-mobile:nth-child(5) > .btn", "css:finder"],
+        ["xpath=//div[@id='root']/nav/div/a[3]/button", "xpath:idRelative"],
+        ["xpath=//a[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'SIGN IN')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5556c2b7-015d-4ecf-94f2-ef79f1acc0fb",
+      "comment": "",
+      "command": "click",
+      "target": "css=.cookify-form-group:nth-child(2) > .cookify-form-control",
+      "targets": [
+        ["css=.cookify-form-group:nth-child(2) > .cookify-form-control", "css:finder"],
+        ["xpath=//input[@type='email']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2a03a893-bae8-44bb-814f-3a2ed1450ff0",
+      "comment": "",
+      "command": "click",
+      "target": "css=.cookify-form-group:nth-child(2) > .cookify-form-control",
+      "targets": [
+        ["css=.cookify-form-group:nth-child(2) > .cookify-form-control", "css:finder"],
+        ["xpath=//input[@type='email']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c6765ddf-26de-4547-a56a-1fec1a462b95",
+      "comment": "",
+      "command": "type",
+      "target": "css=.cookify-form-group:nth-child(2) > .cookify-form-control",
+      "targets": [
+        ["css=.cookify-form-group:nth-child(2) > .cookify-form-control", "css:finder"],
+        ["xpath=//input[@type='email']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "james@gg.com"
+    }, {
+      "id": "5e02fe82-c031-4ee3-8fb5-416492fbfab4",
+      "comment": "",
+      "command": "click",
+      "target": "css=.cookify-btn",
+      "targets": [
+        ["css=.cookify-btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "677414b9-b431-4e9a-8cae-e7040ecaf5e9",
+    "name": "LogoutTest",
+    "commands": [{
+      "id": "ee8953a3-9319-43c0-b0c1-7c8eba67167e",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5220e580-47be-4654-b071-1b222874c7c0",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1382x784",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cfc7a348-24eb-480d-823a-481de5fded2e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-mobile:nth-child(5) > .btn",
+      "targets": [
+        ["css=.btn-mobile:nth-child(5) > .btn", "css:finder"],
+        ["xpath=//div[@id='root']/nav/div/a[3]/button", "xpath:idRelative"],
+        ["xpath=//a[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'SIGN IN')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a997bcb9-609e-4fc1-931d-2bfbd199c780",
+      "comment": "",
+      "command": "click",
+      "target": "css=.cookify-form-group:nth-child(2) > .cookify-form-control",
+      "targets": [
+        ["css=.cookify-form-group:nth-child(2) > .cookify-form-control", "css:finder"],
+        ["xpath=//input[@type='email']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "71b3941a-3a44-4fe3-9213-418fa44de910",
+      "comment": "",
+      "command": "type",
+      "target": "css=.cookify-form-group:nth-child(2) > .cookify-form-control",
+      "targets": [
+        ["css=.cookify-form-group:nth-child(2) > .cookify-form-control", "css:finder"],
+        ["xpath=//input[@type='email']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "james@gg.com"
+    }, {
+      "id": "92c1181f-a1ac-40c2-b48c-4a0a95caa0a8",
+      "comment": "",
+      "command": "click",
+      "target": "css=.cookify-btn",
+      "targets": [
+        ["css=.cookify-btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "715cef03-1f28-406a-b780-f9abdb7550c2",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//div[@id='root']/nav/div/a[2]/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'LOG OUT')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "996399f4-34c6-403e-83c6-02b139904dc2",
+    "name": "RecipesTest",
+    "commands": [{
+      "id": "4210484d-d734-4bf2-9faf-eaf5dd0b66a1",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4e8f2a29-1184-4b88-b87a-b761094508f0",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1382x784",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "909bde5b-df7a-422d-b9ab-4560f93abf06",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-mobile:nth-child(5) > .btn",
+      "targets": [
+        ["css=.btn-mobile:nth-child(5) > .btn", "css:finder"],
+        ["xpath=//div[@id='root']/nav/div/a[3]/button", "xpath:idRelative"],
+        ["xpath=//a[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'SIGN IN')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4d79f6e5-12b8-4e12-b0b2-e030cddcfcab",
+      "comment": "",
+      "command": "click",
+      "target": "css=.cookify-form-group:nth-child(2) > .cookify-form-control",
+      "targets": [
+        ["css=.cookify-form-group:nth-child(2) > .cookify-form-control", "css:finder"],
+        ["xpath=//input[@type='email']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "48b77747-cee4-494c-9aaf-60e95b2292bd",
+      "comment": "",
+      "command": "type",
+      "target": "css=.cookify-form-group:nth-child(2) > .cookify-form-control",
+      "targets": [
+        ["css=.cookify-form-group:nth-child(2) > .cookify-form-control", "css:finder"],
+        ["xpath=//input[@type='email']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "james@gg.com"
+    }, {
+      "id": "e44508e4-5dd9-4cb0-a47f-5d7174cafb5f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.cookify-btn",
+      "targets": [
+        ["css=.cookify-btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b552c681-6612-4a1a-bf08-262a1f99b74b",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Recipes",
+      "targets": [
+        ["linkText=Recipes", "linkText"],
+        ["css=.nav-item:nth-child(2) > .nav-links", "css:finder"],
+        ["xpath=//a[contains(text(),'Recipes')]", "xpath:link"],
+        ["xpath=//div[@id='root']/nav/div/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/recipes')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Recipes')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "522d968b-af09-41c9-a1ff-e1f65fcbdb33",
+    "name": "IngredientsTest",
+    "commands": [{
+      "id": "3e81d5e6-06ee-49c9-a2f8-c658184f2604",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b5bd3b6a-ad73-4944-b5c5-dd5ed286a2c8",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1382x784",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1dcf0d90-5daa-45cd-a660-12d22241db4d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-mobile:nth-child(5) > .btn",
+      "targets": [
+        ["css=.btn-mobile:nth-child(5) > .btn", "css:finder"],
+        ["xpath=//div[@id='root']/nav/div/a[3]/button", "xpath:idRelative"],
+        ["xpath=//a[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'SIGN IN')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3d3a687d-b77f-495f-aad6-88071d362ad0",
+      "comment": "",
+      "command": "click",
+      "target": "css=.cookify-form-group:nth-child(2) > .cookify-form-control",
+      "targets": [
+        ["css=.cookify-form-group:nth-child(2) > .cookify-form-control", "css:finder"],
+        ["xpath=//input[@type='email']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "952e56e9-e3c9-4631-ad2e-403a1e504ece",
+      "comment": "",
+      "command": "type",
+      "target": "css=.cookify-form-group:nth-child(2) > .cookify-form-control",
+      "targets": [
+        ["css=.cookify-form-group:nth-child(2) > .cookify-form-control", "css:finder"],
+        ["xpath=//input[@type='email']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "james@gg.com"
+    }, {
+      "id": "7378aab7-1577-4f7c-b49d-a729db3472a4",
+      "comment": "",
+      "command": "click",
+      "target": "css=.cookify-btn",
+      "targets": [
+        ["css=.cookify-btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cbbc63d8-18c0-41ed-b8b3-f3059b699f1c",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Ingredients",
+      "targets": [
+        ["linkText=Ingredients", "linkText"],
+        ["css=.nav-item:nth-child(3) > .nav-links", "css:finder"],
+        ["xpath=//a[contains(text(),'Ingredients')]", "xpath:link"],
+        ["xpath=//div[@id='root']/nav/div/ul/li[3]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/ingredients')]", "xpath:href"],
+        ["xpath=//li[3]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Ingredients')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "8e25b16f-bdd5-42dd-8a0b-57075e156bd4",
+    "name": "UsersTest",
+    "commands": [{
+      "id": "1125e516-d7cb-4b4b-acab-ddc29aeb12dd",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d0b2e6cc-f756-4a7d-a525-d9b402f029e1",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1382x784",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0c06ef9d-3112-4e02-af6a-b366ad691c51",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn-mobile:nth-child(5) > .btn",
+      "targets": [
+        ["css=.btn-mobile:nth-child(5) > .btn", "css:finder"],
+        ["xpath=//div[@id='root']/nav/div/a[3]/button", "xpath:idRelative"],
+        ["xpath=//a[3]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'SIGN IN')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b216f81c-0b19-4eee-bb9a-1d38fbe23b00",
+      "comment": "",
+      "command": "click",
+      "target": "css=.cookify-form-group:nth-child(2) > .cookify-form-control",
+      "targets": [
+        ["css=.cookify-form-group:nth-child(2) > .cookify-form-control", "css:finder"],
+        ["xpath=//input[@type='email']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9c60bf0f-1ec7-4aa0-b8ee-c198b4c6b165",
+      "comment": "",
+      "command": "type",
+      "target": "css=.cookify-form-group:nth-child(2) > .cookify-form-control",
+      "targets": [
+        ["css=.cookify-form-group:nth-child(2) > .cookify-form-control", "css:finder"],
+        ["xpath=//input[@type='email']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "james@gg.com"
+    }, {
+      "id": "fa1112b9-c562-4865-8954-81616c2db844",
+      "comment": "",
+      "command": "click",
+      "target": "css=.cookify-btn",
+      "targets": [
+        ["css=.cookify-btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Submit')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a26a4be8-d25d-4040-b768-c6f3e7164b9e",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Cooks",
+      "targets": [
+        ["linkText=Cooks", "linkText"],
+        ["css=.nav-item:nth-child(4) > .nav-links", "css:finder"],
+        ["xpath=//a[contains(text(),'Cooks')]", "xpath:link"],
+        ["xpath=//div[@id='root']/nav/div/ul/li[4]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/users')]", "xpath:href"],
+        ["xpath=//li[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Cooks')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "9619c57f-2719-4cb8-a84e-5c0b7ee10fe0",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://localhost:3000/"],
+  "plugins": []
+}
