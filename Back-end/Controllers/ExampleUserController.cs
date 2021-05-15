@@ -24,7 +24,6 @@ namespace Back_end.Controllers
                 return NotFound();
             var usersDto=users.Select(x=>x.AsDto()).ToList();
             return Ok(usersDto);
-
         }
         [HttpGet("{id}")]
         public ActionResult<User> GetAllUsers(int id)
