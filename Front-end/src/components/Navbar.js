@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from './Button';
+import { SignInButton } from './SignInButton';
+import { SignUpButton } from './SignUpButton';
+import SignOutButton from './SignOutButton';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
+import {connect} from 'react-redux';
 
-function Navbar() {
+const mapStateToProps = (state) => {
+  return {
+      isLoggedIn: state.isLoggedIn
+  }
+}
+
+
+const Navbar = (props) => {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
 
@@ -79,11 +89,13 @@ function Navbar() {
               </Link>
             </li>
           </ul>
-          {button && <Button buttonStyle='btn--outline'>SIGN UP</Button>}
+          {button && !props.isLoggedIn && <SignUpButton buttonStyle='btn--outline'>SIGN UP</SignUpButton>}
+          {button && !props.isLoggedIn && <SignInButton buttonStyle='btn--outline'>SIGN IN</SignInButton>}
+          {button && props.isLoggedIn &&<SignOutButton buttonStyle='btn--outline'>LOG OUT</SignOutButton>}
         </div>
       </nav>
     </>
   );
 }
 
-export default Navbar;
+export default connect(mapStateToProps)(Navbar);

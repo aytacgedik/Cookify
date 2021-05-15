@@ -8,8 +8,8 @@
 .home,
 .users,
 .recipes,
-.ingredients,
-.sign-up {
+.ingredients
+{
   display: flex;
   height: 90vh;
   align-items: center;
@@ -47,6 +47,4 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  color: rgb(153, 25, 25);
-  font-size: 50px;
 }
