@@ -30,8 +30,8 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: Back-end/
-          file: Back-end/Dockerfile
+          context: ./Back-end/
+          file: ./Back-end/Dockerfile
           push: true
           tags: aytacg/catalog
       -
