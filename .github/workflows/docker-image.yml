@@ -16,5 +16,25 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build Back-end/ --tag aytacg/back-end:latest
+      run: docker build Back-end/ --tag aytacg/catalog:latest
+      
+  docker-login:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Login Docker Hub
+      - uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+          
+  push:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker push aytacg/catalog:latest
+
 
