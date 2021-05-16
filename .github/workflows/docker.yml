@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./Back-end
+        working-directory: Back-end/
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
