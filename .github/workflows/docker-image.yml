@@ -1,7 +1,4 @@
 name: Build and Push
-defaults:
-  run:
-    working-directory: Back-end/
 
 on:
   push:
@@ -11,6 +8,8 @@ on:
 
 jobs:
   docker:
+    env:
+      working-directory: ./Back-end
     runs-on: ubuntu-latest
     steps:
       -
