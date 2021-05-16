@@ -23,7 +23,7 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-    - name: Push to DockerHub
+    - name: Login to DockerHub
       run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}          
   push:
 
