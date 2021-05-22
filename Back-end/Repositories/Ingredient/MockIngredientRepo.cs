@@ -15,21 +15,15 @@ namespace Back_end.Data
             };
 
         }
-        public Ingredient GetIngredientById(int id)
+
+        public DatabaseModels.Ingredient GetIngredientById(int id)
         {
-            foreach (var ingredient in repo)
-            {
-                if (ingredient.id == id)
-                {
-                    return ingredient;
-                }
-            }
-            return null;
+            throw new System.NotImplementedException();
         }
 
-        public IEnumerable<Ingredient> GetIngredients()
+        public IEnumerable<DatabaseModels.Ingredient> GetIngredients()
         {
-            return repo;
+            throw new System.NotImplementedException();
         }
     }
 }

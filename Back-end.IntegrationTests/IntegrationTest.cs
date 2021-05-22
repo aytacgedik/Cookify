@@ -34,7 +34,7 @@ namespace Back_end.IntegrationTests
                 };
             else  
                 TestClient = new HttpClient(){
-                BaseAddress = new Uri("https://cookify.azurewebsites.net")
+                BaseAddress = new Uri("https://se2-h-backend.herokuapp.com/")
                 };
             
         }
@@ -49,7 +49,8 @@ namespace Back_end.IntegrationTests
 
         protected async Task AuthenticateAsync()
         {
-            TestClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer",await GetJwtAsync());
+            await TestClient.GetAsync("api/auth/off");
+            //TestClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer",await GetJwtAsync());
         }
 
         private async Task<string> GetJwtAsync()

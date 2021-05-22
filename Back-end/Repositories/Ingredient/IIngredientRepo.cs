@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Back_end.Models;
+using Back_end.DatabaseModels;
 
 namespace Back_end.Data
 {

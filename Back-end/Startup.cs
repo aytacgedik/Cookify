@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Back_end.Data;
+using Back_end.DatabaseModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -16,6 +17,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Back_end.Controllers;
+using Back_end.Services;
 
 namespace Back_end
 {
@@ -39,11 +41,17 @@ namespace Back_end
             });
 
             //Change this later
+            services.AddDbContext<CookifyContext>();
             services.AddScoped<IUserRepo,MockUserRepo>();
             services.AddScoped<IUserFriendRepo,MockUserFriendRepo>();
             services.AddScoped<IRecipeRepo,MockRecipeRepo>();
             services.AddScoped<ISavedRecipeRepo,MockSavedRecipeRepo>();
             services.AddScoped<IIngredientRepo, MockIngredientRepo>();
+            services.AddScoped<IRecipeService,RecipeServices>();
+            services.AddScoped<IUserService,UserServices>();
+            
+
+            
 
             var key = "this is a string used for encrypt and decrypt token";
             services.AddAuthentication(x =>

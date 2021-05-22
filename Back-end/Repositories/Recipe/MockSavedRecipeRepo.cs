@@ -25,18 +25,15 @@ namespace Back_end.Data
             };
             
         }
-        public IEnumerable<SavedRecipe> CreateSavedRecipe(SavedRecipe r)
+
+        public IEnumerable<DatabaseModels.SavedRecipe> CreateSavedRecipe(DatabaseModels.SavedRecipe r)
         {
-            if(repo.Any(x=>x.id == r.id))
-                return null;
-            repo.Add(r);
-            return repo;
+            throw new System.NotImplementedException();
         }
 
-        public IEnumerable<SavedRecipe> GetSavedRecipes()
+        public IEnumerable<DatabaseModels.SavedRecipe> GetSavedRecipes()
         {
-            return repo;
+            throw new System.NotImplementedException();
         }
-        
     }
 }

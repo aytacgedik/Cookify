@@ -4,7 +4,7 @@ using FluentAssertions;
 using System.Net;
 using Back_end.Data;
 using System.Collections.Generic;
-using Back_end.Models;
+using Back_end.DatabaseModels;
 using System.Linq;
 using System.Net.Http.Json;
 using Back_end.Dtos;
@@ -17,7 +17,7 @@ namespace Back_end.IntegrationTests
         public async Task Get_WithoutId_ReturnsOK()
         {
             //Arrange
-            var mockRecipeRepo = new  MockRecipeRepo();
+            //var mockRecipeRepo = new  MockRecipeRepo();
             await AuthenticateAsync();
             //Act
             var response = await TestClient.GetAsync("api/recipes");
@@ -38,12 +38,12 @@ namespace Back_end.IntegrationTests
         public async Task createRecipe_ReturnsOK()
         {
             await AuthenticateAsync();
-            var response = await TestClient.PostAsJsonAsync("api/recipes/", new Recipe{id=5,
-                    creatorId=2,
-                    name="Kuru Fasulye",
-                    description="Beans Boiled with tomato sauce",
-                    rating=10.0F,
-                    tag="Turkish Cuisine"
+            var response = await TestClient.PostAsJsonAsync("api/recipes/", new Recipe{Id=5,
+                    CreatorId=2,
+                    Name="Kuru Fasulye",
+                    Description="Beans Boiled with tomato sauce",
+                    Rating=10.0M,
+                    Tag="Turkish Cuisine"
                 });
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
@@ -53,12 +53,12 @@ namespace Back_end.IntegrationTests
         public async Task createRecipe_ReturnsNotFound()
         {
             await AuthenticateAsync();
-            var response = await TestClient.PostAsJsonAsync("api/recipes/", new Recipe{id=1,
-                    creatorId=2,
-                    name="Kuru Fasulye",
-                    description="Beans Boiled with tomato sauce",
-                    rating=10.0F,
-                    tag="Turkish Cuisine"
+            var response = await TestClient.PostAsJsonAsync("api/recipes/", new Recipe{Id=1,
+                    CreatorId=2,
+                    Name="Kuru Fasulye",
+                    Description="Beans Boiled with tomato sauce",
+                    Rating=10.0M,
+                    Tag="Turkish Cuisine"
                 });
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
@@ -69,12 +69,12 @@ namespace Back_end.IntegrationTests
         {
 
             await AuthenticateAsync();
-            var response = await TestClient.PatchAsync("api/recipes/",JsonContent.Create<Recipe>(new Recipe{id=2,
-                        creatorId=2,
-                        name="Imam bayildi",
-                        description="Eggplants stuffed with minced meat",
-                        rating=10.0F,
-                        tag="Turkish Cuisine"
+            var response = await TestClient.PatchAsync("api/recipes/",JsonContent.Create<Recipe>(new Recipe{Id=2,
+                        CreatorId=2,
+                        Name="Imam bayildi",
+                        Description="Eggplants stuffed with minced meat",
+                        Rating=10.0M,
+                        Tag="Turkish Cuisine"
                         }));
 
             //var responseResult = await response.Content.ReadAsStringAsync();
@@ -106,12 +106,12 @@ namespace Back_end.IntegrationTests
         public async Task searchRecipes_ValidQuery_ReturnsOK()
         {
             await AuthenticateAsync();
-            var simitList = new List<Recipe>{ new Recipe{id=3,
-                            creatorId=3,
-                            name="Simit",
-                            description="Turkish bagel with sesame",
-                            rating=6.9F,
-                            tag="Turkish Cuisine"}}.Select(x=>x.AsDto());
+            var simitList = new List<Recipe>{ new Recipe{Id=3,
+                            CreatorId=3,
+                            Name="Simit",
+                            Description="Turkish bagel with sesame",
+                            Rating=6.9M,
+                            Tag="Turkish Cuisine"}}.Select(x=>x.AsDto());
             var response = await TestClient.GetAsync("api/recipes/search?query=Simit");
             response.StatusCode.Should().BeEquivalentTo(HttpStatusCode.OK);
             var returnedResponse = response.Content.ReadFromJsonAsync<List<RecipeDto>>().Result;
@@ -135,9 +135,9 @@ namespace Back_end.IntegrationTests
         {
             await AuthenticateAsync();
             var response = await TestClient.PostAsJsonAsync("api/saved_recipes", new SavedRecipe{
-                id=5,
-                userId=1,
-                recipeId=2
+                Id=5,
+                UserId=1,
+                RecipeId=2
             });
             response.StatusCode.Should().BeEquivalentTo(HttpStatusCode.OK);
         }

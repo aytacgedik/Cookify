@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Back_end.Models;
+using Back_end.DatabaseModels;
 
 namespace Back_end.Data
 {

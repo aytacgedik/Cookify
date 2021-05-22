@@ -22,18 +22,18 @@ namespace Back_end.Controllers
         public ActionResult<IEnumerable<IngredientDto>> searchIngredients([FromQuery]string query)
         {
             List<Ingredient> ingredientsToReturn = new List<Ingredient>();
-            if (!String.IsNullOrEmpty(query))
-            {
-                foreach (var ingredient in _ingredientRepository.GetIngredients())
-                {
-                    if (ingredient.name.Contains(query))
-                        ingredientsToReturn.Add(ingredient);
-                }
-            }
-            if (ingredientsToReturn == null)
-                return NotFound();
-            var ingredientsDtoToReturn = ingredientsToReturn.Select(x => x.AsDto()).ToList();
-            return Ok(ingredientsDtoToReturn);
+            // if (!String.IsNullOrEmpty(query))
+            // {
+            //     foreach (var ingredient in _ingredientRepository.GetIngredients())
+            //     {
+            //         if (ingredient.name.Contains(query))
+            //             ingredientsToReturn.Add(ingredient);
+            //     }
+            // }
+            // if (ingredientsToReturn == null)
+            //     return NotFound();
+            // var ingredientsDtoToReturn = ingredientsToReturn.Select(x => x.AsDto()).ToList();
+            return Ok(ingredientsToReturn);
         }
     }
 }

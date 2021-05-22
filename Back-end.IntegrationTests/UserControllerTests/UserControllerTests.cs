@@ -59,7 +59,7 @@ namespace Back_end.IntegrationTests
         public async Task GetUsers_WithoutId_ReturnsOK()
         {
             //Arrange
-            var mockRecipeRepo = new MockRecipeRepo();
+            //var mockRecipeRepo = new MockRecipeRepo();
             await AuthenticateAsync();
 
             //Act

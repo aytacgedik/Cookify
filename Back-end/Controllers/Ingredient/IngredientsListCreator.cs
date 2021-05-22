@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Back_end.Data;
-using Back_end.Models;
+using Back_end.DatabaseModels;
 using Back_end.Dtos;
+using Back_end.Data;
 
 namespace Back_end.Controllers
 {
@@ -13,6 +13,7 @@ namespace Back_end.Controllers
     [ApiController]
     public class IngredientsListCreator : IngredientController
     {
+
         public IngredientsListCreator(IRecipeRepo recipeRepository, IIngredientRepo ingredientRepository) : base(recipeRepository, ingredientRepository)
         {
 
@@ -22,17 +23,18 @@ namespace Back_end.Controllers
         public ActionResult<IEnumerable<IngredientDto>> generateList([FromQuery] int id)
         {
             List<Ingredient> ingredientsList = new List<Ingredient>();
-            foreach (var recipe in _recipeRepository.GetRecipes())
-            {
-                if (recipe.id == id)
-                {
-                    ingredientsList.Add(recipe.getRecipeIngredient());
-                }
-            }
-            if (ingredientsList == null)
-                return NotFound();
-            var ingredientsDtoList = ingredientsList.Select(x => x.AsDto()).ToList();
-            return Ok(ingredientsDtoList);
+            // foreach (var recipe in _recipeRepository.GetRecipes())
+            // {
+            //     if (recipe.id == id)
+            //     {
+            //         //getRecipeIngredient should be a function of IRecipeRepo then logic build here can be moved to IngredientService
+            //         ingredientsList.Add(recipe.getRecipeIngredient());
+            //     }
+            // }
+            // if (ingredientsList == null)
+            //     return NotFound();
+            // var ingredientsDtoList = ingredientsList.Select(x => x.AsDto()).ToList();
+            return Ok(ingredientsList);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Back_end.Controllers
 
         public string Authenticate(string email)
         {
-            if (!mockUserRepo.UserRepo.Any(u => u.email == email))
+            if (!mockUserRepo.UserRepo.Any(u => u.Email == email))
             {
                 return null;
             }
