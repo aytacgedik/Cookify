@@ -17,6 +17,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Back_end.Controllers;
 
+using Back_end.DatabaseModels;
+using Back_end.Services;
+
 namespace Back_end
 {
     public class Startup
@@ -39,11 +42,15 @@ namespace Back_end
             });
 
             //Change this later
+            services.AddDbContext<CookifyContext>();//NEW
+
             services.AddScoped<IUserRepo,MockUserRepo>();
             services.AddScoped<IUserFriendRepo,MockUserFriendRepo>();
             services.AddScoped<IRecipeRepo,MockRecipeRepo>();
             services.AddScoped<ISavedRecipeRepo,MockSavedRecipeRepo>();
             services.AddScoped<IIngredientRepo, MockIngredientRepo>();
+
+            services.AddScoped<IUserService,UserServices>();//NEW
 
             var key = "this is a string used for encrypt and decrypt token";
             services.AddAuthentication(x =>
