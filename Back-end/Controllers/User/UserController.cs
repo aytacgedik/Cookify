@@ -6,6 +6,7 @@ using Back_end.Data;
 using Back_end.Models;
 using Microsoft.AspNetCore.Mvc;
 using Back_end.Dtos;
+using Back_end.Services;
 
 namespace Back_end.Controllers
 {
@@ -13,10 +14,10 @@ namespace Back_end.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserRepo _repository;
-        public UserController(IUserRepo repository)
+        private readonly IUserService _userService;
+        public UserController(IUserService userService)
         {
-            _repository = repository;
+            _userService = userService;
         }
 
 
@@ -25,7 +26,7 @@ namespace Back_end.Controllers
         [HttpPost]
         public ActionResult<IEnumerable<UserDto>> createUser([FromBody] User _user)
         {
-            var users = _repository.CreateUser(_user.id,
+            var users = _userService.CreateUser(_user.id,
                                                _user.name,
                                                _user.surname,
                                                _user.email,
@@ -35,8 +36,8 @@ namespace Back_end.Controllers
             {
                 return NotFound();
             }
-            var usersDto = users.Select(x => x.AsDto()).ToList();
-            return Ok(usersDto);
+            
+            return Ok(users);
         }
 
 
@@ -45,13 +46,13 @@ namespace Back_end.Controllers
         [HttpDelete("{id}")]
         public ActionResult<IEnumerable<UserDto>> removeUser(int id)
         {
-            var users = _repository.RemoveUserById(id);
-            if (users == null)
-            {
-                return NotFound();
-            }
-            var usersDto = users.Select(x => x.AsDto()).ToList();
-            return Ok(usersDto);
+            //var users ;//= //_repository.RemoveUserById(id);
+            // if (users == null)
+            // {
+            //     return NotFound();
+            // }
+            // var usersDto = users.Select(x => x.AsDto()).ToList();
+            return Ok();
         }
 
 
@@ -60,17 +61,17 @@ namespace Back_end.Controllers
         [HttpPatch("{id}")]
         public ActionResult<UserDto> updateUser([FromBody] User _user)
         {
-            var user = _repository.UpdateUserById(_user.id,
-                                                  _user.name,
-                                                  _user.surname,
-                                                  _user.email,
-                                                  _user.verified,
-                                                  _user.admin);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return Ok(user.AsDto());
+            // var user = _repository.UpdateUserById(_user.id,
+            //                                       _user.name,
+            //                                       _user.surname,
+            //                                       _user.email,
+            //                                       _user.verified,
+            //                                       _user.admin);
+            // if (user == null)
+            // {
+            //     return NotFound();
+            // }
+             return Ok();
         }
 
 
@@ -79,12 +80,12 @@ namespace Back_end.Controllers
         [HttpGet("{id}")]
         public ActionResult<UserDto> getUser(int id)
         {
-            var user = _repository.GetUserById(id);
+            var user = _userService.GetUserById(id);
             if (user == null)
             {
                 return NotFound();
             }
-            return Ok(user.AsDto());
+            return Ok(user);
         }
 
 
@@ -92,13 +93,13 @@ namespace Back_end.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<UserDto>> GetAllUsers()
         {
-            var users = _repository.GetUsers();
-            if (users == null)
-            {
-                return NotFound();
-            }
-            var usersDto = users.Select(x => x.AsDto()).ToList();
-            return Ok(usersDto);
+            // var users = _repository.GetUsers();
+            // if (users == null)
+            // {
+            //     return NotFound();
+            // }
+            //var usersDto = users.Select(x => x.AsDto()).ToList();
+             return Ok();
         }
     }
 }

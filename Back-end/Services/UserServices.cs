@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Back_end.Data;
 using Back_end.Dtos;
 
@@ -14,12 +15,20 @@ namespace Back_end.Services
         }
         public IEnumerable<UserDto> CreateUser(int id, string name, string surname, string email, bool verified, bool admin)
         {
-            throw new System.NotImplementedException();
+            var users = _userRepository.CreateUser(id,
+                                       name,
+                                        surname,
+                                         email,
+                                         verified,
+                                          admin);
+            return users.Select(x => x.AsDto()).ToList();
+            
         }
 
         public UserDto GetUserById(int id)
         {
-            throw new System.NotImplementedException();
+            var user = _userRepository.GetUserById(id);
+            return user.AsDto();
         }
 
         public IEnumerable<UserDto> GetUsers()
