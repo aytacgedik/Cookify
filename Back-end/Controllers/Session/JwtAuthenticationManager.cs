@@ -12,9 +12,10 @@ namespace Back_end.Controllers
     {
         private readonly string key;
         private readonly CookifyContext _context;
-        public JwtAuthenticationManager(string key)
+        public JwtAuthenticationManager(string key, CookifyContext context)
         {
             this.key = key;
+            this._context = context;
         }
 
         public string Authenticate(string email)

@@ -71,7 +71,7 @@ namespace Back_end
                 };
             });
 
-            services.AddSingleton<IJwtAuthenticationManager>(new JwtAuthenticationManager(key));
+            services.AddSingleton<IJwtAuthenticationManager>(new JwtAuthenticationManager(key,new CookifyContext()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
