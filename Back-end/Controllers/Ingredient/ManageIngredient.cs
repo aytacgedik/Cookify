@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Back_end.Data;
 using Back_end.Dtos;
+using Back_end.Services;
 
 namespace Back_end.Controllers
 {
@@ -12,7 +13,7 @@ namespace Back_end.Controllers
     [ApiController]
     public class ManageIngredient : IngredientController
     {
-        public ManageIngredient(IRecipeRepo recipeRepository, IIngredientRepo ingredientRepository) : base(recipeRepository, ingredientRepository)
+        public ManageIngredient(IIngredientService ingredientService, IRecipeService recipeService) : base(ingredientService, recipeService)
         {
 
         }
@@ -21,21 +22,20 @@ namespace Back_end.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<IngredientDto>> getIngredients()
         {
-            var ingredients = base._ingredientRepository.GetIngredients();
+            var ingredients = _ingredientService.GetIngredients();
             if (ingredients == null)
                 return NotFound();
-            var ingredientsDto = ingredients.Select(x => x.AsDto()).ToList();
-            return Ok(ingredientsDto);
+            return Ok(ingredients);
         }
 
         //GET{id} - getIngredient()
         [HttpGet("{id}")]
         public ActionResult<IngredientDto> getIngredient(int id)
         {
-            var ingredient = base._ingredientRepository.GetIngredientById(id);
-            if (ingredient == null) 
-                return NotFound(); 
-            return Ok(ingredient.AsDto());
+            var ingredient = _ingredientService.GetIngredientById(id);
+            if (ingredient == null)
+                return NotFound();
+            return Ok(ingredient);
         }
     }
 }

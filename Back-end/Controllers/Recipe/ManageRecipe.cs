@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Back_end.Models;
+using Back_end.DatabaseModels;
 using System.Collections.Generic;
 using Back_end.Data;
 using System.Net.Mail;
@@ -24,7 +24,7 @@ namespace Back_end.Controllers
 
             try
             {
-                string subject = "New " + recipe.name + " available at Cookify" ;
+                string subject = "New " + recipe.Name + " available at Cookify" ;
                 string body =  text + ",\n" + "Cookify team";
                 string FromMail = "cookify@gmail.com";
                 string emailTo = tomail;
