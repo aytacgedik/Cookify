@@ -7,11 +7,11 @@ namespace Back_end.Data
 {
     public class MockSavedRecipeRepo : ISavedRecipeRepo
     {
-        // private readonly CookifyContext _context;
-        // public MockSavedRecipeRepo(CookifyContext context)
-        // {
-        //     _context = context;
-        // }
+        private readonly CookifyContext _context;
+        public MockSavedRecipeRepo(CookifyContext context)
+        {
+            _context = context;
+        }
         // public IEnumerable<SavedRecipe> CreateSavedRecipe(SavedRecipe r)
         // {
         //     if(repo.Any(x=>x.id == r.id))
@@ -26,12 +26,14 @@ namespace Back_end.Data
         // }
         public IEnumerable<SavedRecipe> CreateSavedRecipe(SavedRecipe r)
         {
-            throw new System.NotImplementedException();
+            _context.SavedRecipes.Add(r);
+            _context.SaveChanges();
+            return _context.SavedRecipes.ToList();
         }
 
         public IEnumerable<SavedRecipe> GetSavedRecipes()
         {
-            throw new System.NotImplementedException();
+            return _context.SavedRecipes.ToList();
         }
     }
 }

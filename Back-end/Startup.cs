@@ -59,6 +59,7 @@ namespace Back_end
 
             services.AddScoped<IIngredientService, IngredientServices>();
             services.AddScoped<IRecipeService, RecipeService>();
+            services.AddScoped<ISavedRecipeService, SavedRecipeService>();
 
             var key = "this is a string used for encrypt and decrypt token";
             services.AddAuthentication(x =>

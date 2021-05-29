@@ -12,5 +12,6 @@ namespace Back_end.Services
         RecipeDto ServiceUpdateRecipeById(int id, int creatorId, string name, string description, float rating, string tag);
 
         IEnumerable<RecipeDto> ServiceCreateRecipe(Recipe r);
+        public IEnumerable<RecipeDto> ServiceSearchRecipe(string query);
     }
 }

@@ -14,11 +14,11 @@ namespace Back_end.Controllers
     [ApiController]
     public class ManageSavedRecipe : RecipeController
     {
-        // private readonly IRecipeService _recipeService;
-        // public ManageSavedRecipe(IRecipeRepo recipeRepository,IUserRepo userRepository,ISavedRecipeRepo repo)
-        // {
-            
-        // }
+        private readonly ISavedRecipeService _savedRecipeService;
+        public ManageSavedRecipe(ISavedRecipeService savedRecipeService)
+        {
+            _savedRecipeService = savedRecipeService;
+        }
 
         [HttpPost]
         public ActionResult<IEnumerable<SavedRecipeDto>> createSavedRecipe([FromBody] SavedRecipe recipeToSave)
@@ -28,7 +28,20 @@ namespace Back_end.Controllers
             // if(result==null)
             //     return NotFound();
             // var resultDto = result.Select(x=>x.AsDto());
-            return Ok();
+            return Ok(_savedRecipeService.ServiceCreateSavedRecipe(recipeToSave));
+
+
+        }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<SavedRecipeDto>> getSavedRecipes()
+        {
+            // var result = base._savedRecipeRepository.
+            // CreateSavedRecipe(new SavedRecipe{id=recipeToSave.id,userId=recipeToSave.userId,recipeId=recipeToSave.recipeId});
+            // if(result==null)
+            //     return NotFound();
+            // var resultDto = result.Select(x=>x.AsDto());
+            return Ok(_savedRecipeService.ServiceGetSavedRecipes());
 
 
         }

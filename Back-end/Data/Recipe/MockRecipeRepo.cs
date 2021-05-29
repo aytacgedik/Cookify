@@ -72,10 +72,10 @@ namespace Back_end.Data
             _context.SaveChanges();
             foreach (var ingredient in r.RecipeIngredients)
             {
-                var ingredientID = _context.Ingredients.Where(x => x.Name == ingredient.Ingredient.Name).Select(x => x.Id).FirstOrDefault();
+                var ingredientID = ingredient.Id;
                 var RecipeIngredient = new RecipeIngredient();
                 RecipeIngredient.IngredientId = ingredientID;
-                RecipeIngredient.RecipeId = _context.Recipes.Find(toAdd).Id;
+                RecipeIngredient.RecipeId = toAdd.Id;
                 _context.RecipeIngredients.Add(RecipeIngredient);
                 _context.SaveChanges();
 

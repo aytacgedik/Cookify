@@ -90,5 +90,23 @@ namespace Back_end.Services
         {
             return _recipeRepository.UpdateRecipeById(id, creatorId, name, description, rating, tag).AsDto();
         }
+
+        public IEnumerable<RecipeDto> ServiceSearchRecipe(string query)
+        {
+            List<RecipeDto> recipesToReturn = new List<RecipeDto>();
+            if(!String.IsNullOrEmpty(query))
+                foreach(var recipe in _recipeRepository.GetRecipes())
+                {
+                    if(recipe.Name.ToLower().Contains(query.ToLower()))
+                        recipesToReturn.Add(recipe.AsDto());
+                    
+                }
+            if(recipesToReturn.Count == 0)
+                return null;
+            return recipesToReturn;
+        }
+
+
+
     }
 }
