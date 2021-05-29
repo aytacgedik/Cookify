@@ -14,7 +14,7 @@ namespace Back_end.Services
             _userRepository = userRepository;
         }
 
-        public IEnumerable<UserDto> CreateUser(int id,
+        public IEnumerable<UserDto> ServiceCreateUser(int id,
                                                string name,
                                                string surname,
                                                string email,
@@ -30,13 +30,13 @@ namespace Back_end.Services
             return users.Select(x => x.AsDto()).ToList();
         }
 
-        public IEnumerable<UserDto> RemoveUserById(int id)
+        public IEnumerable<UserDto> ServiceRemoveUserById(int id)
         {
             var users = _userRepository.RemoveUserById(id);
             return users.Select(x => x.AsDto()).ToList();
         }
 
-        public UserDto UpdateUserById(int id,
+        public UserDto ServiceUpdateUserById(int id,
                                string name,
                                string surname,
                                string email,
@@ -47,13 +47,13 @@ namespace Back_end.Services
             return user.AsDto();
         }
 
-        public UserDto GetUserById(int id)
+        public UserDto ServiceGetUserById(int id)
         {
             var user = _userRepository.GetUserById(id);
             return user.AsDto();
         }
 
-        public IEnumerable<UserDto> GetUsers()
+        public IEnumerable<UserDto> ServiceGetUsers()
         {
             var users = _userRepository.GetUsers();
             return users.Select(x => x.AsDto()).ToList();

@@ -5,8 +5,8 @@ namespace Back_end.Services
 {
     public interface IUserFriendService
     {
-        IEnumerable<UserFriendDto> AddUserFriendById(int _userFollowerId, int _userFollowedId);
-        IEnumerable<UserFriendDto> RemoveUserFriendById(int _userFollowerId, int _userFollowedId);
-        IEnumerable<UserFriendDto> GetUserFriends();
+        IEnumerable<UserFriendDto> ServiceAddUserFriendById(int _userFollowerId, int _userFollowedId);
+        IEnumerable<UserFriendDto> ServiceRemoveUserFriendById(int _userFollowerId, int _userFollowedId);
+        IEnumerable<UserFriendDto> ServiceGetUserFriends();
     }
 }

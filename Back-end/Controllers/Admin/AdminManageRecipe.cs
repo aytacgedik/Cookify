@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Back_end.Data;
-using Back_end.Models;
+using Back_end.DatabaseModels;
 using Microsoft.AspNetCore.Mvc;
 using Back_end.Dtos;
 using Back_end.Services;
@@ -40,12 +40,12 @@ namespace Back_end.Controllers
         [HttpPatch("{id}")]
         public ActionResult<RecipeDto> updateRecipe([FromBody] Recipe _recipe)
         {
-            var recipe = _recipeService.UpdateRecipeById(_recipe.id,
-                                                        _recipe.creatorId,
-                                                        _recipe.name,
-                                                        _recipe.description,
-                                                        _recipe.rating,
-                                                        _recipe.tag);
+            var recipe = _recipeService.UpdateRecipeById(_recipe.Id,
+                                                        (int)_recipe.CreatorId,
+                                                        _recipe.Name,
+                                                        _recipe.Description,
+                                                        (int)_recipe.Rating,
+                                                        _recipe.Tag);
             return Ok(recipe);
         }
         
