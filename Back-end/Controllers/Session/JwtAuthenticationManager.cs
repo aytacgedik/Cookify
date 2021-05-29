@@ -4,22 +4,23 @@ using System.Linq;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Back_end.Data;
+using Back_end.DatabaseModels;
 
 namespace Back_end.Controllers
 {
     public class JwtAuthenticationManager : IJwtAuthenticationManager
     {
-        private readonly MockUserRepo mockUserRepo = new MockUserRepo();
         private readonly string key;
-        public JwtAuthenticationManager(string key)
+        private readonly CookifyContext _context;
+        public JwtAuthenticationManager(string key, CookifyContext context)
         {
             this.key = key;
+            this._context = context;
         }
 
         public string Authenticate(string email)
         {
-            if (!mockUserRepo.UserRepo.Any(u => u.email == email))
+            if (!_context.Users.Any(u=>u.Email == email))
             {
                 return null;
             }

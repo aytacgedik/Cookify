@@ -17,6 +17,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Back_end.Controllers;
 
+using Back_end.DatabaseModels;
+using Back_end.Services;
+
 namespace Back_end
 {
     public class Startup
@@ -39,11 +42,16 @@ namespace Back_end
             });
 
             //Change this later
+            services.AddDbContext<CookifyContext>();//NEW
+
             services.AddScoped<IUserRepo,MockUserRepo>();
             services.AddScoped<IUserFriendRepo,MockUserFriendRepo>();
             services.AddScoped<IRecipeRepo,MockRecipeRepo>();
             services.AddScoped<ISavedRecipeRepo,MockSavedRecipeRepo>();
             services.AddScoped<IIngredientRepo, MockIngredientRepo>();
+
+            services.AddScoped<IUserService,UserServices>();//NEW
+            services.AddScoped<IUserFriendService,UserFriendServices>();//NEW
 
             var key = "this is a string used for encrypt and decrypt token";
             services.AddAuthentication(x =>
@@ -63,7 +71,7 @@ namespace Back_end
                 };
             });
 
-            services.AddSingleton<IJwtAuthenticationManager>(new JwtAuthenticationManager(key));
+            services.AddSingleton<IJwtAuthenticationManager>(new JwtAuthenticationManager(key,new CookifyContext()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

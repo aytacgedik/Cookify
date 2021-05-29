@@ -4,21 +4,21 @@ namespace Back_end
 {
     public static class Extensions
     {
-        public static UserDto AsDto(this User user){
+        public static UserDto AsDto(this Back_end.DatabaseModels.User user){
             return new UserDto {
-                id = user.id,
-                name=user.name,
-                surname=user.surname,
-                email=user.email,
-                verified=user.verified,
-                admin=user.admin
+                id = user.Id,
+                name=user.Name,
+                surname=user.Surname,
+                email=user.Email,
+                verified=(bool)user.Verified,
+                admin=(bool)user.Admin
             };
         }
 
-        public static UserFriendDto AsDto(this UserFriend userFriend){
+        public static UserFriendDto AsDto(this Back_end.DatabaseModels.UserFriend userFriend){
             return new UserFriendDto {
-                userFollowedId=userFriend.userFollowedId,
-                userFollowerId=userFriend.userFollowerId
+                userFollowedId=(int)userFriend.UserFollowedId,
+                userFollowerId=(int)userFriend.UserFollowerId
             };
         }
 

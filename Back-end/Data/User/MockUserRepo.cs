@@ -1,34 +1,15 @@
 using System.Collections.Generic;
-using Back_end.Models;
+using System.Linq;
+using Back_end.DatabaseModels;
 
 namespace Back_end.Data
 {
     public class MockUserRepo : IUserRepo
     {
-        public List<User> UserRepo;
-
-        public MockUserRepo()
+        private readonly CookifyContext _context;
+        public MockUserRepo(CookifyContext context)
         {
-            UserRepo = new List<User>{
-                new User{id=1,
-                         name="Bond",
-                         surname = "James Bond",
-                         email="james@gg.com",
-                         verified=true,
-                         admin=false},
-                new User{id=2,
-                         name="It's me",
-                         surname = "Mario",
-                         email="PP@gg.com",
-                         verified=true,
-                         admin=true},
-                new User{id=3,
-                         name="OVER",
-                         surname = "9000",
-                         email="9001@gg.com",
-                         verified=true,
-                         admin=false}
-            };
+            _context = context;
         }
 
         public IEnumerable<User> CreateUser(int id,
@@ -38,25 +19,35 @@ namespace Back_end.Data
                                             bool verified,
                                             bool admin)
         {
-            UserRepo.Add(new User
+            _context.Add(new User
             {
-                id = id,
-                name = name,
-                surname = surname,
-                email = email,
-                verified = verified,
-                admin = admin
+                Id = id,
+                Name = name,
+                Surname = surname,
+                Email = email,
+                Verified = verified,
+                Admin = admin
             });
-            return UserRepo;
+            _context.SaveChanges();
+            return _context.Users;
         }
 
+        public User GetUserById(int id)
+        {
+            return _context.Users.Where(u => u.Id == id).FirstOrDefault();
+        }
+
+        public IEnumerable<User> GetUsers()
+        {
+            return _context.Users;
+        }
 
         public IEnumerable<User> RemoveUserById(int id)
         {
-            UserRepo.RemoveAt(UserRepo.FindIndex(u => u.id == id));
-            return UserRepo;
+            _context.Users.Remove(_context.Users.Where(u => u.Id == id).FirstOrDefault());
+            _context.SaveChanges();
+            return _context.Users;
         }
-
 
         public User UpdateUserById(int id,
                                    string name,
@@ -65,26 +56,14 @@ namespace Back_end.Data
                                    bool verified,
                                    bool admin)
         {
-            int index = UserRepo.FindIndex(u => u.id == id);
-            UserRepo[index].id = id;
-            UserRepo[index].name = name;
-            UserRepo[index].surname = surname;
-            UserRepo[index].email = email;
-            UserRepo[index].verified = verified;
-            UserRepo[index].admin = admin;
-            return UserRepo[index];
-        }
-
-
-        public IEnumerable<User> GetUsers()
-        {
-            return UserRepo;
-        }
-
-
-        public User GetUserById(int id)
-        {
-            return UserRepo[UserRepo.FindIndex(u => u.id == id)];
+            var user = _context.Users.Where(u => u.Id == id).FirstOrDefault();
+            user.Name = name;
+            user.Surname = surname;
+            user.Email = email;
+            user.Verified = verified;
+            user.Admin = admin;
+            _context.SaveChanges();
+            return user;
         }
     }
 }

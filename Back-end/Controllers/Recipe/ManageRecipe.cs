@@ -69,7 +69,7 @@ namespace Back_end.Controllers
             }
             foreach(var user in _userRepository.GetUsers())
             {
-               sendEmailNotification(recipe,user.email,recipe.name);                
+               sendEmailNotification(recipe,user.Email,recipe.name);                
             }
             var recipesDto = recipes.Select(x=>x.AsDto()).ToList();
             return Ok(recipesDto);
