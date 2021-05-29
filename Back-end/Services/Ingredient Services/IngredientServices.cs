@@ -19,6 +19,8 @@ namespace Back_end.Services
         public IngredientDto GetIngredientById(int id)
         {
             var ingredient = _ingredientRepository.GetIngredientById(id);
+            if (ingredient == null)
+                return null;
             return ingredient.AsDto();
         }
 
