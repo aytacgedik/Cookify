@@ -53,6 +53,9 @@ namespace Back_end
             services.AddScoped<IUserService,UserServices>();//NEW
             services.AddScoped<IUserFriendService,UserFriendServices>();//NEW
 
+            services.AddScoped<IAdminManageUserService,AdminManageUserServices>();
+            services.AddScoped<IAdminManageRecipeService,AdminManageRecipeServices>();
+
             var key = "this is a string used for encrypt and decrypt token";
             services.AddAuthentication(x =>
             {
