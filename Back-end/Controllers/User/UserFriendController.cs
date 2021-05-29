@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Back_end.Data;
-using Back_end.Models;
+using Back_end.DatabaseModels;
 using Microsoft.AspNetCore.Mvc;
 using Back_end.Dtos;
 using Back_end.Services;
@@ -25,8 +25,8 @@ namespace Back_end.Controllers
         [HttpPost]
         public ActionResult<IEnumerable<UserFriendDto>> createUserFriend([FromBody] UserFriend _userfriend)
         {
-            var userFriends = _userFriendService.AddUserFriendById(_userfriend.userFollowerId,
-                                                                   _userfriend.userFollowedId);
+            var userFriends = _userFriendService.ServiceAddUserFriendById((int)_userfriend.UserFollowerId,
+                                                                   (int)_userfriend.UserFollowedId);
 
             return Ok(userFriends);
         }
@@ -36,7 +36,7 @@ namespace Back_end.Controllers
         [HttpDelete]
         public ActionResult<IEnumerable<UserFriendDto>> removeUserFriend(int userFollowerId, int userFollowedId)
         {
-            var userFriends = _userFriendService.RemoveUserFriendById(userFollowerId, userFollowedId);
+            var userFriends = _userFriendService.ServiceRemoveUserFriendById(userFollowerId, userFollowedId);
             return Ok(userFriends);
         }
     }
