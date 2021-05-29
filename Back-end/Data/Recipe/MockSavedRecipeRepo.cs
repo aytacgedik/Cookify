@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Back_end.DatabaseModels;
 using System.Linq;
-using Back_end.DatabaseModels;
 
 namespace Back_end.Data
 {

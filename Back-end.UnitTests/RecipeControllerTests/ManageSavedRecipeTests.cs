@@ -1,7 +1,6 @@
 using System.Linq;
 using Back_end.Controllers;
 using Back_end.Data;
-using Back_end.Models;
 using Back_end.Dtos;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
