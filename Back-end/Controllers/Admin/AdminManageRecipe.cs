@@ -3,59 +3,50 @@ using Back_end.Data;
 using Back_end.Models;
 using Microsoft.AspNetCore.Mvc;
 using Back_end.Dtos;
-using System.Linq;
-//Keeping this as example. This gonna be deleted later.
+using Back_end.Services;
+
 namespace Back_end.Controllers
 {
     [Route("admin/recipe")]
     [ApiController]
-    public class AdminManageRecipeController:ControllerBase
+    public class AdminManageRecipeController : ControllerBase
     {
-        private readonly IRecipeRepo _repository;
-        public AdminManageRecipeController(IRecipeRepo repository)
+        private readonly IAdminManageRecipeService _recipeService;
+        public AdminManageRecipeController(IAdminManageRecipeService recipeService)
         {
-            _repository=repository;
+            _recipeService = recipeService;
         }
         [HttpGet]
         public ActionResult<IEnumerable<RecipeDto>> GetAllRecipes()
         {
-            var recipes = _repository.GetRecipes();
-            if (recipes == null) {
-                return NotFound();
-            }
-            var recipesDto = recipes.Select(x => x.AsDto()).ToList();
-            return Ok(recipesDto);
+            var recipes = _recipeService.GetRecipes();
+            return Ok(recipes);
 
         }
         [HttpGet("{id}")]
-         public ActionResult<RecipeDto> GetAllRecipes(int id)
+        public ActionResult<RecipeDto> getRecipe(int id)
         {
-            var recipe = _repository.GetRecipeById(id);
-            if (recipe == null) {
-                return NotFound();
-            }
-            return Ok(recipe.AsDto());
+            var recipe = _recipeService.GetRecipeById(id);
+            return Ok(recipe);
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<IEnumerable<RecipeDto>> RemoveRecipe(int id)
+        public ActionResult<IEnumerable<RecipeDto>> removeRecipe(int id)
         {
-            var recipes = _repository.DeleteRecipeById(id);
-            if (recipes == null) {
-                return NotFound();
-            }
-            var recipesDto = recipes.Select(x => x.AsDto()).ToList();
-            return Ok(recipesDto);
+            var recipes = _recipeService.RemoveRecipeById(id);
+            return Ok(recipes);
         }
 
         [HttpPatch("{id}")]
         public ActionResult<RecipeDto> updateRecipe([FromBody] Recipe _recipe)
         {
-            var recipe = _repository.UpdateRecipeById(_recipe.id, _recipe.creatorId, _recipe.name, _recipe.description, _recipe.rating, _recipe.tag);
-            if (recipe == null) {
-                return NotFound();
-            }
-            return Ok(recipe.AsDto());
+            var recipe = _recipeService.UpdateRecipeById(_recipe.id,
+                                                        _recipe.creatorId,
+                                                        _recipe.name,
+                                                        _recipe.description,
+                                                        _recipe.rating,
+                                                        _recipe.tag);
+            return Ok(recipe);
         }
         
     }

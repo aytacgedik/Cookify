@@ -11,8 +11,8 @@ namespace Back_end.Controllers
     [ApiController]
     public class AdminManageUserController: ControllerBase
     {
-        private readonly IUserService _userService;
-        public AdminManageUserController(IUserService userService)
+        private readonly IAdminManageUserService _userService;
+        public AdminManageUserController(IAdminManageUserService userService)
         {
             _userService = userService;
         }
@@ -24,9 +24,9 @@ namespace Back_end.Controllers
 
         }
         [HttpGet("{id}")]
-         public ActionResult<UserDto> getUser(int id)
+        public ActionResult<UserDto> getUser(int id)
         {
-            var user=_userService.GetUserById(id);
+            var user = _userService.GetUserById(id);
             return Ok(user);
         }
         [HttpDelete("{id}")]

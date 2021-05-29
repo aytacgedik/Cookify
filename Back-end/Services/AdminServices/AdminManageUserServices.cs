@@ -14,22 +14,6 @@ namespace Back_end.Services
             _userRepository = userRepository;
         }
 
-        public IEnumerable<UserDto> CreateUser(int id,
-                                               string name,
-                                               string surname,
-                                               string email,
-                                               bool verified,
-                                               bool admin)
-        {
-            var users = _userRepository.CreateUser(id,
-                                                   name,
-                                                   surname,
-                                                   email,
-                                                   verified,
-                                                   admin);
-            return users.Select(x => x.AsDto()).ToList();
-        }
-
         public IEnumerable<UserDto> RemoveUserById(int id)
         {
             var users = _userRepository.RemoveUserById(id);
