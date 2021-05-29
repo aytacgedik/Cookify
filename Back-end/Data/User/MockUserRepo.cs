@@ -45,6 +45,7 @@ namespace Back_end.Data
         public IEnumerable<User> RemoveUserById(int id)
         {
             _context.Users.Remove(_context.Users.Where(u => u.Id == id).FirstOrDefault());
+            _context.SaveChanges();
             return _context.Users;
         }
 

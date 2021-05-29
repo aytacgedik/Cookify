@@ -51,6 +51,7 @@ namespace Back_end
             services.AddScoped<IIngredientRepo, MockIngredientRepo>();
 
             services.AddScoped<IUserService,UserServices>();//NEW
+            services.AddScoped<IUserFriendService,UserFriendServices>();//NEW
 
             var key = "this is a string used for encrypt and decrypt token";
             services.AddAuthentication(x =>

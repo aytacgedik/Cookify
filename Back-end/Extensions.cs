@@ -15,10 +15,10 @@ namespace Back_end
             };
         }
 
-        public static UserFriendDto AsDto(this UserFriend userFriend){
+        public static UserFriendDto AsDto(this Back_end.DatabaseModels.UserFriend userFriend){
             return new UserFriendDto {
-                userFollowedId=userFriend.userFollowedId,
-                userFollowerId=userFriend.userFollowerId
+                userFollowedId=(int)userFriend.UserFollowedId,
+                userFollowerId=(int)userFriend.UserFollowerId
             };
         }
 
