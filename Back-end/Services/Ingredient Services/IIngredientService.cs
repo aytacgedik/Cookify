@@ -5,9 +5,9 @@ namespace Back_end.Services
 {
     public interface IIngredientService
     {
-        IngredientDto GetIngredientById(int id);
-        IEnumerable<IngredientDto> GetIngredients();
-        IEnumerable<IngredientDto> SearchIngredient(string query);
-        IEnumerable<IngredientDto> generateList(int id);
+        IngredientDto ServiceGetIngredientById(int id);
+        IEnumerable<IngredientDto> ServiceGetIngredients();
+        IEnumerable<IngredientDto> ServiceSearchIngredient(string query);
+        IEnumerable<IngredientDto> ServiceGenerateList(int id);
     }
 }

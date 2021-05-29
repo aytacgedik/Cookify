@@ -6,11 +6,11 @@ namespace Back_end.Services
 {
     public interface IRecipeService
     {
-        IEnumerable<RecipeDto> GetRecipes();
-        RecipeDto GetRecipeById(int id);
-        IEnumerable<RecipeDto> DeleteRecipeById(int id);
-        RecipeDto UpdateRecipeById(int id, int creatorId, string name, string description, float rating, string tag);
+        IEnumerable<RecipeDto> ServiceGetRecipes();
+        RecipeDto ServiceGetRecipeById(int id);
+        IEnumerable<RecipeDto> ServiceDeleteRecipeById(int id);
+        RecipeDto ServiceUpdateRecipeById(int id, int creatorId, string name, string description, float rating, string tag);
 
-        IEnumerable<RecipeDto> CreateRecipe(Recipe r);
+        IEnumerable<RecipeDto> ServiceCreateRecipe(Recipe r);
     }
 }

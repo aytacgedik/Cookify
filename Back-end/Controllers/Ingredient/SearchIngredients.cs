@@ -21,7 +21,7 @@ namespace Back_end.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<IngredientDto>> searchIngredients([FromQuery]string query)
         {
-            var toReturn = _ingredientService.SearchIngredient(query);
+            var toReturn = _ingredientService.ServiceSearchIngredient(query);
             if (toReturn == null)
                 return NotFound();
             return Ok(toReturn);

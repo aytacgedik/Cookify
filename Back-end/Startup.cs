@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Swashbuckle.AspNetCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Back_end.Controllers;
@@ -57,6 +58,7 @@ namespace Back_end
             services.AddScoped<IAdminManageRecipeService,AdminManageRecipeServices>();
 
             services.AddScoped<IIngredientService, IngredientServices>();
+            services.AddScoped<IRecipeService, RecipeService>();
 
             var key = "this is a string used for encrypt and decrypt token";
             services.AddAuthentication(x =>
@@ -85,7 +87,7 @@ namespace Back_end
 
             app.UseDeveloperExceptionPage();
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Back_end v1"));
+            app.UseSwaggerUI(c => {c.SwaggerEndpoint("/swagger/v1/swagger.json", "Back_end v1");});
             if(env.IsDevelopment()){//for docker
                 app.UseHttpsRedirection();
             }

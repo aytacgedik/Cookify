@@ -14,19 +14,19 @@ namespace Back_end.Services
             _userFriendRepository = userFriendRepository;
         }
 
-        public IEnumerable<UserFriendDto> AddUserFriendById(int _userFollowerId, int _userFollowedId)
+        public IEnumerable<UserFriendDto> ServiceAddUserFriendById(int _userFollowerId, int _userFollowedId)
         {
             var userFriends = _userFriendRepository.AddUserFriendById(_userFollowerId, _userFollowedId);
             return userFriends.Select(x => x.AsDto()).ToList();
         }
 
-        public IEnumerable<UserFriendDto> RemoveUserFriendById(int _userFollowerId, int _userFollowedId)
+        public IEnumerable<UserFriendDto> ServiceRemoveUserFriendById(int _userFollowerId, int _userFollowedId)
         {
             var userFriends = _userFriendRepository.RemoveUserFriendById(_userFollowerId, _userFollowedId);
             return userFriends.Select(x => x.AsDto()).ToList();
         }
 
-        public IEnumerable<UserFriendDto> GetUserFriends()
+        public IEnumerable<UserFriendDto> ServiceGetUserFriends()
         {
             var userFriends = _userFriendRepository.GetUserFriends();
             return userFriends.Select(x => x.AsDto()).ToList();

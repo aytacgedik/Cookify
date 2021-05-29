@@ -16,19 +16,21 @@ namespace Back_end.Services
             _ingredientRepository = ingredientRepository;
         }
 
-        public IngredientDto GetIngredientById(int id)
+        public IngredientDto ServiceGetIngredientById(int id)
         {
             var ingredient = _ingredientRepository.GetIngredientById(id);
+            if(ingredient == null)
+                return null;
             return ingredient.AsDto();
         }
 
-        public IEnumerable<IngredientDto> GetIngredients()
+        public IEnumerable<IngredientDto> ServiceGetIngredients()
         {
             var ingredient = _ingredientRepository.GetIngredients();
             return ingredient.Select(x => x.AsDto()).ToList();
         }
 
-        public IEnumerable<IngredientDto> SearchIngredient(string query)
+        public IEnumerable<IngredientDto> ServiceSearchIngredient(string query)
         {
             List<IngredientDto> ingredientsToReturn = new List<IngredientDto>();
             if (!String.IsNullOrEmpty(query))
@@ -46,7 +48,7 @@ namespace Back_end.Services
             return ingredientsToReturn;
         }
 
-        public IEnumerable<IngredientDto> generateList(int id)
+        public IEnumerable<IngredientDto> ServiceGenerateList(int id)
         {
             var ingredientsToReturn = _ingredientRepository.GetRecipeIngredients(id);
 

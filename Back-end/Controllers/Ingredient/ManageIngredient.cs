@@ -22,7 +22,7 @@ namespace Back_end.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<IngredientDto>> getIngredients()
         {
-            var ingredients = _ingredientService.GetIngredients();
+            var ingredients = _ingredientService.ServiceGetIngredients();
             if (ingredients == null)
                 return NotFound();
             return Ok(ingredients);
@@ -32,7 +32,7 @@ namespace Back_end.Controllers
         [HttpGet("{id}")]
         public ActionResult<IngredientDto> getIngredient(int id)
         {
-            var ingredient = _ingredientService.GetIngredientById(id);
+            var ingredient = _ingredientService.ServiceGetIngredientById(id);
             if (ingredient == null)
                 return NotFound();
             return Ok(ingredient);

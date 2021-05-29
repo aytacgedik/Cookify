@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Back_end.Data;
-using Back_end.Models;
+using Back_end.DatabaseModels;
 using Microsoft.AspNetCore.Mvc;
 using Back_end.Dtos;
 using Back_end.Services;
@@ -39,12 +39,12 @@ namespace Back_end.Controllers
         [HttpPatch("{id}")]
         public ActionResult<UserDto> updateUser([FromBody] User _user)
         {
-            var user = _userService.UpdateUserById(_user.id,
-                                            _user.name,
-                                            _user.surname,
-                                            _user.email,
-                                            _user.verified,
-                                            _user.admin);
+            var user = _userService.UpdateUserById(_user.Id,
+                                            _user.Name,
+                                            _user.Surname,
+                                            _user.Email,
+                                            (bool)_user.Verified,
+                                            (bool)_user.Admin);
             return Ok(user);
         }
         

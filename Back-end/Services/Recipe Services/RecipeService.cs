@@ -51,7 +51,7 @@ namespace Back_end.Services
             }
         }
 
-        public IEnumerable<RecipeDto> CreateRecipe(Recipe recipe)
+        public IEnumerable<RecipeDto> ServiceCreateRecipe(Recipe recipe)
         {
             var recipes = _recipeRepository.CreateRecipe(recipe);
             //why would database return null??
@@ -67,23 +67,26 @@ namespace Back_end.Services
             return recipes.Select(x => x.AsDto()).ToList();
         }
 
-        public IEnumerable<RecipeDto> DeleteRecipeById(int id)
+        public IEnumerable<RecipeDto> ServiceDeleteRecipeById(int id)
         {
             _recipeRepository.DeleteRecipeById(id);
             return _recipeRepository.GetRecipes().Select(x => x.AsDto()).ToList();
         }
 
-        public RecipeDto GetRecipeById(int id)
+        public RecipeDto ServiceGetRecipeById(int id)
         {
-            return _recipeRepository.GetRecipeById(id).AsDto();
+            var result =  _recipeRepository.GetRecipeById(id);
+            if(result == null)
+                return null;
+            return result.AsDto();
         }
 
-        public IEnumerable<RecipeDto> GetRecipes()
+        public IEnumerable<RecipeDto> ServiceGetRecipes()
         {
             return _recipeRepository.GetRecipes().Select(x => x.AsDto()).ToList();
         }
 
-        public RecipeDto UpdateRecipeById(int id, int creatorId, string name, string description, float rating, string tag)
+        public RecipeDto ServiceUpdateRecipeById(int id, int creatorId, string name, string description, float rating, string tag)
         {
             return _recipeRepository.UpdateRecipeById(id, creatorId, name, description, rating, tag).AsDto();
         }

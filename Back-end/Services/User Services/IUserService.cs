@@ -5,20 +5,20 @@ namespace Back_end.Services
 {
     public interface IUserService
     {
-        IEnumerable<UserDto> CreateUser(int id,
+        IEnumerable<UserDto> ServiceCreateUser(int id,
                                         string name,
                                         string surname,
                                         string email,
                                         bool verified,
                                         bool admin);
-        IEnumerable<UserDto> RemoveUserById(int id);
-        UserDto UpdateUserById(int id,
+        IEnumerable<UserDto> ServiceRemoveUserById(int id);
+        UserDto ServiceUpdateUserById(int id,
                                string name,
                                string surname,
                                string email,
                                bool verified,
                                bool admin);
-        UserDto GetUserById(int id);
-        IEnumerable<UserDto> GetUsers();
+        UserDto ServiceGetUserById(int id);
+        IEnumerable<UserDto> ServiceGetUsers();
     }
 }

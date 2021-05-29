@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Back_end.Data;
-using Back_end.Models;
+using Back_end.DatabaseModels;
 using Back_end.Dtos;
 using Back_end.Services;
 
@@ -22,7 +22,7 @@ namespace Back_end.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<IngredientDto>> generateList([FromQuery] int id)
         {
-            var toReturn = _ingredientService.generateList(id);
+            var toReturn = _ingredientService.ServiceGenerateList(id);
             if (toReturn == null)
                 return NotFound();
             return Ok(toReturn);
