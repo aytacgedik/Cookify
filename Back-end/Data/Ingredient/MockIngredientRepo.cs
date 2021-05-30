@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Back_end.DatabaseModels;
+using Back_end.Dtos;
 
 namespace Back_end.Data
 {
@@ -12,19 +13,23 @@ namespace Back_end.Data
             _context = context;
         }
 
-        public Ingredient GetIngredientById(int id)
+        public IngredientDto GetIngredientById(int id)
         {
-            return _context.Ingredients.Where(i => i.Id == id).FirstOrDefault();
+            return _context.Ingredients.Where(i => i.Id == id).FirstOrDefault().AsDto();
         }
 
-        public IEnumerable<Ingredient> GetIngredients()
+        public IEnumerable<IngredientDto> GetIngredients()
         {
-            return _context.Ingredients;
+            return _context.Ingredients.Select(x => x.AsDto());
+        }
+        public IEnumerable<IngredientDto> ServiceSearchIngredient(string query)
+        {
+            return _context.Ingredients.Where(x => x.Name.Contains(query)).Select(y => y.AsDto());
         }
 
-        public IEnumerable<Ingredient> GetRecipeIngredients(int id)
+        public IEnumerable<IngredientDto> GetRecipeIngredients(int id)
         {
-            return _context.RecipeIngredients.Where(r => r.RecipeId == id).Select(i => i.Ingredient).ToList();
+            return _context.RecipeIngredients.Where(r => r.RecipeId == id).Select(i => i.Ingredient).Select(y => y.AsDto());
         }
     }
 }
