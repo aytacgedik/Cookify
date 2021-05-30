@@ -4,6 +4,8 @@ using Moq;
 using Back_end.Controllers;
 using Back_end.Data;
 using Back_end.Dtos;
+using Back_end.Services;
+using Back_end.DatabaseModels;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -13,46 +15,57 @@ namespace Back_end.UnitTests
 {
     public class UserFriendControllerTests
     {
-        // [Fact]
-        // public void createUserFriend_Test()
-        // {
-        //     // Arrange
-        //     var repositoryStub = new Mock<IUserFriendRepo>();
-        //     var mockUserFriendRepo = new MockUserFriendRepo();
-        //     repositoryStub.Setup(repo => repo.GetUserFriends()).Returns(mockUserFriendRepo.GetUserFriends());
-        //     var mockUserFriendRepo2 = new MockUserFriendRepo();
-        //     var controller = new UserFriendController(mockUserFriendRepo);
-        //     var tmp = new UserFriend();
-        //     tmp.userFollowerId = 4;
-        //     tmp.userFollowedId = 5;
+        [Fact]
+        public void createUserFriend_Test()
+        {
+            var repoMock = new Mock<IUserFriendRepo>();
+            var returnedList = new List<UserFriendDto>{
+                new UserFriendDto{
+                    userFollowerId = 1,
+                    userFollowedId = 2
+                },
+                new UserFriendDto{
+                    userFollowerId = 2,
+                    userFollowedId = 1
+                }
+            };
+            var userFriend = new UserFriend
+            {
+                UserFollowerId = 1,
+                UserFollowedId = 2
+            };
+            repoMock.Setup(p => p.AddUserFriendById(1, 2)).Returns(returnedList);
+            var service = new UserFriendServices(repoMock.Object);
+            var ctl = new UserFriendController(service);
 
-        //     // Act
-        //     var result = controller.createUserFriend(tmp).Result as OkObjectResult;
-        //     var tmpList = mockUserFriendRepo2.AddUserFriendById(tmp.userFollowerId,
-        //                                                         tmp.userFollowedId).Select(x => x.AsDto());
+            // Act
+            var result = ctl.createUserFriend(userFriend).Result as OkObjectResult;
 
-        //     // Assert
-        //     result.Value.Should().BeEquivalentTo(tmpList,
-        //                                          options => options.ComparingByMembers<UserFriendDto>());
-        // }
+            // Assert
+            result.Value.Should().BeEquivalentTo(returnedList, options => options.ComparingByMembers<UserFriendDto>());
+        }
 
-        // [Fact]
-        // public void removeUserFriend()
-        // {
-        //     // Arrange
-        //     var repositoryStub = new Mock<IUserFriendRepo>();
-        //     var mockUserFriendRepo = new MockUserFriendRepo();
-        //     repositoryStub.Setup(repo => repo.GetUserFriends()).Returns(mockUserFriendRepo.GetUserFriends());
-        //     var mockUserFriendRepo2 = new MockUserFriendRepo();
-        //     var controller = new UserFriendController(mockUserFriendRepo);
+        [Fact]
+        public void removeUserFriend()
+        {
+            var repoMock = new Mock<IUserFriendRepo>();
+            var returnedList = new List<UserFriendDto>
+            {
+            };
+            var userFriend = new UserFriend
+            {
+                UserFollowerId = 1,
+                UserFollowedId = 2
+            };
+            repoMock.Setup(p => p.RemoveUserFriendById(1, 2)).Returns(returnedList);
+            var service = new UserFriendServices(repoMock.Object);
+            var ctl = new UserFriendController(service);
 
-        //     // Act
-        //     var result = controller.removeUserFriend(1, 3).Result as OkObjectResult;
-        //     var tmpList = mockUserFriendRepo2.RemoveUserFriendById(1, 3).Select(x => x.AsDto());
+            // Act
+            var result = ctl.removeUserFriend(1, 2).Result as OkObjectResult;
 
-        //     // Assert
-        //     result.Value.Should().BeEquivalentTo(tmpList,
-        //                                          options => options.ComparingByMembers<UserFriendDto>());
-        // }
+            // Assert
+            result.Value.Should().BeEquivalentTo(returnedList, options => options.ComparingByMembers<UserFriendDto>());
+        }
     }
 }
