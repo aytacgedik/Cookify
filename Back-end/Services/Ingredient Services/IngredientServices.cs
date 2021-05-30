@@ -21,28 +21,22 @@ namespace Back_end.Services
             var ingredient = _ingredientRepository.GetIngredientById(id);
             if(ingredient == null)
                 return null;
-            return ingredient.AsDto();
+            return ingredient;
         }
 
         public IEnumerable<IngredientDto> ServiceGetIngredients()
         {
             var ingredient = _ingredientRepository.GetIngredients();
-            return ingredient.Select(x => x.AsDto()).ToList();
+            if (ingredient == null)
+                return null;
+            return ingredient.Select(x => x).ToList();
         }
 
         public IEnumerable<IngredientDto> ServiceSearchIngredient(string query)
         {
-            List<IngredientDto> ingredientsToReturn = new List<IngredientDto>();
-            if (!String.IsNullOrEmpty(query))
-            {
-                foreach (var ingredient in _ingredientRepository.GetIngredients())
-                {
-                    if (ingredient.Name.Contains(query))
-                        ingredientsToReturn.Add(ingredient.AsDto());
-                }
-            }
+            List<IngredientDto> ingredientsToReturn = _ingredientRepository.ServiceSearchIngredient(query).ToList();
 
-            if (ingredientsToReturn.Count == 0)
+            if (ingredientsToReturn == null)
                 return null;
 
             return ingredientsToReturn;
@@ -52,10 +46,10 @@ namespace Back_end.Services
         {
             var ingredientsToReturn = _ingredientRepository.GetRecipeIngredients(id);
 
-            if (ingredientsToReturn.Count() == 0)
+            if (ingredientsToReturn == null)
                 return null;
 
-            var ingredientsDtoList = ingredientsToReturn.Select(x => x.AsDto()).ToList();
+            var ingredientsDtoList = ingredientsToReturn.Select(x => x).ToList();
             return ingredientsDtoList;
         }
     }
