@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Back_end.Dtos
 {
     public class RecipeDto
@@ -9,6 +11,8 @@ namespace Back_end.Dtos
         public float rating { get; set; }
         public string tag { get; set; }
         
+
+        public List<IngredientDto> Ingredients {get;set;} = new List<IngredientDto>();
         public void calcNutritionalValues(){}
         public IngredientDto getRecipeIngredient() => new IngredientDto();
     }

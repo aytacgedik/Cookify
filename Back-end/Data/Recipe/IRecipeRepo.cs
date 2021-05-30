@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Back_end.DatabaseModels;
+using Back_end.Dtos;
 
 namespace Back_end.Data
 {
@@ -10,6 +11,6 @@ namespace Back_end.Data
         IEnumerable<Recipe> DeleteRecipeById(int id);
         Recipe UpdateRecipeById(int id, int creatorId, string name, string description, float rating, string tag);
 
-        IEnumerable<Recipe> CreateRecipe(Recipe r);
+        IEnumerable<Recipe> CreateRecipe(RecipeDto r);
     }
 }
