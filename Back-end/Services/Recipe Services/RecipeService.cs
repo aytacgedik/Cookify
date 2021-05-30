@@ -97,9 +97,10 @@ namespace Back_end.Services
             return realthingtoReturn;
         }
 
-        public RecipeDto ServiceUpdateRecipeById(int id, int creatorId, string name, string description, float rating, string tag)
+        public RecipeDto ServiceUpdateRecipeById(RecipeDto recipe)
         {
-            return _recipeRepository.UpdateRecipeById(id, creatorId, name, description, rating, tag).AsDto();
+            var toReturn =  _recipeRepository.UpdateRecipeById(recipe).AsDto();
+            return ServiceGetRecipeById(toReturn.id);
         }
 
         public IEnumerable<RecipeDto> ServiceSearchRecipe(string query)

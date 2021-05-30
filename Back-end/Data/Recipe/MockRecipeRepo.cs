@@ -16,26 +16,6 @@ namespace Back_end.Data
         {
             _context = context;
 
-            // repo = new List<Recipe>{
-            //     new Recipe{id=1,
-            //                 creatorId=1,
-            //                 name="Pilav",
-            //                 description="Boiled rice fried with butter",
-            //                 rating=9.8F,
-            //                 tag="Turkish Cuisine"},
-            //     new Recipe{id=2,
-            //                 creatorId=2,
-            //                 name="Karni Yarik",
-            //                 description="Eggplants stuffed with minced meat",
-            //                 rating=10.0F,
-            //                 tag="Turkish Cuisine"},
-            //     new Recipe{id=3,
-            //                 creatorId=3,
-            //                 name="Simit",
-            //                 description="Turkish bagel with sesame",
-            //                 rating=6.9F,
-            //                 tag="Turkish Cuisine"}};
-
         }
         public Recipe GetRecipeById(int id)
         {
@@ -66,11 +46,18 @@ namespace Back_end.Data
             _context.SaveChanges();
             return _context.Recipes.ToList();
         }
-        public Recipe UpdateRecipeById(int id, int creatorId, string name, string description, float rating, string tag)
+        public Recipe UpdateRecipeById(RecipeDto recipe)
         {
-            _context.Recipes.Update(new Recipe { Id = id, CreatorId = creatorId, Name = name, Description = description, Rating = (decimal?)rating, Tag = tag });
+            var recipeToUpdate = _context.Recipes.Where(x=>x.Id == recipe.id).FirstOrDefault();
+            recipeToUpdate.Name = recipe.name;
+            recipeToUpdate.Description = recipe.description;
+            recipeToUpdate.Tag = recipe.tag;
+            recipeToUpdate.Rating = (decimal)recipe.rating;
+            recipeToUpdate.CreatorId = recipe.creatorId;
+
+            _context.Recipes.Update(recipeToUpdate);
             _context.SaveChanges();
-            return _context.Recipes.Where(x => x.Id == id).FirstOrDefault();
+            return _context.Recipes.Where(x => x.Id == recipe.id).FirstOrDefault();
         }
 
         public IEnumerable<Recipe> CreateRecipe(RecipeDto r)
