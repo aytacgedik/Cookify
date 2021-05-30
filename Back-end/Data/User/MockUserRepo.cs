@@ -30,7 +30,7 @@ namespace Back_end.Data
                 Admin = admin
             });
             _context.SaveChanges();
-            return _context.Users.Select(x=>x.AsDto());
+            return _context.Users.Select(u=>u.AsDto());
         }
 
         public UserDto GetUserById(int id)
@@ -40,14 +40,14 @@ namespace Back_end.Data
 
         public IEnumerable<UserDto> GetUsers()
         {
-            return _context.Users.Select(x=>x.AsDto());
+            return _context.Users.Select(u=>u.AsDto());
         }
 
         public IEnumerable<UserDto> RemoveUserById(int id)
         {
             _context.Users.Remove(_context.Users.Where(u => u.Id == id).FirstOrDefault());
             _context.SaveChanges();
-            return _context.Users.Select(x=>x.AsDto());
+            return _context.Users.Select(u=>u.AsDto());
         }
 
         public UserDto UpdateUserById(int id,

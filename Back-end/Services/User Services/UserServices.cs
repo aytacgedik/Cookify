@@ -27,13 +27,21 @@ namespace Back_end.Services
                                                    email,
                                                    verified,
                                                    admin);
+<<<<<<< HEAD
             return users.Select(x => x).ToList();
+=======
+            return users;
+>>>>>>> d76d791a87909bd44fcffa36681ae71c89bd4d25
         }
 
         public IEnumerable<UserDto> ServiceRemoveUserById(int id)
         {
             var users = _userRepository.RemoveUserById(id);
+<<<<<<< HEAD
             return users.Select(x => x).ToList();
+=======
+            return users;
+>>>>>>> d76d791a87909bd44fcffa36681ae71c89bd4d25
         }
 
         public UserDto ServiceUpdateUserById(int id,
@@ -56,7 +64,11 @@ namespace Back_end.Services
         public IEnumerable<UserDto> ServiceGetUsers()
         {
             var users = _userRepository.GetUsers();
+<<<<<<< HEAD
             return users.Select(x => x).ToList();
+=======
+            return users;
+>>>>>>> d76d791a87909bd44fcffa36681ae71c89bd4d25
         }
     }
 }

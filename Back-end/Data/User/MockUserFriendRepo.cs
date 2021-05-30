@@ -25,12 +25,12 @@ namespace Back_end.Data
             _context.UserFriends.Remove(_context.UserFriends.Where(uf => uf.UserFollowerId == _userFollowerId && uf.UserFollowedId == _userFollowedId).FirstOrDefault());
             _context.UserFriends.Remove(_context.UserFriends.Where(uf => uf.UserFollowerId == _userFollowedId && uf.UserFollowedId == _userFollowerId).FirstOrDefault());
             _context.SaveChanges();
-            return _context.UserFriends.Select(x=>x.AsDto());
+            return _context.UserFriends.Select(u=>u.AsDto());
         }
 
         public IEnumerable<UserFriendDto> GetUserFriends()
         {
-            return _context.UserFriends.Select(x=>x.AsDto());
+            return _context.UserFriends.Select(u=>u.AsDto());
         }
     }
 }

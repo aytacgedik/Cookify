@@ -63,10 +63,17 @@ namespace Back_end.Services
             //     return NotFound();
             // }
             //some bussiness logic below
+<<<<<<< HEAD
             foreach (var user in _userRepository.GetUsers())
             {
                 sendEmailNotification(recipe, user.email, recipe.name);
             }
+=======
+            // foreach (var user in _userRepository.GetUsers())
+            // {
+            //     sendEmailNotification(recipe, user.Email, recipe.name);
+            // }
+>>>>>>> d76d791a87909bd44fcffa36681ae71c89bd4d25
             return ServiceGetRecipes();
         }
 
