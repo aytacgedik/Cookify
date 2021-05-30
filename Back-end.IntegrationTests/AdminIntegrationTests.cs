@@ -7,6 +7,8 @@ using Xunit;
 
 namespace Back_end.IntegrationTests
 {
+    //KEPT COMMENTED SINCE GROUP H DOESN'T HAVE ENDPOINTS FOR ADMIN CONTROLLERS
+
     public class AdminIntegrationTests : IntegrationTest
     {
         // [Fact]

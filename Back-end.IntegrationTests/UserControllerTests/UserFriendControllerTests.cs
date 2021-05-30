@@ -10,6 +10,8 @@ using Back_end.Dtos;
 
 namespace Back_end.IntegrationTests
 {
+        //KEPT COMMENTED SINCE GROUP H DOESN'T HAVE ENDPOINTS FOR USERFRIEND CONTROLLERS
+
     public class UserFriendControllerTests : IntegrationTest
     {
         // [Fact]
