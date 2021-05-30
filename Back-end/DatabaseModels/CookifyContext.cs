@@ -28,7 +28,7 @@ namespace Back_end.DatabaseModels
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=tcp:sedbserver.database.windows.net,1433;Initial Catalog=Cookify;Persist Security Info=False;User ID=admingroupf;Password=admin.12345;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                optionsBuilder.UseSqlServer("Server=tcp:sedbserver.database.windows.net,1433;Initial Catalog=Cookify;Persist Security Info=False;User ID=admingroupf;Password=admin.12345;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;MultipleActiveResultSets=true");
             }
         }
 

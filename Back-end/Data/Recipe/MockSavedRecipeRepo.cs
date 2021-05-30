@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Back_end.DatabaseModels;
 using System.Linq;
+using Back_end.Dtos;
 
 namespace Back_end.Data
 {
@@ -23,16 +24,20 @@ namespace Back_end.Data
         // {
         //     return repo;
         // }
-        public IEnumerable<SavedRecipe> CreateSavedRecipe(SavedRecipe r)
+        public IEnumerable<SavedRecipeDto> CreateSavedRecipe(SavedRecipeDto r)
         {
-            _context.SavedRecipes.Add(r);
+            var srtoAdd = new SavedRecipe{
+                UserId = r.userId,
+                RecipeId = r.recipeId
+            };
+            _context.SavedRecipes.Add(srtoAdd);
             _context.SaveChanges();
-            return _context.SavedRecipes.ToList();
+            return _context.SavedRecipes.Select(x=>x.AsDto());
         }
 
-        public IEnumerable<SavedRecipe> GetSavedRecipes()
+        public IEnumerable<SavedRecipeDto> GetSavedRecipes()
         {
-            return _context.SavedRecipes.ToList();
+            return _context.SavedRecipes.Select(x=>x.AsDto());
         }
     }
 }

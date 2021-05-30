@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using Back_end.DatabaseModels;
+using Back_end.Dtos;
 
 namespace Back_end.Data
 {
     public interface ISavedRecipeRepo
     {
-        IEnumerable<SavedRecipe> GetSavedRecipes();
-        IEnumerable<SavedRecipe> CreateSavedRecipe(SavedRecipe r);
+        IEnumerable<SavedRecipeDto> GetSavedRecipes();
+        IEnumerable<SavedRecipeDto> CreateSavedRecipe(SavedRecipeDto r);
     }
 }

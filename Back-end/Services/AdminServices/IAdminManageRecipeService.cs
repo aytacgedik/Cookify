@@ -6,12 +6,7 @@ namespace Back_end.Services
     public interface IAdminManageRecipeService
     {
         IEnumerable<RecipeDto> RemoveRecipeById(int id);
-        RecipeDto UpdateRecipeById(int id,
-                                   int creatorId,
-                                   string name,
-                                   string description,
-                                   float rating,
-                                   string tag);
+        RecipeDto UpdateRecipeById(RecipeDto r);
         RecipeDto GetRecipeById(int id);
         IEnumerable<RecipeDto> GetRecipes();
     }

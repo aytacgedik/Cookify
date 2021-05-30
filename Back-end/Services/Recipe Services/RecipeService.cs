@@ -65,7 +65,7 @@ namespace Back_end.Services
             //some bussiness logic below
             foreach (var user in _userRepository.GetUsers())
             {
-                sendEmailNotification(recipe, user.Email, recipe.name);
+                sendEmailNotification(recipe, user.email, recipe.name);
             }
             return ServiceGetRecipes();
         }
@@ -79,7 +79,7 @@ namespace Back_end.Services
         public RecipeDto ServiceGetRecipeById(int id)
         {
            
-            var result =  _recipeRepository.GetRecipeById(id).AsDto();
+            var result =  _recipeRepository.GetRecipeById(id);
             if(result == null)
                 return null;
             result.Ingredients = _ingredientService.ServiceGenerateList(id).ToList();
@@ -88,7 +88,7 @@ namespace Back_end.Services
 
         public IEnumerable<RecipeDto> ServiceGetRecipes()
         {
-            var toreturn =_recipeRepository.GetRecipes().Select(x => x.AsDto());
+            var toreturn =_recipeRepository.GetRecipes().Select(x => x);
             var realthingtoReturn = new List<RecipeDto>();
             foreach(var item in toreturn)
             {
@@ -99,7 +99,7 @@ namespace Back_end.Services
 
         public RecipeDto ServiceUpdateRecipeById(RecipeDto recipe)
         {
-            var toReturn =  _recipeRepository.UpdateRecipeById(recipe).AsDto();
+            var toReturn =  _recipeRepository.UpdateRecipeById(recipe);
             return ServiceGetRecipeById(toReturn.id);
         }
 
@@ -109,8 +109,8 @@ namespace Back_end.Services
             if(!String.IsNullOrEmpty(query))
                 foreach(var recipe in _recipeRepository.GetRecipes())
                 {
-                    if(recipe.Name.ToLower().Contains(query.ToLower()))
-                        recipesToReturn.Add(ServiceGetRecipeById(recipe.Id));
+                    if(recipe.name.ToLower().Contains(query.ToLower()))
+                        recipesToReturn.Add(ServiceGetRecipeById(recipe.id));
                     
                 }
             if(recipesToReturn.Count == 0)

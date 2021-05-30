@@ -3,6 +3,7 @@ using Back_end.DatabaseModels;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Back_end.Dtos;
+using System.Diagnostics;
 
 namespace Back_end.Data
 {
@@ -17,17 +18,27 @@ namespace Back_end.Data
             _context = context;
 
         }
-        public Recipe GetRecipeById(int id)
+        public RecipeDto GetRecipeById(int id)
         {
-            return _context.Recipes.Where(x => x.Id == id).FirstOrDefault();
+            var toreturn = new RecipeDto();
+            try
+            {
+                toreturn =  _context.Recipes.Where(x => x.Id == id).FirstOrDefault().AsDto();
+                
+            }
+            catch (System.Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+            return toreturn;
         }
 
-        public IEnumerable<Recipe> GetRecipes()
+        public IEnumerable<RecipeDto> GetRecipes()
         {
-            return _context.Recipes.ToList();
+            return _context.Recipes.Select(x=>x.AsDto());
         }
 
-        public IEnumerable<Recipe> DeleteRecipeById(int id)
+        public IEnumerable<RecipeDto> DeleteRecipeById(int id)
         {
             var recipeingredits = _context.RecipeIngredients.Where(x=>x.RecipeId ==id).ToList();
             foreach (var item in recipeingredits)
@@ -42,11 +53,11 @@ namespace Back_end.Data
                 _context.SaveChanges();
             }
 
-            _context.Recipes.Remove(GetRecipeById(id));
+            _context.Recipes.Remove(_context.Recipes.Where(x => x.Id == id).FirstOrDefault());
             _context.SaveChanges();
-            return _context.Recipes.ToList();
+            return _context.Recipes.Select(x=>x.AsDto());
         }
-        public Recipe UpdateRecipeById(RecipeDto recipe)
+        public RecipeDto UpdateRecipeById(RecipeDto recipe)
         {
             var recipeToUpdate = _context.Recipes.Where(x=>x.Id == recipe.id).FirstOrDefault();
             recipeToUpdate.Name = recipe.name;
@@ -57,10 +68,10 @@ namespace Back_end.Data
 
             _context.Recipes.Update(recipeToUpdate);
             _context.SaveChanges();
-            return _context.Recipes.Where(x => x.Id == recipe.id).FirstOrDefault();
+            return _context.Recipes.Where(x => x.Id == recipe.id).FirstOrDefault().AsDto();
         }
 
-        public IEnumerable<Recipe> CreateRecipe(RecipeDto r)
+        public IEnumerable<RecipeDto> CreateRecipe(RecipeDto r)
         {
             var toAdd = new Recipe
             {
@@ -88,7 +99,7 @@ namespace Back_end.Data
                     }
             }
 
-            return _context.Recipes.ToList();
+            return _context.Recipes.Select(x=>x.AsDto()).ToList();
         }
     }
 }

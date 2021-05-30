@@ -38,14 +38,9 @@ namespace Back_end.Controllers
         }
 
         [HttpPatch("{id}")]
-        public ActionResult<RecipeDto> updateRecipe([FromBody] Recipe _recipe)
+        public ActionResult<RecipeDto> updateRecipe([FromBody] RecipeDto _recipe)
         {
-            var recipe = _recipeService.UpdateRecipeById(_recipe.Id,
-                                                        (int)_recipe.CreatorId,
-                                                        _recipe.Name,
-                                                        _recipe.Description,
-                                                        (int)_recipe.Rating,
-                                                        _recipe.Tag);
+            var recipe = _recipeService.UpdateRecipeById(_recipe);
             return Ok(recipe);
         }
         

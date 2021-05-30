@@ -17,35 +17,26 @@ namespace Back_end.Services
         public IEnumerable<RecipeDto> RemoveRecipeById(int id)
         {
             var recipes = _recipeRepository.DeleteRecipeById(id);
-            return recipes.Select(x => x.AsDto()).ToList();
+            return recipes.Select(x => x).ToList();
         }
 
-        // public RecipeDto UpdateRecipeById(int id,
-        //                                  int creatorId,
-        //                                  string name,
-        //                                  string description,
-        //                                  float rating,
-        //                                  string tag)
-        // {
-        //     //var recipe = _recipeRepository.UpdateRecipeById(id, creatorId, name, description, rating, tag);
-        //     return //recipe.AsDto();
-        // }
+        public RecipeDto UpdateRecipeById(RecipeDto r)
+        {
+            var recipe = _recipeRepository.UpdateRecipeById(r);
+            return recipe;
+        }
 
         public RecipeDto GetRecipeById(int id)
         {
             var recipe = _recipeRepository.GetRecipeById(id);
-            return recipe.AsDto();
+            return recipe;
         }
 
         public IEnumerable<RecipeDto> GetRecipes()
         {
             var recipes = _recipeRepository.GetRecipes();
-            return recipes.Select(x => x.AsDto()).ToList();
+            return recipes.Select(x => x).ToList();
         }
 
-        public RecipeDto UpdateRecipeById(int id, int creatorId, string name, string description, float rating, string tag)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

@@ -7,6 +7,6 @@ namespace Back_end.Services
     public interface ISavedRecipeService
     {
         IEnumerable<SavedRecipeDto> ServiceGetSavedRecipes();
-        IEnumerable<SavedRecipeDto> ServiceCreateSavedRecipe(SavedRecipe r);
+        IEnumerable<SavedRecipeDto> ServiceCreateSavedRecipe(SavedRecipeDto r);
     }
 }

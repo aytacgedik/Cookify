@@ -22,14 +22,14 @@ namespace Back_end.Services
             _savedRecipeRepository = savedRecipeRepository;
         }
 
-        public IEnumerable<SavedRecipeDto> ServiceCreateSavedRecipe(SavedRecipe r)
+        public IEnumerable<SavedRecipeDto> ServiceCreateSavedRecipe(SavedRecipeDto r)
         {
-            return _savedRecipeRepository.CreateSavedRecipe(r).Select(x=>x.AsDto()).ToList();
+            return _savedRecipeRepository.CreateSavedRecipe(r).Select(x=>x).ToList();
         }
 
         public IEnumerable<SavedRecipeDto> ServiceGetSavedRecipes()
         {
-            return _savedRecipeRepository.GetSavedRecipes().Select(x=>x.AsDto()).ToList();
+            return _savedRecipeRepository.GetSavedRecipes().Select(x=>x).ToList();
         }
     }
 }

@@ -6,11 +6,11 @@ namespace Back_end.Data
 {
     public interface IRecipeRepo
     {
-        IEnumerable<Recipe> GetRecipes();
-        Recipe GetRecipeById(int id);
-        IEnumerable<Recipe> DeleteRecipeById(int id);
-        Recipe UpdateRecipeById(RecipeDto recipe);
+        IEnumerable<RecipeDto> GetRecipes();
+        RecipeDto GetRecipeById(int id);
+        IEnumerable<RecipeDto> DeleteRecipeById(int id);
+        RecipeDto UpdateRecipeById(RecipeDto recipe);
 
-        IEnumerable<Recipe> CreateRecipe(RecipeDto r);
+        IEnumerable<RecipeDto> CreateRecipe(RecipeDto r);
     }
 }
