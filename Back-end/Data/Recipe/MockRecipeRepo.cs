@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Back_end.DatabaseModels;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Back_end.Dtos;
 
 namespace Back_end.Data
 {
@@ -48,7 +49,21 @@ namespace Back_end.Data
 
         public IEnumerable<Recipe> DeleteRecipeById(int id)
         {
+            var recipeingredits = _context.RecipeIngredients.Where(x=>x.RecipeId ==id).ToList();
+            foreach (var item in recipeingredits)
+            {
+                _context.RecipeIngredients.Remove(item);
+                _context.SaveChanges();
+            }
+            var savedrecipes = _context.SavedRecipes.Where(x=>x.RecipeId ==id).ToList();
+            foreach (var saved in savedrecipes)
+            {
+                _context.SavedRecipes.Remove(saved);
+                _context.SaveChanges();
+            }
+
             _context.Recipes.Remove(GetRecipeById(id));
+            _context.SaveChanges();
             return _context.Recipes.ToList();
         }
         public Recipe UpdateRecipeById(int id, int creatorId, string name, string description, float rating, string tag)
@@ -58,27 +73,32 @@ namespace Back_end.Data
             return _context.Recipes.Where(x => x.Id == id).FirstOrDefault();
         }
 
-        public IEnumerable<Recipe> CreateRecipe(Recipe r)
+        public IEnumerable<Recipe> CreateRecipe(RecipeDto r)
         {
             var toAdd = new Recipe
             {
-                CreatorId = r.CreatorId,
-                Name = r.Name,
-                Description = r.Description,
-                Rating = r.Rating,
-                Tag = r.Tag,
+                CreatorId = r.creatorId,
+                Name = r.name,
+                Description = r.description,
+                Rating = (decimal)r.rating,
+                Tag = r.tag,
             };
             _context.Add(toAdd);
             _context.SaveChanges();
-            foreach (var ingredient in r.RecipeIngredients)
+            foreach (var ingredient in r.Ingredients)
             {
-                var ingredientID = ingredient.Id;
-                var RecipeIngredient = new RecipeIngredient();
-                RecipeIngredient.IngredientId = ingredientID;
-                RecipeIngredient.RecipeId = toAdd.Id;
-                _context.RecipeIngredients.Add(RecipeIngredient);
-                _context.SaveChanges();
 
+                    int? ingredientID = _context.Ingredients.Where(i=> i.Name == ingredient.name).Select(x=>x.Id).FirstOrDefault();
+                    if(ingredientID != 0)
+                    {
+                        //link to recipe
+                        var RecipeIngredient = new RecipeIngredient();
+                        RecipeIngredient.IngredientId = ingredientID;
+                        RecipeIngredient.RecipeId = toAdd.Id;
+                        _context.RecipeIngredients.Add(RecipeIngredient);
+                        _context.SaveChanges();
+
+                    }
             }
 
             return _context.Recipes.ToList();

@@ -1,11 +1,18 @@
 using Back_end.Dtos;
 using Back_end.DatabaseModels;
+using System.Collections.Generic;
+
 namespace Back_end
 {
     public static class Extensions
     {
         public static UserDto AsDto(this User user)
         {
+            var Recipes = new List<RecipeDto>();
+            foreach (var item in user.Recipes)
+            {
+                Recipes.Add(item.AsDto());
+            }
             return new UserDto
             {
                 id = user.Id,
@@ -13,7 +20,8 @@ namespace Back_end
                 surname = user.Surname,
                 email = user.Email,
                 verified = (bool)user.Verified,
-                admin = (bool)user.Admin
+                admin = (bool)user.Admin,
+                Recipes = Recipes
             };
         }
 

@@ -15,21 +15,24 @@ namespace Back_end.Services
         private readonly IRecipeRepo _recipeRepository;
         private readonly IUserRepo _userRepository;
 
+        private readonly IIngredientService _ingredientService;
+
 
         //Recipe Service is dependent on the IRecipeRepo
-        public RecipeService(IRecipeRepo recipeRepository, IUserRepo userRepository)
+        public RecipeService(IRecipeRepo recipeRepository, IUserRepo userRepository,IIngredientService ingredientService)
         {
             _recipeRepository = recipeRepository;
             _userRepository = userRepository;
+            _ingredientService = ingredientService;
         }
 
 
-        private void sendEmailNotification(Recipe recipe, string tomail, string text)
+        private void sendEmailNotification(RecipeDto recipe, string tomail, string text)
         {
 
             try
             {
-                string subject = "New " + recipe.Name + " available at Cookify";
+                string subject = "New " + recipe.name + " available at Cookify";
                 string body = text + ",\n" + "Cookify team";
                 string FromMail = "cookify@gmail.com";
                 string emailTo = tomail;
@@ -51,7 +54,7 @@ namespace Back_end.Services
             }
         }
 
-        public IEnumerable<RecipeDto> ServiceCreateRecipe(Recipe recipe)
+        public IEnumerable<RecipeDto> ServiceCreateRecipe(RecipeDto recipe)
         {
             var recipes = _recipeRepository.CreateRecipe(recipe);
             //why would database return null??
@@ -62,28 +65,36 @@ namespace Back_end.Services
             //some bussiness logic below
             foreach (var user in _userRepository.GetUsers())
             {
-                sendEmailNotification(recipe, user.Email, recipe.Name);
+                sendEmailNotification(recipe, user.Email, recipe.name);
             }
-            return recipes.Select(x => x.AsDto()).ToList();
+            return ServiceGetRecipes();
         }
 
         public IEnumerable<RecipeDto> ServiceDeleteRecipeById(int id)
         {
             _recipeRepository.DeleteRecipeById(id);
-            return _recipeRepository.GetRecipes().Select(x => x.AsDto()).ToList();
+            return ServiceGetRecipes();
         }
 
         public RecipeDto ServiceGetRecipeById(int id)
         {
-            var result =  _recipeRepository.GetRecipeById(id);
+           
+            var result =  _recipeRepository.GetRecipeById(id).AsDto();
             if(result == null)
                 return null;
-            return result.AsDto();
+            result.Ingredients = _ingredientService.ServiceGenerateList(id).ToList();
+            return result ;
         }
 
         public IEnumerable<RecipeDto> ServiceGetRecipes()
         {
-            return _recipeRepository.GetRecipes().Select(x => x.AsDto()).ToList();
+            var toreturn =_recipeRepository.GetRecipes().Select(x => x.AsDto());
+            var realthingtoReturn = new List<RecipeDto>();
+            foreach(var item in toreturn)
+            {
+                realthingtoReturn.Add(ServiceGetRecipeById(item.id));
+            }
+            return realthingtoReturn;
         }
 
         public RecipeDto ServiceUpdateRecipeById(int id, int creatorId, string name, string description, float rating, string tag)
@@ -98,7 +109,7 @@ namespace Back_end.Services
                 foreach(var recipe in _recipeRepository.GetRecipes())
                 {
                     if(recipe.Name.ToLower().Contains(query.ToLower()))
-                        recipesToReturn.Add(recipe.AsDto());
+                        recipesToReturn.Add(ServiceGetRecipeById(recipe.Id));
                     
                 }
             if(recipesToReturn.Count == 0)

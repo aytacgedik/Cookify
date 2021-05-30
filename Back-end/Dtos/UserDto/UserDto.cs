@@ -10,6 +10,7 @@ namespace Back_end.Dtos
         public bool verified { get; set; }
         public bool admin { get; set; }
 
+        public List<RecipeDto> Recipes{get;set;}
         public IEnumerable<RecipeDto> generateRecommeddedRecipes() => new List<RecipeDto>();
     }
 }

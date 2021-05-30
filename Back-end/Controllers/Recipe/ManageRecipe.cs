@@ -26,7 +26,7 @@ namespace Back_end.Controllers
 
         //POST - createRecipe()
         [HttpPost]
-        public ActionResult<IEnumerable<RecipeDto>> createRecipe([FromBody]Recipe recipe)
+        public ActionResult<IEnumerable<RecipeDto>> createRecipe([FromBody]RecipeDto recipe)
         {
             //return what is going to be added to database for now
             //later we will do an insert on the database
