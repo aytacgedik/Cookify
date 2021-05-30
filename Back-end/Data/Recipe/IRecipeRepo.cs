@@ -9,7 +9,7 @@ namespace Back_end.Data
         IEnumerable<Recipe> GetRecipes();
         Recipe GetRecipeById(int id);
         IEnumerable<Recipe> DeleteRecipeById(int id);
-        Recipe UpdateRecipeById(int id, int creatorId, string name, string description, float rating, string tag);
+        Recipe UpdateRecipeById(RecipeDto recipe);
 
         IEnumerable<Recipe> CreateRecipe(RecipeDto r);
     }

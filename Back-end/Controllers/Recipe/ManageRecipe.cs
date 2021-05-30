@@ -45,7 +45,7 @@ namespace Back_end.Controllers
 
         //DELETE{id} - removeRecipe() 
         [HttpDelete("{id}")]
-        public ActionResult<IEnumerable<Recipe>> removeRecipe(int id)
+        public ActionResult<IEnumerable<RecipeDto>> removeRecipe(int id)
         {
             //DELETE operation to be done from the database
             var result = _recipeService.ServiceDeleteRecipeById(id);
@@ -56,12 +56,12 @@ namespace Back_end.Controllers
 
         //PATCH/PUT{id} - updateRecipe()
         [HttpPatch]
-        public ActionResult<Recipe> updateRecipe([FromBody] Recipe recipe)
+        public ActionResult<RecipeDto> updateRecipe( RecipeDto recipe)
         {
             //recipe json passed from front-end
             //find object from recipe.id
             //set all other fields of found object to recipe fields
-            var result = _recipeService.ServiceUpdateRecipeById(recipe.Id,(int)recipe.CreatorId,recipe.Name,recipe.Description,(int)recipe.Rating,recipe.Tag);
+            var result = _recipeService.ServiceUpdateRecipeById(recipe);
             if(result == null)
             {
                 return NotFound();
@@ -71,7 +71,7 @@ namespace Back_end.Controllers
 
 
         [HttpGet]
-        public ActionResult<IEnumerable<Recipe>> getRecipe()
+        public ActionResult<IEnumerable<RecipeDto>> getRecipe()
         {
             var result = _recipeService.ServiceGetRecipes();
             if(result == null)
@@ -84,7 +84,7 @@ namespace Back_end.Controllers
 
         //GET{id} - getRecipes()
         [HttpGet("{id}")]
-        public ActionResult<IEnumerable<Recipe>> getRecipe(int id)
+        public ActionResult<IEnumerable<RecipeDto>> getRecipe(int id)
         {
             var result = _recipeService.ServiceGetRecipeById(id);
             if(result == null)

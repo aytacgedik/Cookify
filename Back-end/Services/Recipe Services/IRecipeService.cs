@@ -9,7 +9,7 @@ namespace Back_end.Services
         IEnumerable<RecipeDto> ServiceGetRecipes();
         RecipeDto ServiceGetRecipeById(int id);
         IEnumerable<RecipeDto> ServiceDeleteRecipeById(int id);
-        RecipeDto ServiceUpdateRecipeById(int id, int creatorId, string name, string description, float rating, string tag);
+        RecipeDto ServiceUpdateRecipeById(RecipeDto recipe);
 
         IEnumerable<RecipeDto> ServiceCreateRecipe(RecipeDto r);
         public IEnumerable<RecipeDto> ServiceSearchRecipe(string query);
