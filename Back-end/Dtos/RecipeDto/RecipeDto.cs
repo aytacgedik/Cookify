@@ -13,7 +13,7 @@ namespace Back_end.Dtos
         
 
         public List<IngredientDto> Ingredients {get;set;} = new List<IngredientDto>();
-        public void calcNutritionalValues(){}
-        public IngredientDto getRecipeIngredient() => new IngredientDto();
+        // public void calcNutritionalValues(){}
+        // public IngredientDto getRecipeIngredient() => new IngredientDto();
     }
 }

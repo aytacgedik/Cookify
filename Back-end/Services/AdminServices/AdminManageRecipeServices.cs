@@ -20,16 +20,16 @@ namespace Back_end.Services
             return recipes.Select(x => x.AsDto()).ToList();
         }
 
-        public RecipeDto UpdateRecipeById(int id,
-                                         int creatorId,
-                                         string name,
-                                         string description,
-                                         float rating,
-                                         string tag)
-        {
-            var recipe = _recipeRepository.UpdateRecipeById(id, creatorId, name, description, rating, tag);
-            return recipe.AsDto();
-        }
+        // public RecipeDto UpdateRecipeById(int id,
+        //                                  int creatorId,
+        //                                  string name,
+        //                                  string description,
+        //                                  float rating,
+        //                                  string tag)
+        // {
+        //     //var recipe = _recipeRepository.UpdateRecipeById(id, creatorId, name, description, rating, tag);
+        //     return //recipe.AsDto();
+        // }
 
         public RecipeDto GetRecipeById(int id)
         {
@@ -41,6 +41,11 @@ namespace Back_end.Services
         {
             var recipes = _recipeRepository.GetRecipes();
             return recipes.Select(x => x.AsDto()).ToList();
+        }
+
+        public RecipeDto UpdateRecipeById(int id, int creatorId, string name, string description, float rating, string tag)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
