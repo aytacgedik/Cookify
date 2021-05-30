@@ -17,7 +17,7 @@ namespace Back_end.Services
         public IEnumerable<UserDto> RemoveUserById(int id)
         {
             var users = _userRepository.RemoveUserById(id);
-            return users.Select(x => x.AsDto()).ToList();
+            return users;
         }
 
         public UserDto UpdateUserById(int id,
@@ -28,19 +28,19 @@ namespace Back_end.Services
                                bool admin)
         {
             var user = _userRepository.UpdateUserById(id, name, surname, email, verified, admin);
-            return user.AsDto();
+            return user;
         }
 
         public UserDto GetUserById(int id)
         {
             var user = _userRepository.GetUserById(id);
-            return user.AsDto();
+            return user;
         }
 
         public IEnumerable<UserDto> GetUsers()
         {
             var users = _userRepository.GetUsers();
-            return users.Select(x => x.AsDto()).ToList();
+            return users;
         }
     }
 }

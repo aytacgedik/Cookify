@@ -1,14 +1,14 @@
 using System.Collections.Generic;
-using Back_end.DatabaseModels;
+using Back_end.Dtos;
 
 namespace Back_end.Data
 {
     public interface IUserRepo
     {
-        IEnumerable<User> CreateUser(int id, string name, string surname, string email, bool verified, bool admin);
-        IEnumerable<User> RemoveUserById(int id);
-        User UpdateUserById(int id, string name, string surname, string email, bool verified, bool admin);
-        User GetUserById(int id);
-        IEnumerable<User> GetUsers();
+        IEnumerable<UserDto> CreateUser(int id, string name, string surname, string email, bool verified, bool admin);
+        IEnumerable<UserDto> RemoveUserById(int id);
+        UserDto UpdateUserById(int id, string name, string surname, string email, bool verified, bool admin);
+        UserDto GetUserById(int id);
+        IEnumerable<UserDto> GetUsers();
     }
 }
