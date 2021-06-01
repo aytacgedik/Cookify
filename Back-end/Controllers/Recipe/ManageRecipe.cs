@@ -26,7 +26,7 @@ namespace Back_end.Controllers
 
         //POST - createRecipe()
         [HttpPost]
-        public ActionResult<IEnumerable<RecipeDto>> createRecipe([FromBody]RecipeDto recipe)
+        public ActionResult<IEnumerable<RecipeDto>> createRecipe(RecipeInputDto recipe)
         {
             //return what is going to be added to database for now
             //later we will do an insert on the database
@@ -55,13 +55,13 @@ namespace Back_end.Controllers
         }
 
         //PATCH/PUT{id} - updateRecipe()
-        [HttpPatch]
-        public ActionResult<RecipeDto> updateRecipe( RecipeDto recipe)
+        [HttpPatch("{id}")]
+        public ActionResult<RecipeDto> updateRecipe( int id, RecipePatchDto recipe)
         {
             //recipe json passed from front-end
             //find object from recipe.id
             //set all other fields of found object to recipe fields
-            var result = _recipeService.ServiceUpdateRecipeById(recipe);
+            var result = _recipeService.ServiceUpdateRecipeById(id,recipe);
             if(result == null)
             {
                 return NotFound();

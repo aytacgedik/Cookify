@@ -8,26 +8,22 @@ namespace Back_end.Services
     public class UserServices : IUserService
     {
         private readonly IUserRepo _userRepository;
+        private readonly ISavedRecipeService _savedRecipeService;
 
-        public UserServices(IUserRepo userRepository)
+        private readonly IIngredientService _ingredientService;
+
+
+        public UserServices(IUserRepo userRepository,ISavedRecipeService savedRecipeService,IIngredientService ingredientService)
         {
             _userRepository = userRepository;
+            _savedRecipeService = savedRecipeService;
+            _ingredientService = ingredientService;
         }
 
-        public IEnumerable<UserDto> ServiceCreateUser(int id,
-                                               string name,
-                                               string surname,
-                                               string email,
-                                               bool verified,
-                                               bool admin)
+        public IEnumerable<UserDto> ServiceCreateUser(UserInputDto _user)
         {
-            var users = _userRepository.CreateUser(id,
-                                                   name,
-                                                   surname,
-                                                   email,
-                                                   verified,
-                                                   admin);
-            return users.Select(x => x).ToList();
+            var users = _userRepository.CreateUser(_user);
+            return ServiceGetUsers();
         }
 
         public IEnumerable<UserDto> ServiceRemoveUserById(int id)
@@ -36,27 +32,34 @@ namespace Back_end.Services
             return users.Select(x => x).ToList();
         }
 
-        public UserDto ServiceUpdateUserById(int id,
-                               string name,
-                               string surname,
-                               string email,
-                               bool verified,
-                               bool admin)
+        public UserDto ServiceUpdateUserById(int id, UserInputDto _user)
         {
-            var user = _userRepository.UpdateUserById(id, name, surname, email, verified, admin);
-            return user;
+            var user = _userRepository.UpdateUserById(id,_user);
+            return ServiceGetUserById(user.id);
         }
 
         public UserDto ServiceGetUserById(int id)
         {
             var user = _userRepository.GetUserById(id);
+            if(user == null)
+                return null;
+            user.SavedRecipes = _savedRecipeService.ServiceGetUserSavedRecipes(id).ToList();
+            foreach (var item in user.SavedRecipes)
+            {
+                item.Ingredients = _ingredientService.ServiceGenerateList(item.id).ToList();
+            }
             return user;
         }
 
         public IEnumerable<UserDto> ServiceGetUsers()
         {
             var users = _userRepository.GetUsers();
-            return users.Select(x => x).ToList();
+            var realthingtoReturn = new List<UserDto>();
+            foreach (var item in users)
+            {
+                realthingtoReturn.Add(ServiceGetUserById(item.id));
+            }
+            return realthingtoReturn;
         }
     }
 }

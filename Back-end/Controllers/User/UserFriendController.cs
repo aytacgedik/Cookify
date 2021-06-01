@@ -23,10 +23,9 @@ namespace Back_end.Controllers
         //createUserFriend()
         //Done
         [HttpPost]
-        public ActionResult<IEnumerable<UserFriendDto>> createUserFriend([FromBody] UserFriend _userfriend)
+        public ActionResult<IEnumerable<UserFriendDto>> createUserFriend(UserFriendDto _userfriend)
         {
-            var userFriends = _userFriendService.ServiceAddUserFriendById((int)_userfriend.UserFollowerId,
-                                                                   (int)_userfriend.UserFollowedId);
+            var userFriends = _userFriendService.ServiceAddUserFriendById((int)_userfriend.userFollowerId, (int)_userfriend.userFollowedId);
 
             return Ok(userFriends);
         }

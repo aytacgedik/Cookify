@@ -27,7 +27,7 @@ namespace Back_end.Services
         }
 
 
-        private void sendEmailNotification(RecipeDto recipe, string tomail, string text)
+        private void sendEmailNotification(RecipeInputDto recipe, string tomail, string text)
         {
 
             try
@@ -54,7 +54,7 @@ namespace Back_end.Services
             }
         }
 
-        public IEnumerable<RecipeDto> ServiceCreateRecipe(RecipeDto recipe)
+        public IEnumerable<RecipeDto> ServiceCreateRecipe(RecipeInputDto recipe)
         {
             var recipes = _recipeRepository.CreateRecipe(recipe);
             //why would database return null??
@@ -97,9 +97,9 @@ namespace Back_end.Services
             return realthingtoReturn;
         }
 
-        public RecipeDto ServiceUpdateRecipeById(RecipeDto recipe)
+        public RecipeDto ServiceUpdateRecipeById(int id, RecipePatchDto recipe)
         {
-            var toReturn =  _recipeRepository.UpdateRecipeById(recipe);
+            var toReturn =  _recipeRepository.UpdateRecipeById(id,recipe);
             return ServiceGetRecipeById(toReturn.id);
         }
 

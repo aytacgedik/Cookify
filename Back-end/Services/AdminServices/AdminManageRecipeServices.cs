@@ -20,9 +20,9 @@ namespace Back_end.Services
             return recipes.Select(x => x).ToList();
         }
 
-        public RecipeDto UpdateRecipeById(RecipeDto r)
+        public RecipeDto UpdateRecipeById(int id,RecipePatchDto r)
         {
-            var recipe = _recipeRepository.UpdateRecipeById(r);
+            var recipe = _recipeRepository.UpdateRecipeById(id,r);
             return recipe;
         }
 

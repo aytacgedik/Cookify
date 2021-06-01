@@ -6,9 +6,9 @@ namespace Back_end.Data
 {
     public interface IUserRepo
     {
-        IEnumerable<UserDto> CreateUser(int id, string name, string surname, string email, bool verified, bool admin);
+        IEnumerable<UserDto> CreateUser(UserInputDto u);
         IEnumerable<UserDto> RemoveUserById(int id);
-        UserDto UpdateUserById(int id, string name, string surname, string email, bool verified, bool admin);
+        UserDto UpdateUserById(int id, UserInputDto u);
         UserDto GetUserById(int id);
         IEnumerable<UserDto> GetUsers();
     }

@@ -13,21 +13,16 @@ namespace Back_end.Data
             _context = context;
         }
 
-        public IEnumerable<UserDto> CreateUser(int id,
-                                            string name,
-                                            string surname,
-                                            string email,
-                                            bool verified,
-                                            bool admin)
+        public IEnumerable<UserDto> CreateUser(UserInputDto u)
         {
             _context.Add(new User
             {
-                Id = id,
-                Name = name,
-                Surname = surname,
-                Email = email,
-                Verified = verified,
-                Admin = admin
+                //Id = u.id,
+                Name = u.name,
+                Surname = u.surname,
+                Email = u.email,
+                Verified = u.verified,
+                Admin = u.admin
             });
             _context.SaveChanges();
             return _context.Users.Select(u=>u.AsDto());
@@ -50,19 +45,14 @@ namespace Back_end.Data
             return _context.Users.Select(u=>u.AsDto());
         }
 
-        public UserDto UpdateUserById(int id,
-                                   string name,
-                                   string surname,
-                                   string email,
-                                   bool verified,
-                                   bool admin)
+        public UserDto UpdateUserById(int id,UserInputDto u)
         {
-            var user = _context.Users.Where(u => u.Id == id).FirstOrDefault();
-            user.Name = name;
-            user.Surname = surname;
-            user.Email = email;
-            user.Verified = verified;
-            user.Admin = admin;
+            var user = _context.Users.Where(x => x.Id == id).FirstOrDefault();
+            user.Name = u.name;
+            user.Surname = u.surname;
+            user.Email =u.email;
+            user.Verified = u.verified;
+            user.Admin = u.admin;
             _context.SaveChanges();
             return user.AsDto();
         }
