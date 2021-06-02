@@ -29,10 +29,10 @@ namespace Back_end.UnitTests
                     userFollowedId = 1
                 }
             };
-            var userFriend = new UserFriend
+            var userFriend = new UserFriendDto
             {
-                UserFollowerId = 1,
-                UserFollowedId = 2
+                userFollowerId = 1,
+                userFollowedId = 2
             };
             repoMock.Setup(p => p.AddUserFriendById(1, 2)).Returns(returnedList);
             var service = new UserFriendServices(repoMock.Object);

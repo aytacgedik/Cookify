@@ -110,21 +110,20 @@ namespace Back_end.UnitTests
                 verified = false,
                 admin = false
             };
-            var user = new User
+            var inputDTO = new UserInputDto
             {
-                Id = 1,
-                Name = "test1",
-                Surname = "test1",
-                Email = "test1",
-                Verified = false,
-                Admin = false
+                name = "test1",
+                surname = "test1",
+                email = "test1",
+                verified = false,
+                admin = false
             };
-            repoMock.Setup(p => p.UpdateUserById(1, "test1", "test1", "test1", false, false)).Returns(userDTO);
+            repoMock.Setup(p => p.UpdateUserById(1, inputDTO)).Returns(userDTO);
             var service = new AdminManageUserServices(repoMock.Object);
             var ctl = new AdminManageUserController(service);
 
             // Act
-            var result = ctl.updateUser(user).Result as OkObjectResult;
+            var result = ctl.updateUser(1,inputDTO).Result as OkObjectResult;
             
             // Assert
             result.Value.Should().BeEquivalentTo(userDTO, options => options.ComparingByMembers<UserDto>());
