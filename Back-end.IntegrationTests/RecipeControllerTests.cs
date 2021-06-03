@@ -30,7 +30,10 @@ namespace Back_end.IntegrationTests
         public async Task Get_WithId_ReturnsOK()
         {
             await AuthenticateAsync();
-            var response = await TestClient.GetAsync("api/recipes/10");
+            var recipes = await TestClient.GetAsync("api/recipes");
+            var responseResult = await recipes.Content.ReadFromJsonAsync<List<Recipe>>();
+            var r = responseResult.First();
+            var response = await TestClient.GetAsync($"api/recipes/{r.recipeId}");
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 

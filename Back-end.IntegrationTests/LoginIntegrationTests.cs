@@ -29,16 +29,16 @@ namespace Back_end.IntegrationTests
         //     response.StatusCode.Should().Be(HttpStatusCode.Created);
         // }
 
-        [Fact]
-        public async Task LoginWithValidCred_ReturnAuthorized()
-        {
-                var response =await TestClient.PostAsJsonAsync("api/login", new LoginForm{
-                Username = "GROUPF",
-                Password = "123123"
-            });
+        // [Fact]
+        // public async Task LoginWithValidCred_ReturnAuthorized()
+        // {
+        //         var response =await TestClient.PostAsJsonAsync("api/login", new LoginForm{
+        //         Username = "GROUPF",
+        //         Password = "123123"
+        //     });
 
-                response.StatusCode.Should().Be(HttpStatusCode.OK);
-        }
+        //         response.StatusCode.Should().Be(HttpStatusCode.OK);
+        // }
         
     }
 }
