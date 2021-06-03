@@ -16,7 +16,7 @@ namespace Back_end.IntegrationTests
         // [Fact]
         // public async Task RegisterUserAsync_RegistersUser()
         // {
-        //     //I could delete the user I created on previous run but they are not allowing and endpoint to delete users
+        //     //I could delete the user I created on previous run but they are not allowing an endpoint to delete users
         //     var response = await TestClient.PostAsJsonAsync("api/signup", new GroupHModels.User{
         //         Admin = false,
         //         Email = "groupf@gamil.com",

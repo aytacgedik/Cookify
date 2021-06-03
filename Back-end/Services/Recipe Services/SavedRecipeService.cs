@@ -22,7 +22,7 @@ namespace Back_end.Services
             _savedRecipeRepository = savedRecipeRepository;
         }
 
-        public IEnumerable<SavedRecipeDto> ServiceCreateSavedRecipe(SavedRecipeDto r)
+        public IEnumerable<SavedRecipeDto> ServiceCreateSavedRecipe(SavedRecipeInputDto r)
         {
             return _savedRecipeRepository.CreateSavedRecipe(r).Select(x=>x).ToList();
         }
@@ -31,5 +31,11 @@ namespace Back_end.Services
         {
             return _savedRecipeRepository.GetSavedRecipes().Select(x=>x).ToList();
         }
+
+        public IEnumerable<RecipeDto> ServiceGetUserSavedRecipes(int id)
+        {
+            return _savedRecipeRepository.GetUserSavedRecipes(id);
+        }
+
     }
 }

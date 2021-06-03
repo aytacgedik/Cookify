@@ -8,20 +8,20 @@ namespace Back_end
     {
         public static UserDto AsDto(this User user)
         {
-            var Recipes = new List<RecipeDto>();
-            foreach (var item in user.Recipes)
-            {
-                Recipes.Add(item.AsDto());
-            }
-            return new UserDto
+            // var Recipes = new List<RecipeDto>();
+            // foreach (var item in user.SavedRecipes)
+            // {
+            //     Recipes.Add(item.AsDto());
+            // }
+             return new UserDto
             {
                 id = user.Id,
                 name = user.Name,
                 surname = user.Surname,
                 email = user.Email,
                 verified = (bool)user.Verified,
-                admin = (bool)user.Admin,
-                Recipes = Recipes
+                admin = (bool)user.Admin
+                //SavedRecipes = Recipes
             };
         }
 

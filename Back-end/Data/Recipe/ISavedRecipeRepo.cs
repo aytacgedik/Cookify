@@ -7,6 +7,7 @@ namespace Back_end.Data
     public interface ISavedRecipeRepo
     {
         IEnumerable<SavedRecipeDto> GetSavedRecipes();
-        IEnumerable<SavedRecipeDto> CreateSavedRecipe(SavedRecipeDto r);
+        IEnumerable<SavedRecipeDto> CreateSavedRecipe(SavedRecipeInputDto r);
+        IEnumerable<RecipeDto> GetUserSavedRecipes(int uid);
     }
 }

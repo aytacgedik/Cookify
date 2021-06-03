@@ -94,7 +94,16 @@ namespace Back_end.UnitTests
         {
             // Arrange
             var repoMock = new Mock<IRecipeRepo>();
-            var after = new RecipeDto()
+            var id = 1;
+            var after = new RecipePatchDto()
+            {
+                creatorId = 1,
+                name = "test",
+                description = "test",
+                rating = 6.7F,
+                tag = "test"
+            };
+            var returned = new RecipeDto()
             {
                 id = 1,
                 creatorId = 1,
@@ -103,13 +112,14 @@ namespace Back_end.UnitTests
                 rating = 6.7F,
                 tag = "test"
             };
-            repoMock.Setup(p => p.UpdateRecipeById(after)).Returns(after);
+            
+            repoMock.Setup(p => p.UpdateRecipeById(id,after)).Returns(returned);
             var service = new AdminManageRecipeServices(repoMock.Object);
             var ctl = new AdminManageRecipeController(service);
             // Act
-            var result = ctl.updateRecipe(after).Result as OkObjectResult;
+            var result = ctl.updateRecipe(id,after).Result as OkObjectResult;
             // Assert
-            result.Value.Should().BeEquivalentTo(after, options => options.ComparingByMembers<Recipe>());
+            result.Value.Should().BeEquivalentTo(returned, options => options.ComparingByMembers<Recipe>());
 
         }
     }

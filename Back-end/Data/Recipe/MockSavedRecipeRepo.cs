@@ -24,7 +24,7 @@ namespace Back_end.Data
         // {
         //     return repo;
         // }
-        public IEnumerable<SavedRecipeDto> CreateSavedRecipe(SavedRecipeDto r)
+        public IEnumerable<SavedRecipeDto> CreateSavedRecipe(SavedRecipeInputDto r)
         {
             var srtoAdd = new SavedRecipe{
                 UserId = r.userId,
@@ -38,6 +38,11 @@ namespace Back_end.Data
         public IEnumerable<SavedRecipeDto> GetSavedRecipes()
         {
             return _context.SavedRecipes.Select(x=>x.AsDto());
+        }
+
+        public IEnumerable<RecipeDto> GetUserSavedRecipes(int uid)
+        {
+           return _context.SavedRecipes.Where(x=>x.UserId == uid).Select(y => y.Recipe.AsDto());
         }
     }
 }

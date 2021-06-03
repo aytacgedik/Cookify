@@ -57,21 +57,22 @@ namespace Back_end.Data
             _context.SaveChanges();
             return _context.Recipes.Select(x=>x.AsDto());
         }
-        public RecipeDto UpdateRecipeById(RecipeDto recipe)
+        public RecipeDto UpdateRecipeById(int id,RecipePatchDto recipe)
         {
-            var recipeToUpdate = _context.Recipes.Where(x=>x.Id == recipe.id).FirstOrDefault();
+            var recipeToUpdate = _context.Recipes.Where(x=>x.Id == id).FirstOrDefault();
             recipeToUpdate.Name = recipe.name;
             recipeToUpdate.Description = recipe.description;
             recipeToUpdate.Tag = recipe.tag;
             recipeToUpdate.Rating = (decimal)recipe.rating;
             recipeToUpdate.CreatorId = recipe.creatorId;
-
+            //let's not allow Update of ingredient lists
             _context.Recipes.Update(recipeToUpdate);
             _context.SaveChanges();
-            return _context.Recipes.Where(x => x.Id == recipe.id).FirstOrDefault().AsDto();
+            return _context.Recipes.Where(x => x.Id == id).FirstOrDefault().AsDto();
         }
 
-        public IEnumerable<RecipeDto> CreateRecipe(RecipeDto r)
+
+        public IEnumerable<RecipeDto> CreateRecipe(RecipeInputDto r)
         {
             var toAdd = new Recipe
             {

@@ -21,7 +21,7 @@ namespace Back_end.Controllers
         }
 
         [HttpPost]
-        public ActionResult<IEnumerable<SavedRecipeDto>> createSavedRecipe([FromBody] SavedRecipeDto recipeToSave)
+        public ActionResult<IEnumerable<SavedRecipeDto>> createSavedRecipe(SavedRecipeInputDto recipeToSave)
         {
             // var result = base._savedRecipeRepository.
             // CreateSavedRecipe(new SavedRecipe{id=recipeToSave.id,userId=recipeToSave.userId,recipeId=recipeToSave.recipeId});

@@ -20,14 +20,9 @@ namespace Back_end.Services
             return users.Select(x => x).ToList();
         }
 
-        public UserDto UpdateUserById(int id,
-                               string name,
-                               string surname,
-                               string email,
-                               bool verified,
-                               bool admin)
+        public UserDto UpdateUserById(int id, UserInputDto u)
         {
-            var user = _userRepository.UpdateUserById(id, name, surname, email, verified, admin);
+            var user = _userRepository.UpdateUserById(id,u);
             return user;
         }
 

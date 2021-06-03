@@ -24,14 +24,9 @@ namespace Back_end.Controllers
         //createUser()
         //Done
         [HttpPost]
-        public ActionResult<IEnumerable<UserDto>> createUser([FromBody] User _user)
+        public ActionResult<IEnumerable<UserDto>> createUser( UserInputDto _user)
         {
-            var users = _userService.ServiceCreateUser(_user.Id,
-                                                _user.Name,
-                                                _user.Surname,
-                                                _user.Email,
-                                                (bool)_user.Verified,
-                                                (bool)_user.Admin);
+            var users = _userService.ServiceCreateUser(_user);
             return Ok(users);
         }
 
@@ -49,14 +44,9 @@ namespace Back_end.Controllers
         //updateUser()
         //Done
         [HttpPatch("{id}")]
-        public ActionResult<UserDto> updateUser([FromBody] User _user)
+        public ActionResult<UserDto> updateUser(int id, UserInputDto _user)
         {
-            var user = _userService.ServiceUpdateUserById(_user.Id,
-                                                   _user.Name,
-                                                   _user.Surname,
-                                                   _user.Email,
-                                                   (bool)_user.Verified,
-                                                   (bool)_user.Admin);
+            var user = _userService.ServiceUpdateUserById(id,_user);
             return Ok(user);
         }
 
