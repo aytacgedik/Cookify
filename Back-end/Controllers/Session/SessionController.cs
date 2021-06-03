@@ -16,7 +16,7 @@ namespace Back_end.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult CreateSession(SessionCredentials sc)
+        public IActionResult Login(SessionCredentials sc)
         {
             var token = jwtAuthenticationManager.Authenticate(sc.Email);
             return token == null ? Unauthorized() : Ok(token);

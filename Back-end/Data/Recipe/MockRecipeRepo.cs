@@ -1,81 +1,106 @@
 using System.Collections.Generic;
-using Back_end.Models;
+using Back_end.DatabaseModels;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Back_end.Dtos;
+using System.Diagnostics;
 
 namespace Back_end.Data
 {
     public class MockRecipeRepo : IRecipeRepo
     {
-        public List<Recipe> repo;
-        public MockRecipeRepo()
+        //Repository meaning any type of CRUD should be done here and returned.
+        //In the Service folders do the Logic
+        //https://stackoverflow.com/questions/1440096/difference-between-repository-and-service
+        private readonly CookifyContext _context;
+        public MockRecipeRepo(CookifyContext context)
         {
-            repo = new List<Recipe>{
-                new Recipe{id=1,
-                            creatorId=1,
-                            name="Pilav",
-                            description="Boiled rice fried with butter",
-                            rating=9.8F,
-                            tag="Turkish Cuisine"},
-                new Recipe{id=2,
-                            creatorId=2,
-                            name="Karni Yarik",
-                            description="Eggplants stuffed with minced meat",
-                            rating=10.0F,
-                            tag="Turkish Cuisine"},
-                new Recipe{id=3,
-                            creatorId=3,
-                            name="Simit",
-                            description="Turkish bagel with sesame",
-                            rating=6.9F,
-                            tag="Turkish Cuisine"}};
+            _context = context;
 
         }
-        public Recipe GetRecipeById(int id)
+        public RecipeDto GetRecipeById(int id)
         {
-            foreach(var recipe in repo) {
-                if (recipe.id == id) {
-                    return recipe;
-                }
+            var toreturn = new RecipeDto();
+            try
+            {
+                toreturn =  _context.Recipes.Where(x => x.Id == id).FirstOrDefault().AsDto();
+                
             }
-            return null;
-        }
-
-        public IEnumerable<Recipe> GetRecipes()
-        {
-            return repo; 
-        }
-
-        public IEnumerable<Recipe> DeleteRecipeById(int id) {
-            if(repo.All(x=>x.id != id ))
-                return null;
-            var toremove = repo.Find(x => x.id == id);
-            if(toremove!=null)
-                repo.Remove(toremove);
-            return repo;
-        }
-        public Recipe UpdateRecipeById(int id, int creatorId, string name, string description, float rating, string tag) {
-            int indexToUpdate = -1;
-            for(int i = 0; i < repo.Count; i++) {
-                if (repo[i].id == id) {
-                    indexToUpdate = i;
-                }
+            catch (System.Exception e)
+            {
+                Debug.WriteLine(e.Message);
             }
-            repo[indexToUpdate].id = id;
-            repo[indexToUpdate].creatorId = creatorId;
-            repo[indexToUpdate].name = name;
-            repo[indexToUpdate].description = description;
-            repo[indexToUpdate].rating = rating;
-            repo[indexToUpdate].tag = tag;
-            return repo[indexToUpdate];
+            return toreturn;
         }
 
-        public IEnumerable<Recipe> CreateRecipe(Recipe r)
+        public IEnumerable<RecipeDto> GetRecipes()
         {
-            if(repo.Any(x=> x.id == r.id))
-                return null;
-            repo.Add(new Recipe{id=r.id,creatorId=r.creatorId,name
-            =r.name,description=r.description,rating=r.rating,tag=r.tag});
-            return repo;
+            return _context.Recipes.Select(x=>x.AsDto());
+        }
+
+        public IEnumerable<RecipeDto> DeleteRecipeById(int id)
+        {
+            var recipeingredits = _context.RecipeIngredients.Where(x=>x.RecipeId ==id).ToList();
+            foreach (var item in recipeingredits)
+            {
+                _context.RecipeIngredients.Remove(item);
+                _context.SaveChanges();
+            }
+            var savedrecipes = _context.SavedRecipes.Where(x=>x.RecipeId ==id).ToList();
+            foreach (var saved in savedrecipes)
+            {
+                _context.SavedRecipes.Remove(saved);
+                _context.SaveChanges();
+            }
+
+            _context.Recipes.Remove(_context.Recipes.Where(x => x.Id == id).FirstOrDefault());
+            _context.SaveChanges();
+            return _context.Recipes.Select(x=>x.AsDto());
+        }
+        public RecipeDto UpdateRecipeById(int id,RecipePatchDto recipe)
+        {
+            var recipeToUpdate = _context.Recipes.Where(x=>x.Id == id).FirstOrDefault();
+            recipeToUpdate.Name = recipe.name;
+            recipeToUpdate.Description = recipe.description;
+            recipeToUpdate.Tag = recipe.tag;
+            recipeToUpdate.Rating = (decimal)recipe.rating;
+            recipeToUpdate.CreatorId = recipe.creatorId;
+            //let's not allow Update of ingredient lists
+            _context.Recipes.Update(recipeToUpdate);
+            _context.SaveChanges();
+            return _context.Recipes.Where(x => x.Id == id).FirstOrDefault().AsDto();
+        }
+
+
+        public IEnumerable<RecipeDto> CreateRecipe(RecipeInputDto r)
+        {
+            var toAdd = new Recipe
+            {
+                CreatorId = r.creatorId,
+                Name = r.name,
+                Description = r.description,
+                Rating = (decimal)r.rating,
+                Tag = r.tag,
+            };
+            _context.Add(toAdd);
+            _context.SaveChanges();
+            foreach (var ingredient in r.Ingredients)
+            {
+
+                    int? ingredientID = _context.Ingredients.Where(i=> i.Name == ingredient.name).Select(x=>x.Id).FirstOrDefault();
+                    if(ingredientID != 0)
+                    {
+                        //link to recipe
+                        var RecipeIngredient = new RecipeIngredient();
+                        RecipeIngredient.IngredientId = ingredientID;
+                        RecipeIngredient.RecipeId = toAdd.Id;
+                        _context.RecipeIngredients.Add(RecipeIngredient);
+                        _context.SaveChanges();
+
+                    }
+            }
+
+            return _context.Recipes.Select(x=>x.AsDto()).ToList();
         }
     }
 }

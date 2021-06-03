@@ -1,15 +1,16 @@
 using System.Collections.Generic;
-using Back_end.Models;
+using Back_end.DatabaseModels;
+using Back_end.Dtos;
 
 namespace Back_end.Data
 {
     public interface IRecipeRepo
     {
-        IEnumerable<Recipe> GetRecipes();
-        Recipe GetRecipeById(int id);
-        IEnumerable<Recipe> DeleteRecipeById(int id);
-        Recipe UpdateRecipeById(int id, int creatorId, string name, string description, float rating, string tag);
+        IEnumerable<RecipeDto> GetRecipes();
+        RecipeDto GetRecipeById(int id);
+        IEnumerable<RecipeDto> DeleteRecipeById(int id);
+        RecipeDto UpdateRecipeById(int  id,RecipePatchDto recipe);
 
-        IEnumerable<Recipe> CreateRecipe(Recipe r);
+        IEnumerable<RecipeDto> CreateRecipe(RecipeInputDto r);
     }
 }

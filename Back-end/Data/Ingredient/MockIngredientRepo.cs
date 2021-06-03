@@ -1,35 +1,35 @@
 ﻿using System.Collections.Generic;
-using Back_end.Models;
+using System.Linq;
+using Back_end.DatabaseModels;
+using Back_end.Dtos;
 
 namespace Back_end.Data
 {
     public class MockIngredientRepo : IIngredientRepo
     {
-        public List<Ingredient> repo;
-        public MockIngredientRepo()
+        private readonly CookifyContext _context;
+        public MockIngredientRepo(CookifyContext context)
         {
-            repo = new List<Ingredient>{
-                new Ingredient{id = 1, name = "Hershey Dark Chocolate"},
-                new Ingredient{id = 2, name = "Cadbury Milky Chocolate"},
-                new Ingredient{id = 3, name = "Lindt White Chocolate"}
-            };
-
-        }
-        public Ingredient GetIngredientById(int id)
-        {
-            foreach (var ingredient in repo)
-            {
-                if (ingredient.id == id)
-                {
-                    return ingredient;
-                }
-            }
-            return null;
+            _context = context;
         }
 
-        public IEnumerable<Ingredient> GetIngredients()
+        public IngredientDto GetIngredientById(int id)
         {
-            return repo;
+            return _context.Ingredients.Where(i => i.Id == id).FirstOrDefault().AsDto();
+        }
+
+        public IEnumerable<IngredientDto> GetIngredients()
+        {
+            return _context.Ingredients.Select(x => x.AsDto());
+        }
+        public IEnumerable<IngredientDto> ServiceSearchIngredient(string query)
+        {
+            return _context.Ingredients.Where(x => x.Name.Contains(query)).Select(y => y.AsDto());
+        }
+
+        public IEnumerable<IngredientDto> GetRecipeIngredients(int id)
+        {
+            return _context.RecipeIngredients.Where(r => r.RecipeId == id).Select(i => i.Ingredient).Select(y => y.AsDto());
         }
     }
 }

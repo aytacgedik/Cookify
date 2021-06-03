@@ -1,90 +1,60 @@
 using System.Collections.Generic;
-using Back_end.Models;
+using System.Linq;
+using Back_end.DatabaseModels;
+using Back_end.Dtos;
 
 namespace Back_end.Data
 {
     public class MockUserRepo : IUserRepo
     {
-        public List<User> UserRepo;
-
-        public MockUserRepo()
+        private readonly CookifyContext _context;
+        public MockUserRepo(CookifyContext context)
         {
-            UserRepo = new List<User>{
-                new User{id=1,
-                         name="Bond",
-                         surname = "James Bond",
-                         email="james@gg.com",
-                         verified=true,
-                         admin=false},
-                new User{id=2,
-                         name="It's me",
-                         surname = "Mario",
-                         email="PP@gg.com",
-                         verified=true,
-                         admin=true},
-                new User{id=3,
-                         name="OVER",
-                         surname = "9000",
-                         email="9001@gg.com",
-                         verified=true,
-                         admin=false}
-            };
+            _context = context;
         }
 
-        public IEnumerable<User> CreateUser(int id,
-                                            string name,
-                                            string surname,
-                                            string email,
-                                            bool verified,
-                                            bool admin)
+        public IEnumerable<UserDto> CreateUser(UserInputDto u)
         {
-            UserRepo.Add(new User
+            _context.Add(new User
             {
-                id = id,
-                name = name,
-                surname = surname,
-                email = email,
-                verified = verified,
-                admin = admin
+                //Id = u.id,
+                Name = u.name,
+                Surname = u.surname,
+                Email = u.email,
+                Verified = u.verified,
+                Admin = u.admin
             });
-            return UserRepo;
+            _context.SaveChanges();
+            return _context.Users.Select(u=>u.AsDto());
         }
 
-
-        public IEnumerable<User> RemoveUserById(int id)
+        public UserDto GetUserById(int id)
         {
-            UserRepo.RemoveAt(UserRepo.FindIndex(u => u.id == id));
-            return UserRepo;
+            return _context.Users.Where(u => u.Id == id).FirstOrDefault().AsDto();
         }
 
-
-        public User UpdateUserById(int id,
-                                   string name,
-                                   string surname,
-                                   string email,
-                                   bool verified,
-                                   bool admin)
+        public IEnumerable<UserDto> GetUsers()
         {
-            int index = UserRepo.FindIndex(u => u.id == id);
-            UserRepo[index].id = id;
-            UserRepo[index].name = name;
-            UserRepo[index].surname = surname;
-            UserRepo[index].email = email;
-            UserRepo[index].verified = verified;
-            UserRepo[index].admin = admin;
-            return UserRepo[index];
+            return _context.Users.Select(u=>u.AsDto());
         }
 
-
-        public IEnumerable<User> GetUsers()
+        public IEnumerable<UserDto> RemoveUserById(int id)
         {
-            return UserRepo;
+            _context.Users.Remove(_context.Users.Where(u => u.Id == id).FirstOrDefault());
+            _context.SaveChanges();
+            return _context.Users.Select(u=>u.AsDto());
         }
 
-
-        public User GetUserById(int id)
+        public UserDto UpdateUserById(int id,UserInputDto u)
         {
-            return UserRepo[UserRepo.FindIndex(u => u.id == id)];
+            var user = _context.Users.Where(x => x.Id == id).FirstOrDefault();
+            user.Name = u.name;
+            user.Surname = u.surname;
+            user.Email =u.email;
+            user.Verified = u.verified;
+            user.Admin = u.admin;
+            _context.SaveChanges();
+            return user.AsDto();
         }
     }
 }

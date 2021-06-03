@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 using Back_end.Controllers;
 using Back_end.Data;
 using Back_end.DatabaseModels;
+using Back_end.IntegrationTests.GroupHModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using Microsoft.EntityFrameworkCore;
+using FluentAssertions;
 
 namespace Back_end.IntegrationTests
 {
@@ -34,8 +36,11 @@ namespace Back_end.IntegrationTests
                 };
             else  
                 TestClient = new HttpClient(){
-                BaseAddress = new Uri("https://cookify.azurewebsites.net")
+                //BaseAddress = new Uri("https://cookify.azurewebsites.net")
+                BaseAddress = new Uri("https://se2-h-backend.herokuapp.com")
                 };
+
+                //RegisterUser();
             
         }
 
@@ -52,11 +57,28 @@ namespace Back_end.IntegrationTests
             TestClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer",await GetJwtAsync());
         }
 
+        // protected void RegisterUser()
+        // {
+        //     var response =  TestClient.PostAsJsonAsync("api/signup", new GroupHModels.User{
+        //         Admin = false,
+        //         userId = 10,
+        //         Email = "groupf@gamil.com",
+        //         Name = "wearegroupf",
+        //         Password = "123123",
+        //         Surname = "Wearegroupf",
+        //         Verified = false,
+        //         Login = "F"
+        //     });
+        //     //response.Should().Be(Stat);
+        // }
+
         private async Task<string> GetJwtAsync()
         {
-            var response =await TestClient.PostAsJsonAsync("api/sessions", new SessionCredentials{
-                Email = "james@gg.com"
-            });
+            var response = await TestClient.GetAsync("api/auth/off");
+            // var response =await TestClient.PostAsJsonAsync("api/login", new LoginForm{
+            //     Username = "Hookah Man",
+            //     Password = "$2y$05$v9LrcchS62lVfTHcYZEzjOU/AZkWku9uScnCciH5irIoH9puqZVrq"
+            // });
             var registrationResponse = await response.Content.ReadAsStringAsync();
             return registrationResponse;
         }

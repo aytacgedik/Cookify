@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
-using Back_end.Models;
+using Back_end.Dtos;
 
 namespace Back_end.Data
 {
     public interface IIngredientRepo
     {
-        Ingredient GetIngredientById(int id);
-        IEnumerable<Ingredient> GetIngredients();
+        IngredientDto GetIngredientById(int id);
+        IEnumerable<IngredientDto> GetIngredients();
+        IEnumerable<IngredientDto> ServiceSearchIngredient(string query);
+        IEnumerable<IngredientDto> GetRecipeIngredients(int id);
     }
 }

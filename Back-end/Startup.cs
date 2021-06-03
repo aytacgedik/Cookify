@@ -13,9 +13,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Swashbuckle.AspNetCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Back_end.Controllers;
+
+using Back_end.DatabaseModels;
+using Back_end.Services;
 
 namespace Back_end
 {
@@ -39,11 +43,23 @@ namespace Back_end
             });
 
             //Change this later
+            services.AddDbContext<CookifyContext>();//NEW
+
             services.AddScoped<IUserRepo,MockUserRepo>();
             services.AddScoped<IUserFriendRepo,MockUserFriendRepo>();
             services.AddScoped<IRecipeRepo,MockRecipeRepo>();
             services.AddScoped<ISavedRecipeRepo,MockSavedRecipeRepo>();
             services.AddScoped<IIngredientRepo, MockIngredientRepo>();
+
+            services.AddScoped<IUserService,UserServices>();//NEW
+            services.AddScoped<IUserFriendService,UserFriendServices>();//NEW
+
+            services.AddScoped<IAdminManageUserService,AdminManageUserServices>();
+            services.AddScoped<IAdminManageRecipeService,AdminManageRecipeServices>();
+
+            services.AddScoped<IIngredientService, IngredientServices>();
+            services.AddScoped<IRecipeService, RecipeService>();
+            services.AddScoped<ISavedRecipeService, SavedRecipeService>();
 
             var key = "this is a string used for encrypt and decrypt token";
             services.AddAuthentication(x =>
@@ -63,7 +79,7 @@ namespace Back_end
                 };
             });
 
-            services.AddSingleton<IJwtAuthenticationManager>(new JwtAuthenticationManager(key));
+            services.AddSingleton<IJwtAuthenticationManager>(new JwtAuthenticationManager(key,new CookifyContext()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,7 +88,7 @@ namespace Back_end
 
             app.UseDeveloperExceptionPage();
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Back_end v1"));
+            app.UseSwaggerUI(c => {c.SwaggerEndpoint("/swagger/v1/swagger.json", "Back_end v1");});
             if(env.IsDevelopment()){//for docker
                 app.UseHttpsRedirection();
             }
