@@ -62,6 +62,9 @@ const IngredientsList = ( {navigation} ) => {
     const fetchData = () => {
         setLoading(true);
         const url = `https://cookify.azurewebsites.net/api/ingredient`;
+        // Strange backend (2)
+        // original: `https://cookify.azurewebsites.net/api/ingredient`
+        // try: `https://cookbook-backend-development.herokuapp.com/ingredients/`
         fetch(url)
         .then((response) => response.json())
         .then((json) => setIngredients(json))
@@ -91,7 +94,7 @@ const IngredientsList = ( {navigation} ) => {
                     <FlatList
                         data={ingredients.length > 0 ? ingredients.slice(0, ingredients.length) : []}
                         renderItem={({item}) => renderListItem(item, navigation, rotate, fadeOut, backAnimFunc)}
-                        keyExtractor={item => item.name}
+                        keyExtractor={item => JSON.stringify(item.id)}
                         onRefresh={() => fetchData()}
                         refreshing={isLoading}
                     />

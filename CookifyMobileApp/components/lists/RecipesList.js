@@ -62,6 +62,9 @@ const RecipesList = ( {navigation} ) => {
     const fetchData = () => {
         setLoading(true);
         const url = `https://cookify.azurewebsites.net/api/recipes`;
+        // Strange backend (1)
+        // original: `https://cookify.azurewebsites.net/api/recipes`
+        // try: `https://se2-h-backend.herokuapp.com/api/recipes`
         fetch(url)
         .then((response) => response.json())
         .then((json) => setRecipes(json))
