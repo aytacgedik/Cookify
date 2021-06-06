@@ -1,5 +1,13 @@
 import React from 'react';
-
+function ingred(ing){
+    if(ing==null)return;
+    var text = "";
+          for(var j=0; j<ing.length; j++){
+          text += ing[j].name;
+          if(j!=ing.length-1)
+              text += ",";}
+    return text;
+}
 const recipeStyle = {
     "boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)",
     "transition": "0.3s",
@@ -14,6 +22,7 @@ const RecipeCard = (props) => {
             <div stlye={container}>
                 <h4 style={{"text-align": "center"}}><b>{props.name}</b></h4>
                 <p style={{"text-align": "center"}}>{props.description}</p>
+                <p style={{"text-align": "center"}}>{ingred(props.ingre)}</p>
                 <p style={{"text-align": "center"}}>{props.rating}</p>
                 <p style={{"text-align": "center"}}>{props.tag}</p>
             </div>

@@ -81,7 +81,7 @@ export default function Users() {
     <input type="checkbox" onChange={(e) => changeVerified(e)} /><br />
     <label for="male">Admin: </label>
     <input type="checkbox" onChange={(e) => changeAdmin(e)} /><br />
-    <button className="button" onClick={SendCard}>Add recipe</button>
+    <button className="button" onClick={SendCard}>Add cook</button>
     <div>
       {cards && cards.map(card =><UserCard name={card.name} surname={card.surname} email={card.email}/>)}
     </div>

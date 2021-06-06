@@ -9,7 +9,12 @@ export default function Recipes() {
   const [rating, setRating] = useState(0)
   const [tag, setTag] = useState("")
   const [cards, setCards] = useState([])
-
+  const [ingredients, setIngredients] = useState([])
+  const [creatorId, setCreatorId] = useState(0)
+  
+  const changeCreatorId = (e) => {
+    setCreatorId(e.target.value)
+  }
   const changeText = (e) => {
     setText(e.target.value)
   }
@@ -24,6 +29,15 @@ export default function Recipes() {
   }
   const changeTag = (e) => {
     setTag(e.target.value)
+  }
+  const changeIngredient = (e) => {
+    let arr = e.target.value.split(",")
+    let list = []
+    for(let i=0;i<arr.length;i++){
+      list.push({"name":arr[i]})
+    }
+    console.log(list)
+    setIngredients(list)
   }
 
   var axiosConfig = {
@@ -50,14 +64,18 @@ export default function Recipes() {
       })
       .then(res => {
         setCards(res.data);
+        console.log(res.data)
+        
       })
   }
   const SendCard = () => {
     axios.post('/api/recipes', {
+      "creatorId": creatorId,
       "name": name,
       "description": description,
       "rating":rating,
-      "tag":tag
+      "tag":tag,
+      "ingredients":ingredients
     }).then(res => {
       console.log(res)
     });
@@ -66,17 +84,21 @@ export default function Recipes() {
     <input type="text" onChange={(e) => changeText(e)} />
     <button className="button" onClick={SearchCard}>Search</button>
     <button className="button" onClick={GetCards}>Get All Recipes</button><br /><br />
-    <label for="male">Name: </label>
+    <label >Creator Id: </label>
+    <input type="number" onChange={(e) => changeCreatorId(e)} /><br />
+    <label >Name: </label>
     <input type="text" onChange={(e) => changeName(e)} /><br />
-    <label for="male">Description: </label>
+    <label >Description: </label>
     <input type="text" onChange={(e) => changeDesc(e)} /><br />
-    <label for="male">Rating: </label>
+    <label >Rating: </label>
     <input type="number" onChange={(e) => changeRating(e)} /><br />
-    <label for="male">Tag: </label>
+    <label >Tag: </label>
     <input type="text" onChange={(e) => changeTag(e)} /><br />
+    <label >Ingredients: </label>
+    <input type="text" onChange={(e) => changeIngredient(e)} /><br />
     <button className="button" onClick={SendCard}>Add recipe</button>
     <div>
-      {cards.map(card => <RecipeCard name={card.name} description={card.description} rating={card.rating} tag={card.tag} />)}
+      {cards.map(card => <RecipeCard name={card.name} description={card.description} ingre={card.ingredients} rating={card.rating} tag={card.tag} />)}
     </div>
   </div>;
 }
