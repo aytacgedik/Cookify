@@ -43,7 +43,7 @@ export default function Ingredients() {
     <button className="button" onClick={SearchCard}>Search</button>
     <button className="button" onClick={GetCards}>Get All Ingredient</button><br /><br />
     <div>
-      {cards.map(card => <IngredientCard name={card.name} />)}
+      {cards && cards.map(card => <IngredientCard name={card.name} />)}
     </div>
   </div>;
 }

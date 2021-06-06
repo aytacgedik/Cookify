@@ -98,7 +98,7 @@ export default function Recipes() {
     <input type="text" onChange={(e) => changeIngredient(e)} /><br />
     <button className="button" onClick={SendCard}>Add recipe</button>
     <div>
-      {cards.map(card => <RecipeCard name={card.name} description={card.description} ingre={card.ingredients} rating={card.rating} tag={card.tag} />)}
+      {cards && cards.map(card => <RecipeCard name={card.name} description={card.description} ingre={card.ingredients} rating={card.rating} tag={card.tag} />)}
     </div>
   </div>;
 }
