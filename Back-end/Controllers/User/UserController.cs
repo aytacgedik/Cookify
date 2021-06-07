@@ -7,6 +7,7 @@ using Back_end.DatabaseModels;
 using Microsoft.AspNetCore.Mvc;
 using Back_end.Dtos;
 using Back_end.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Back_end.Controllers
 {
@@ -23,6 +24,8 @@ namespace Back_end.Controllers
 
         //createUser()
         //Done
+        [Authorize(AuthenticationSchemes="Bearer")]
+
         [HttpPost]
         public ActionResult<IEnumerable<UserDto>> createUser( UserInputDto _user)
         {
@@ -33,6 +36,8 @@ namespace Back_end.Controllers
 
         //removeUser()
         //Done
+        [Authorize(AuthenticationSchemes="Bearer")]
+
         [HttpDelete("{id}")]
         public ActionResult<IEnumerable<UserDto>> removeUser(int id)
         {
@@ -43,6 +48,8 @@ namespace Back_end.Controllers
 
         //updateUser()
         //Done
+        [Authorize(AuthenticationSchemes="Bearer")]
+
         [HttpPatch("{id}")]
         public ActionResult<UserDto> updateUser(int id, UserInputDto _user)
         {
@@ -53,6 +60,8 @@ namespace Back_end.Controllers
 
         //getUser()
         //Done
+        [Authorize(AuthenticationSchemes="Bearer")]
+
         [HttpGet("{id}")]
         public ActionResult<UserDto> getUser(int id)
         {
@@ -62,6 +71,8 @@ namespace Back_end.Controllers
 
 
         //Done
+        [Authorize(AuthenticationSchemes="Bearer")]
+
         [HttpGet]
         public ActionResult<IEnumerable<UserDto>> GetAllUsers()
         {

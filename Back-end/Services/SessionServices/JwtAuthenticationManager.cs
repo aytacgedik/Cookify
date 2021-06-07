@@ -28,11 +28,18 @@ namespace Back_end.Controllers
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenKey = Encoding.ASCII.GetBytes(key);
 
+            Claim claims;
+            if((bool)_context.Users.Where(x => x.Email == email).Select(k=>k.Admin).FirstOrDefault())
+                claims = new Claim("type","Admin");
+            else 
+                claims = new Claim("type","User");
+
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Email , email)
+                    claims
 
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),

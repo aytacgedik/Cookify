@@ -4,6 +4,7 @@ using Back_end.DatabaseModels;
 using Microsoft.AspNetCore.Mvc;
 using Back_end.Dtos;
 using Back_end.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Back_end.Controllers
 {
@@ -16,6 +17,7 @@ namespace Back_end.Controllers
         {
             _recipeService = recipeService;
         }
+        [Authorize(Policy = "Admin",AuthenticationSchemes="Bearer")]
         [HttpGet]
         public ActionResult<IEnumerable<RecipeDto>> GetAllRecipes()
         {
@@ -23,12 +25,14 @@ namespace Back_end.Controllers
             return Ok(recipes);
 
         }
+        [Authorize(Policy = "Admin",AuthenticationSchemes="Bearer")]
         [HttpGet("{id}")]
         public ActionResult<RecipeDto> getRecipe(int id)
         {
             var recipe = _recipeService.GetRecipeById(id);
             return Ok(recipe);
         }
+        [Authorize(Policy = "Admin",AuthenticationSchemes="Bearer")]
 
         [HttpDelete("{id}")]
         public ActionResult<IEnumerable<RecipeDto>> removeRecipe(int id)
@@ -36,6 +40,9 @@ namespace Back_end.Controllers
             var recipes = _recipeService.RemoveRecipeById(id);
             return Ok(recipes);
         }
+
+        [Authorize(Policy = "Admin",AuthenticationSchemes="Bearer")]
+
 
         [HttpPatch("{id}")]
         public ActionResult<RecipeDto> updateRecipe(int id, RecipePatchDto _recipe)

@@ -7,6 +7,8 @@ using System;
 using Back_end.Dtos;
 using System.Linq;
 using Back_end.Services;
+using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Back_end.Controllers
 {
@@ -20,6 +22,9 @@ namespace Back_end.Controllers
             _savedRecipeService = savedRecipeService;
         }
 
+        [Authorize(AuthenticationSchemes="Bearer")]
+
+
         [HttpPost]
         public ActionResult<IEnumerable<SavedRecipeDto>> createSavedRecipe(SavedRecipeInputDto recipeToSave)
         {
@@ -32,6 +37,8 @@ namespace Back_end.Controllers
 
 
         }
+
+        [Authorize(AuthenticationSchemes="Bearer")]
 
         [HttpGet]
         public ActionResult<IEnumerable<SavedRecipeDto>> getSavedRecipes()
