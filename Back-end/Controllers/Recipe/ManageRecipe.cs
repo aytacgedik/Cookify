@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using Back_end.Dtos;
 using Back_end.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Back_end.Controllers
 {
@@ -25,6 +26,8 @@ namespace Back_end.Controllers
 
 
         //POST - createRecipe()
+        [Authorize(AuthenticationSchemes="Bearer")]
+
         [HttpPost]
         public ActionResult<IEnumerable<RecipeDto>> createRecipe(RecipeInputDto recipe)
         {
@@ -44,6 +47,8 @@ namespace Back_end.Controllers
         }
 
         //DELETE{id} - removeRecipe() 
+        [Authorize(AuthenticationSchemes="Bearer")]
+
         [HttpDelete("{id}")]
         public ActionResult<IEnumerable<RecipeDto>> removeRecipe(int id)
         {
@@ -55,6 +60,8 @@ namespace Back_end.Controllers
         }
 
         //PATCH/PUT{id} - updateRecipe()
+        [Authorize(AuthenticationSchemes="Bearer")]
+
         [HttpPatch("{id}")]
         public ActionResult<RecipeDto> updateRecipe( int id, RecipePatchDto recipe)
         {
@@ -68,8 +75,7 @@ namespace Back_end.Controllers
             }
             return Ok(result);
         }
-
-
+        [Authorize(AuthenticationSchemes="Bearer")]
         [HttpGet]
         public ActionResult<IEnumerable<RecipeDto>> getRecipe()
         {
@@ -83,6 +89,8 @@ namespace Back_end.Controllers
         }
 
         //GET{id} - getRecipes()
+        [Authorize(AuthenticationSchemes="Bearer")]
+
         [HttpGet("{id}")]
         public ActionResult<IEnumerable<RecipeDto>> getRecipe(int id)
         {

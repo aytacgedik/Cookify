@@ -6,6 +6,7 @@ using System.Net.Mail;
 using System;
 using Back_end.Dtos;
 using Back_end.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Back_end.Controllers
 {
@@ -17,6 +18,10 @@ namespace Back_end.Controllers
         public SearchRecipes(IRecipeService recipeService){
             _recipeService = recipeService;
         }
+
+
+        [Authorize(AuthenticationSchemes="Bearer")]
+
 
         [HttpGet]
         public ActionResult<IEnumerable<RecipeDto>> searchRecipes(string query)

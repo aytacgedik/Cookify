@@ -7,6 +7,7 @@ using Back_end.DatabaseModels;
 using Microsoft.AspNetCore.Mvc;
 using Back_end.Dtos;
 using Back_end.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Back_end.Controllers
 {
@@ -22,6 +23,8 @@ namespace Back_end.Controllers
 
         //createUserFriend()
         //Done
+        [Authorize(AuthenticationSchemes="Bearer")]
+
         [HttpPost]
         public ActionResult<IEnumerable<UserFriendDto>> createUserFriend(UserFriendDto _userfriend)
         {
@@ -32,6 +35,8 @@ namespace Back_end.Controllers
 
         //removeUserFriend()
         //Done
+        [Authorize(AuthenticationSchemes="Bearer")]
+
         [HttpDelete]
         public ActionResult<IEnumerable<UserFriendDto>> removeUserFriend(int userFollowerId, int userFollowedId)
         {
