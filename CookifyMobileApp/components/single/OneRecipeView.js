@@ -1,8 +1,9 @@
 import { CardStyleInterpolators } from '@react-navigation/stack';
 import React, {useEffect, useState, useRef} from 'react';
-import {SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Image, Animated} from 'react-native';
+import {SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Image, Animated, TouchableOpacity} from 'react-native';
+import axios from 'axios';
 
-
+const api_url = "https://cookifyv2.azurewebsites.net/api/recipes"
 
 const OneRecipeView = (props) => {
     const {recipe, backAnimFunc}= props.route.params;
@@ -22,6 +23,12 @@ const OneRecipeView = (props) => {
       }
     }, []);
 
+    const deleteRecipe = () => {
+      axios.delete(`${api_url}/${recipe.id}`).then(res => {
+        console.log(res);
+      })
+    }
+
     return (
             <Animated.View style={{ margin:20,
               transform:[
@@ -38,6 +45,9 @@ const OneRecipeView = (props) => {
                 <Text>Description: <Text style={styles.innerText}>{recipe.description}</Text></Text>
                 <Text>Rating: <Text style={styles.innerText}>{recipe.rating}</Text></Text>
                 <Text>Tag: <Text style={styles.innerText}>{recipe.tag}</Text></Text>
+                <TouchableOpacity onPress={deleteRecipe}>
+                  <Text style={styles.deleteText}>Delete</Text>
+                </TouchableOpacity>
             </Animated.View>
     )
 
@@ -63,6 +73,10 @@ const styles = StyleSheet.create({
     },
     innerText: {
       fontWeight: 'bold'
+    },
+    deleteText: {
+      marginTop: 100,
+      color: "#ff0000"
     }
 });
   
