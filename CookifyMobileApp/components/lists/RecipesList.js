@@ -1,7 +1,7 @@
 import { ThemeProvider } from '@react-navigation/native';
 import { HeaderStyleInterpolators } from '@react-navigation/stack';
 import React, { useEffect, useState, useRef } from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Image, Animated, LogBox} from 'react-native';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Image, Animated, LogBox, ScrollView} from 'react-native';
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import { Value } from 'react-native-reanimated';
 import { withSafeAreaInsets } from 'react-native-safe-area-context';
@@ -79,7 +79,7 @@ const RecipesList = ( {navigation} ) => {
 
     return (
         <SafeAreaView style={styles.container}>     
-            <View>
+            <ScrollView>
                 <View style={styles.createItem}>
                 <TouchableOpacity onPress={()=> { navigation.push("CreateRecipe", {}) }}>
                     <Text style={styles.title}>Create Recipe</Text>
@@ -105,7 +105,7 @@ const RecipesList = ( {navigation} ) => {
                         refreshing={isLoading}
                     />
                 </Animated.View>}
-            </View>
+            </ScrollView>
         </SafeAreaView>
     );
 }

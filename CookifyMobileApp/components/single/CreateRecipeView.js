@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     StyleSheet,
     ScrollView,
@@ -7,12 +7,57 @@ import {
     View,
     TouchableOpacity
 } from 'react-native';
+import axios from 'axios';
+
+const api_url = "https://cookifyv2.azurewebsites.net/api/recipes"
 
 const CreateRecipeView = (props) => {
 
     
-    const createRecipe = () => {
+    const [creatorId, setCreatorId] = useState(0);
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
+    const [rating, setRating] = useState(0);
+    const [tag, setTag] = useState("");
+    const [ingredients, setIngredients] = useState("");
 
+    const changeCreatorId = (e) => {
+        setCreatorId(e);
+    }
+
+    const changeName = (e) => {
+        setName(e);
+    }
+    const changeDescription = (e) => {
+        setDescription(e);
+    }
+    const changeRating = (e) => {
+        setRating(e);
+    }
+    const changeTag = (e) => {
+        setTag(e);
+    }
+    const changeIngredients = (e) => {
+        let arr = e.split(",")
+        let list = []
+        for(let i=0;i<arr.length;i++){
+        list.push({"name":arr[i]})
+        }
+        setIngredients(list)
+    }
+
+    
+    const createRecipe = () => {
+        axios.post(`${api_url}`, {
+            "creatorId": creatorId,
+            "name": name,
+            "description": description,
+            "rating": rating,
+            "tag": tag,
+            "ingredients": ingredients
+        }).then(res => {
+            console.log(res)
+        })
     }
 
 return(
@@ -21,33 +66,39 @@ return(
     <Text style={styles.description}>Creator Id: </Text>
     <View style={styles.inputView}>
         <TextInput
-            style={styles.TextInput}/>
+            style={styles.TextInput}
+            onChangeText = {(e) => changeCreatorId(e)}/>
     </View>
     
     <Text style={styles.description}>Name: </Text>
     <View style={styles.inputView}>
         <TextInput
-            style={styles.TextInput}/>
+            style={styles.TextInput}
+            onChangeText = {(e) => changeName(e)}/>
     </View>
     <Text style={styles.description}>Description: </Text>
     <View style={styles.inputView}>
         <TextInput
-            style={styles.TextInput}/>
+            style={styles.TextInput}
+            onChangeText = {(e) => changeDescription(e)}/>
     </View> 
     <Text style={styles.description}>Rating: </Text>
     <View style={styles.inputView}>
         <TextInput
-            style={styles.TextInput}/>
+            style={styles.TextInput}
+            onChangeText = {(e) => changeRating(e)}/>
     </View>
     <Text style={styles.description}>Tag: </Text>
     <View style={styles.inputView}>
         <TextInput
-            style={styles.TextInput}/>
+            style={styles.TextInput}
+            onChangeText = {(e) => changeTag(e)}/>
     </View>
     <Text style={styles.description}>Ingredients: </Text>
     <View style={styles.inputView}>
         <TextInput
-            style={styles.TextInput}/>
+            style={styles.TextInput}
+            onChangeText = {(e) => changeIngredients(e)}/>
     </View>
     <TouchableOpacity style={styles.createBtn} onPress={createRecipe}>
         <Text style={styles.createText}>Add</Text>
