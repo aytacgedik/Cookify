@@ -12,6 +12,8 @@ import OneCookView from './components/single/OneCookView'
 import OneIngredientView from './components/single/OneIngredientView'
 import OneRecipeView from './components/single/OneRecipeView'
 
+import CreateRecipeView from './components/single/CreateRecipeView'
+
 import StartPage from './components/StartPage'
 const Stack = createStackNavigator();
 
@@ -35,6 +37,11 @@ export default function App() {
         <Stack.Screen name = "Recipe">
           {props => <OneRecipeView {...props}/>}
         </Stack.Screen>
+        <Stack.Screen name = "CreateRecipe">
+          {props => <CreateRecipeView {...props}/>}
+        </Stack.Screen>
+
+
       </Stack.Navigator> 
     </NavigationContainer>
   );

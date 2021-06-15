@@ -80,6 +80,12 @@ const RecipesList = ( {navigation} ) => {
     return (
         <SafeAreaView style={styles.container}>     
             <View>
+                <View style={styles.createItem}>
+                <TouchableOpacity onPress={()=> { navigation.push("CreateRecipe", {}) }}>
+                    <Text style={styles.title}>Create Recipe</Text>
+                </TouchableOpacity>
+                </View>
+                
                 {isLoading ? <Text style={styles.textLabel}>Loading...</Text> :
                 <Animated.View style={{opacity: fadeAnim,
                 transform:[
@@ -114,6 +120,12 @@ const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
+  },
+  createItem: {
+    backgroundColor: '#00ff00',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16
   },
   title: {
     fontSize: 24,
