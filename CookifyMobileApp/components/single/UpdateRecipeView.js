@@ -11,16 +11,16 @@ import axios from 'axios';
 
 const api_url = "https://cookifyv2.azurewebsites.net/api/recipes"
 
-const CreateRecipeView = (props) => {
+const UpdateRecipeView = (props) => {
 
-    const {navigation}= props.route.params;
+    const {navigation, recipe} = props.route.params;
     
-    const [creatorId, setCreatorId] = useState(0);
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-    const [rating, setRating] = useState(0);
-    const [tag, setTag] = useState("");
-    const [ingredients, setIngredients] = useState("");
+    const [creatorId, setCreatorId] = useState(recipe.creatorId);
+    const [name, setName] = useState(recipe.name);
+    const [description, setDescription] = useState(recipe.description);
+    const [rating, setRating] = useState(recipe.rating);
+    const [tag, setTag] = useState(recipe.tag);
+    const [ingredients, setIngredients] = useState(recipe.ingredients);
 
     const changeCreatorId = (e) => {
         setCreatorId(e);
@@ -45,11 +45,23 @@ const CreateRecipeView = (props) => {
         list.push({"name":arr[i]})
         }
         setIngredients(list)
+        console.log(ingredients)
+    }
+    const parseIngredients = (ingredients) => {
+        let str = "";
+        for(let i = 0; i < ingredients.length; i++) {
+            if (i < ingredients.length - 1) {
+                str = str + ingredients[i].name + ",";
+            } else {
+                str = str + ingredients[i].name;
+            }
+        }
+        return str;
     }
 
     
-    const createRecipe = () => {
-        axios.post(`${api_url}`, {
+    const updateRecipe = () => {
+        axios.patch(`${api_url}/${recipe.id}`, {
             "creatorId": creatorId,
             "name": name,
             "description": description,
@@ -58,56 +70,63 @@ const CreateRecipeView = (props) => {
             "ingredients": ingredients
         }).then(res => {
             navigation.push("RecipesList")
+            console.log(res)
         })
     }
 
 return(
 <ScrollView style={{marginLeft:20}}>
-    <Text style={{fontSize: 20, marginBottom: 15, paddingTop: 20}}>Adding new entry: </Text>
+    <Text style={{fontSize: 20, marginBottom: 15, paddingTop: 20}}>Updating this entry: </Text>
     <Text style={styles.description}>Creator Id: </Text>
     <View style={styles.inputView}>
         <TextInput
-            style={styles.TextInput}
+            value = {creatorId.toString()}
+            style = {styles.TextInput}
             onChangeText = {(e) => changeCreatorId(e)}/>
     </View>
     
     <Text style={styles.description}>Name: </Text>
     <View style={styles.inputView}>
         <TextInput
-            style={styles.TextInput}
+            value = {name}
+            style = {styles.TextInput}
             onChangeText = {(e) => changeName(e)}/>
     </View>
     <Text style={styles.description}>Description: </Text>
     <View style={styles.inputView}>
         <TextInput
-            style={styles.TextInput}
+            value = {description}
+            style = {styles.TextInput}
             onChangeText = {(e) => changeDescription(e)}/>
     </View> 
     <Text style={styles.description}>Rating: </Text>
     <View style={styles.inputView}>
         <TextInput
-            style={styles.TextInput}
+            value = {rating.toString()}
+            style = {styles.TextInput}
             onChangeText = {(e) => changeRating(e)}/>
     </View>
     <Text style={styles.description}>Tag: </Text>
     <View style={styles.inputView}>
         <TextInput
-            style={styles.TextInput}
+            value = {tag}
+            style = {styles.TextInput}
             onChangeText = {(e) => changeTag(e)}/>
     </View>
     <Text style={styles.description}>Ingredients: </Text>
     <View style={styles.inputView}>
         <TextInput
-            style={styles.TextInput}
+            value = {parseIngredients(ingredients)}
+            style = {styles.TextInput}
             onChangeText = {(e) => changeIngredients(e)}/>
     </View>
-    <TouchableOpacity style={styles.createBtn} onPress={createRecipe}>
-        <Text style={styles.createText}>Add</Text>
+    <TouchableOpacity style={styles.updateBtn} onPress={updateRecipe}>
+        <Text style={styles.updateText}>Update</Text>
     </TouchableOpacity>
 </ScrollView>);
 }
 
-export default CreateRecipeView;
+export default UpdateRecipeView;
 
 const styles = StyleSheet.create({
   
@@ -125,11 +144,11 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         opacity: 0.6,
     },
-    createText: {
+    updateText: {
         fontWeight: "bold",
         fontSize: 16,
     },
-    createBtn: {
+    updateBtn: {
         //width: "80%",
         width: 150,
         borderRadius: 20,

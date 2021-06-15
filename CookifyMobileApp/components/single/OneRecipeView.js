@@ -6,7 +6,7 @@ import axios from 'axios';
 const api_url = "https://cookifyv2.azurewebsites.net/api/recipes"
 
 const OneRecipeView = (props) => {
-    const {recipe, backAnimFunc}= props.route.params;
+    const {navigation, recipe, backAnimFunc}= props.route.params;
     const rotateAnimDetail = useRef(new Animated.Value(0)).current;
 
     const rotate = () => {
@@ -23,10 +23,26 @@ const OneRecipeView = (props) => {
       }
     }, []);
 
+    const parseIngredients = (ingredients) => {
+      let str = "";
+        for(let i = 0; i < ingredients.length; i++) {
+            if (i < ingredients.length - 1) {
+                str = str + ingredients[i].name + ",";
+            } else {
+                str = str + ingredients[i].name;
+            }
+        }
+        return str;
+  }
+    
+    const updateRecipe = () => {
+      navigation.push("UpdateRecipe", {navigation: navigation, recipe: recipe})
+    }
+    
     const deleteRecipe = () => {
       axios.delete(`${api_url}/${recipe.id}`).then(res => {
         console.log(res);
-      })
+      }).then(response => navigation.push("RecipesList"))
     }
 
     return (
@@ -45,6 +61,11 @@ const OneRecipeView = (props) => {
                 <Text>Description: <Text style={styles.innerText}>{recipe.description}</Text></Text>
                 <Text>Rating: <Text style={styles.innerText}>{recipe.rating}</Text></Text>
                 <Text>Tag: <Text style={styles.innerText}>{recipe.tag}</Text></Text>
+                <Text>Ingredients: <Text style={styles.innerText}>{parseIngredients(recipe.ingredients)}</Text></Text>
+                <TouchableOpacity onPress={updateRecipe}>
+                  <Text style={styles.updateText}>Update</Text>
+                </TouchableOpacity>
+                
                 <TouchableOpacity onPress={deleteRecipe}>
                   <Text style={styles.deleteText}>Delete</Text>
                 </TouchableOpacity>
@@ -75,8 +96,12 @@ const styles = StyleSheet.create({
       fontWeight: 'bold'
     },
     deleteText: {
-      marginTop: 100,
+      paddingTop: 30,
       color: "#ff0000"
+    },
+    updateText: {
+      paddingTop: 30,
+      color: "#0000ff"
     }
 });
   

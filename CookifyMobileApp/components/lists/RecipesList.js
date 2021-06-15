@@ -11,7 +11,7 @@ LogBox.ignoreLogs([
   ]);
 const renderListItem = (item, navigation, rotate, fadeOut, backAnimFunc) => (
     <View style={styles.item}>
-        <TouchableOpacity onPress={()=> { fadeOut(); rotate(); setTimeout(()=>{navigation.push("Recipe", {recipe: item,backAnimFunc: backAnimFunc});}, 700) }}>
+        <TouchableOpacity onPress={()=> { fadeOut(); rotate(); setTimeout(()=>{navigation.push("Recipe", {navigation: navigation, recipe: item,backAnimFunc: backAnimFunc});}, 700) }}>
             <Text style={styles.title}>{item.name}</Text>
         </TouchableOpacity>
     </View>
@@ -81,7 +81,7 @@ const RecipesList = ( {navigation} ) => {
         <SafeAreaView style={styles.container}>     
             <ScrollView>
                 <View style={styles.createItem}>
-                <TouchableOpacity onPress={()=> { navigation.push("CreateRecipe", {}) }}>
+                <TouchableOpacity onPress={()=> { navigation.push("CreateRecipe", {navigation: navigation}) }}>
                     <Text style={styles.title}>Create Recipe</Text>
                 </TouchableOpacity>
                 </View>
