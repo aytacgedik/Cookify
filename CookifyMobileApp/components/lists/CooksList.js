@@ -61,7 +61,7 @@ const CooksList = ( {navigation} ) => {
 
     const fetchData = () => {
         setLoading(true);
-        const url = `https://cookify.azurewebsites.net/api/users`;
+        const url = `https://cookifyv2.azurewebsites.net/api/users`;
         fetch(url)
         .then((response) => response.json())
         .then((json) => setCooks(json))
@@ -91,7 +91,7 @@ const CooksList = ( {navigation} ) => {
                     <FlatList
                         data={cooks.length > 0 ? cooks.slice(0, cooks.length) : []}
                         renderItem={({item}) => renderListItem(item, navigation, rotate, fadeOut, backAnimFunc)}
-                        keyExtractor={item => item.name}
+                        keyExtractor={item => JSON.stringify(item.id)}
                         onRefresh={() => fetchData()}
                         refreshing={isLoading}
                     />

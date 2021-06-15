@@ -61,7 +61,7 @@ const IngredientsList = ( {navigation} ) => {
 
     const fetchData = () => {
         setLoading(true);
-        const url = `https://cookify.azurewebsites.net/api/ingredient`;
+        const url = `https://cookifyv2.azurewebsites.net/api/ingredient`;
         // Strange backend (2)
         // original: `https://cookify.azurewebsites.net/api/ingredient`
         // try: `https://cookbook-backend-development.herokuapp.com/ingredients/`
