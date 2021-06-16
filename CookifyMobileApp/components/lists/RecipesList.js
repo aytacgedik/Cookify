@@ -8,6 +8,7 @@ import { withSafeAreaInsets } from 'react-native-safe-area-context';
 
 LogBox.ignoreLogs([
     'Non-serializable values were found in the navigation state',
+    'VirtualizedLists should never be nested inside plain ScrollViews with the same orientation - use another VirtualizedList-backed container instead.'
   ]);
 const renderListItem = (item, navigation, rotate, fadeOut, backAnimFunc) => (
     <View style={styles.item}>
@@ -23,6 +24,7 @@ const RecipesList = ( {navigation} ) => {
     const [recipes, setRecipes] = useState([]);
     const fadeAnim = useRef(new Animated.Value(0)).current;
     const rotateAnim = useRef(new Animated.Value(0)).current;
+    const [searchText, setSearchText] = useState('');
 
     const fadeIn = () => {
         Animated.timing(fadeAnim, {
@@ -59,12 +61,15 @@ const RecipesList = ( {navigation} ) => {
         rotateBack();
     }
 
-    const fetchData = () => {
+    const fetchData = (text) => {
         setLoading(true);
-        const url = `https://cookifyv2.azurewebsites.net/api/recipes`;
-        // Strange backend (1)
-        // original: `https://cookify.azurewebsites.net/api/recipes`
-        // try: `https://se2-h-backend.herokuapp.com/api/recipes`
+        var url;
+        if (searchText.length === 0) {
+            url = `https://cookifyv2.azurewebsites.net/api/recipes`;
+        } else {
+            url = `https://cookifyv2.azurewebsites.net/api/recipes/search?query=${searchText}`;
+        }
+        console.log(url);
         fetch(url)
         .then((response) => response.json())
         .then((json) => setRecipes(json))
@@ -75,11 +80,18 @@ const RecipesList = ( {navigation} ) => {
     
     useEffect(() =>{
         fetchData();
-    }, []);
+    }, [searchText]);
 
     return (
-        <SafeAreaView style={styles.container}>     
-            <ScrollView>
+        <ScrollView style={styles.container}>
+                <TextInput style={styles.textInput} value={searchText} onChangeText={ text => {
+                    if (text === undefined) {
+                        setSearchText('');
+                    } else {
+                        setSearchText(text);
+                    }
+                }} />
+                
                 <View style={styles.createItem}>
                 <TouchableOpacity onPress={()=> { navigation.push("CreateRecipe", {navigation: navigation}) }}>
                     <Text style={styles.title}>Create Recipe</Text>
@@ -105,8 +117,7 @@ const RecipesList = ( {navigation} ) => {
                         refreshing={isLoading}
                     />
                 </Animated.View>}
-            </ScrollView>
-        </SafeAreaView>
+        </ScrollView>
     );
 }
 
@@ -145,7 +156,15 @@ const styles = StyleSheet.create({
   textLabel: {
       marginLeft: 15,
       marginBottom: 5
-  }
+  },
+  textInput: {
+    fontSize: 15,
+    color: 'green',
+    borderWidth: 1,
+    borderColor: 'black',
+    margin: 15,
+    paddingLeft: 10
+  },
 });
 
 export default RecipesList;
