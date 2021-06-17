@@ -4,16 +4,19 @@ import { StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
 
-import CooksList from './components/lists/CooksList'
-import IngredientsList from './components/lists/IngredientsList'
-import RecipesList from './components/lists/RecipesList'
+import CooksList from './components/Cooks/CooksList'
+import CreateCookView from './components/Cooks/CreateCookView'
+import OneCookView from './components/Cooks/OneCookView'
+import UpdateCookView from './components/Cooks/UpdateCookView'
 
-import OneCookView from './components/single/OneCookView'
-import OneIngredientView from './components/single/OneIngredientView'
-import OneRecipeView from './components/single/OneRecipeView'
+import IngredientsList from './components/Ingredients/IngredientsList'
+import OneIngredientView from './components/Ingredients/OneIngredientView'
 
-import CreateRecipeView from './components/single/CreateRecipeView'
-import UpdateRecipeView from './components/single/UpdateRecipeView'
+
+import RecipesList from './components/Recipes/RecipesList'
+import OneRecipeView from './components/Recipes/OneRecipeView'
+import CreateRecipeView from './components/Recipes/CreateRecipeView'
+import UpdateRecipeView from './components/Recipes/UpdateRecipeView'
 
 import StartPage from './components/StartPage'
 const Stack = createStackNavigator();
@@ -28,6 +31,14 @@ export default function App() {
         <Stack.Screen name = "Cook">
           {props => <OneCookView {...props}/>}
         </Stack.Screen>
+        <Stack.Screen name = "CreateCook">
+          {props => <CreateCookView {...props}/>}
+        </Stack.Screen>
+        <Stack.Screen name = "UpdateCook">
+          {props => <UpdateCookView {...props}/>}
+        </Stack.Screen>
+
+
 
         <Stack.Screen name = "IngredientsList" component={IngredientsList} />
         <Stack.Screen name = "Ingredient">

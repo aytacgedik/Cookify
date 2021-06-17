@@ -1,17 +1,18 @@
 import { ThemeProvider } from '@react-navigation/native';
 import { HeaderStyleInterpolators } from '@react-navigation/stack';
 import React, { useEffect, useState, useRef } from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Image, Animated, LogBox} from 'react-native';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Image, Animated, LogBox, ScrollView} from 'react-native';
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import { Value } from 'react-native-reanimated';
 import { withSafeAreaInsets } from 'react-native-safe-area-context';
 
 LogBox.ignoreLogs([
     'Non-serializable values were found in the navigation state',
+    'VirtualizedLists should never be nested inside plain ScrollViews with the same orientation - use another VirtualizedList-backed container instead.'
   ]);
 const renderListItem = (item, navigation, rotate, fadeOut, backAnimFunc) => (
     <View style={styles.item}>
-        <TouchableOpacity onPress={()=> { fadeOut(); rotate(); setTimeout(()=>{navigation.push("Cook", {cook: item,backAnimFunc: backAnimFunc});}, 700) }}>
+        <TouchableOpacity onPress={()=> { fadeOut(); rotate(); setTimeout(()=>{navigation.push("Cook", {navigation: navigation, cook: item,backAnimFunc: backAnimFunc});}, 700) }}>
             <Text style={styles.title}>{item.name}</Text>
         </TouchableOpacity>
     </View>
@@ -75,8 +76,13 @@ const CooksList = ( {navigation} ) => {
     }, []);
 
     return (
-        <SafeAreaView style={styles.container}>     
-            <View>
+      <ScrollView style={styles.container}> 
+                <View style={styles.createItem}>
+                <TouchableOpacity onPress={()=> { navigation.push("CreateCook", {navigation: navigation}) }}>
+                    <Text style={styles.title}>Add cook</Text>
+                </TouchableOpacity>
+                </View>
+                
                 {isLoading ? <Text style={styles.textLabel}>Loading...</Text> :
                 <Animated.View style={{opacity: fadeAnim,
                 transform:[
@@ -96,12 +102,17 @@ const CooksList = ( {navigation} ) => {
                         refreshing={isLoading}
                     />
                 </Animated.View>}
-            </View>
-        </SafeAreaView>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
+  createItem: {
+    backgroundColor: '#00ff00',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16
+  },
   container: {
     flex: 1,
     marginTop: (StatusBar.currentHeight || 0),
