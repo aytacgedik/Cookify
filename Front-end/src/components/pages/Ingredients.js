@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../App.css';
 import axios from 'axios';
 import IngredientCard from './IngredientCard'
-export default function Ingredients() {
+export default function Ingredients(props) {
   const [text, setText] = useState("")
   const [cards, setCards] = useState([])
 
@@ -28,7 +28,7 @@ export default function Ingredients() {
       })
   }
   const GetCards = () => {
-    axios.get('/api/ingredient',
+    axios.get('/ingredients',
       {
         headers: { "Access-Control-Allow-Origin": "*" },
         responseType: 'json'

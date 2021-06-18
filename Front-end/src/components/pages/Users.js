@@ -3,7 +3,7 @@ import '../../App.css';
 import UserCard from './UserCard';
 import axios from 'axios';
 
-export default function Users() {
+export default function Users(props) {
  
   const [text, setText] = useState("")
   const [id, setId] = useState("")
@@ -69,7 +69,8 @@ export default function Users() {
   }
   return <div>
     <button className="button" onClick={GetCards}>Get All Cooks</button><br /><br />
-    <label for="male">Id: </label>
+    {props.store.getState().isLoggedIn && <div>
+      <label for="male">Id: </label>
     <input type="number" onChange={(e) => changeId(e)} /><br />
     <label for="male">Name: </label>
     <input type="text" onChange={(e) => changeName(e)} /><br />
@@ -82,6 +83,8 @@ export default function Users() {
     <label for="male">Admin: </label>
     <input type="checkbox" onChange={(e) => changeAdmin(e)} /><br />
     <button className="button" onClick={SendCard}>Add cook</button>
+      </div>}
+    
     <div>
       {cards && cards.map(card =><UserCard name={card.name} surname={card.surname} email={card.email}/>)}
     </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../App.css';
 import axios from 'axios';
 import RecipeCard from './RecipeCard'
-export default function Recipes() {
+export default function Recipes(props) {
   const [text, setText] = useState("")
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
@@ -10,10 +10,10 @@ export default function Recipes() {
   const [tag, setTag] = useState("")
   const [cards, setCards] = useState([])
   const [ingredients, setIngredients] = useState([])
-  const [creatorId, setCreatorId] = useState(0)
+  const [creatorId, setCreatorId] = useState(13)
   
   const changeCreatorId = (e) => {
-    setCreatorId(e.target.value)
+    setCreatorId(13)
   }
   const changeText = (e) => {
     setText(e.target.value)
@@ -80,12 +80,12 @@ export default function Recipes() {
       console.log(res)
     });
   }
+
   return <div>
     <input type="text" onChange={(e) => changeText(e)} />
     <button className="button" onClick={SearchCard}>Search</button>
     <button className="button" onClick={GetCards}>Get All Recipes</button><br /><br />
-    <label >Creator Id: </label>
-    <input type="number" onChange={(e) => changeCreatorId(e)} /><br />
+    {props.store.getState().isLoggedIn && <div>
     <label >Name: </label>
     <input type="text" onChange={(e) => changeName(e)} /><br />
     <label >Description: </label>
@@ -97,6 +97,8 @@ export default function Recipes() {
     <label >Ingredients: </label>
     <input type="text" onChange={(e) => changeIngredient(e)} /><br />
     <button className="button" onClick={SendCard}>Add recipe</button>
+      </div>}
+    
     <div>
       {cards && cards.map(card => <RecipeCard name={card.name} description={card.description} ingre={card.ingredients} rating={card.rating} tag={card.tag} />)}
     </div>

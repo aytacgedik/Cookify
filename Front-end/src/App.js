@@ -20,9 +20,9 @@ function App() {
         <Navbar />
         <Switch>
           <Route path='/' exact component={Home} />
-          <Route path='/users' component={Users} />
-          <Route path='/recipes' component={Recipes} />
-          <Route path='/ingredients' component={Ingredients} />
+          <Route path='/users' render={(props) => <Users store={myStore} {...props} /> } />  
+          <Route path='/recipes' render={(props) => <Recipes store={myStore} {...props} /> } />
+          <Route path='/ingredients' render={(props) => <Ingredients store={myStore} {...props} /> } />
           <Route path='/sign-up' component={SignUp} />
           <Route path='/sign-in' component={SignIn} />
         </Switch>
