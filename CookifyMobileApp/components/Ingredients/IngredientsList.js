@@ -1,13 +1,14 @@
 import { ThemeProvider } from '@react-navigation/native';
 import { HeaderStyleInterpolators } from '@react-navigation/stack';
 import React, { useEffect, useState, useRef } from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Image, Animated, LogBox} from 'react-native';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Image, Animated, LogBox, ScrollView} from 'react-native';
 import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import { Value } from 'react-native-reanimated';
 import { withSafeAreaInsets } from 'react-native-safe-area-context';
 
 LogBox.ignoreLogs([
     'Non-serializable values were found in the navigation state',
+    'VirtualizedLists should never be nested inside plain ScrollViews with the same orientation - use another VirtualizedList-backed container instead.'
   ]);
 const renderListItem = (item, navigation, rotate, fadeOut, backAnimFunc) => (
     <View style={styles.item}>
@@ -23,6 +24,7 @@ const IngredientsList = ( {navigation} ) => {
     const [ingredients, setIngredients] = useState([]);
     const fadeAnim = useRef(new Animated.Value(0)).current;
     const rotateAnim = useRef(new Animated.Value(0)).current;
+    const [searchText, setSearchText] = useState('');
 
     const fadeIn = () => {
         Animated.timing(fadeAnim, {
@@ -59,12 +61,15 @@ const IngredientsList = ( {navigation} ) => {
         rotateBack();
     }
 
-    const fetchData = () => {
+    const fetchData = (text) => {
         setLoading(true);
-        const url = `https://cookify.azurewebsites.net/api/ingredient`;
-        // Strange backend (2)
-        // original: `https://cookify.azurewebsites.net/api/ingredient`
-        // try: `https://cookbook-backend-development.herokuapp.com/ingredients/`
+        var url;
+        if (searchText.length === 0) {
+            url = `https://cookifyv2.azurewebsites.net/api/ingredient`;
+        } else {
+            url = `https://cookifyv2.azurewebsites.net/api/ingredients/search?query=${searchText}`;
+        }
+        console.log(url);
         fetch(url)
         .then((response) => response.json())
         .then((json) => setIngredients(json))
@@ -75,11 +80,18 @@ const IngredientsList = ( {navigation} ) => {
     
     useEffect(() =>{
         fetchData();
-    }, []);
+    }, [searchText]);
 
     return (
-        <SafeAreaView style={styles.container}>     
+        <ScrollView style={styles.container}>     
             <View>
+                <TextInput style={styles.textInput} value={searchText} onChangeText={ text => {
+                    if (text === undefined) {
+                        setSearchText('');
+                    } else {
+                        setSearchText(text);
+                    }
+                }} />
                 {isLoading ? <Text style={styles.textLabel}>Loading...</Text> :
                 <Animated.View style={{opacity: fadeAnim,
                 transform:[
@@ -100,7 +112,7 @@ const IngredientsList = ( {navigation} ) => {
                     />
                 </Animated.View>}
             </View>
-        </SafeAreaView>
+        </ScrollView>
     );
 }
 
