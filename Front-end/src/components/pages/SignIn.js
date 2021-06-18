@@ -40,8 +40,11 @@ const SignIn = (props) => {
         };
         const authenticate = async () => {
             const result = await axios.post(`/api/sessions`, postData, axiosConfig);
+            console.log(result);
             if (result.statusText === "OK") {
                 props.logIn();
+            }else{
+                return;
             }
         }
         authenticate();
